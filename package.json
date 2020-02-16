@@ -1,0 +1,27 @@
+{
+  "name": "antelope-ui",
+  "version": "1.0.0",
+  "description": "A Component Library for Vue.js.",
+  "main": "dist/antelope-ui.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "vue": "^2.5.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toulanren/antelope-ui.git"
+  },
+  "author": "toulanren",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/toulanren/antelope-ui/issues"
+  },
+  "homepage": "https://github.com/toulanren/antelope-ui#readme",
+  "keywords": [
+    "antelope",
+    "vue",
+    "components"
+  ]
+}
