@@ -11,6 +11,7 @@ import Bullet from './components/interact/Bullet'
 import Timer from './components/interact/Timer'
 import Roulette from './components/interact/Roulette'
 import Tab from './components/interact/Tab'
+import NumSlider from './components/interact/NumSlider'
 
 export {
   Page,
@@ -24,7 +25,8 @@ export {
   Bullet,
   Timer,
   Roulette,
-  Tab
+  Tab,
+  NumSlider
 }
 
 let installed = false
@@ -47,7 +49,8 @@ export default {
       Bullet,
       Timer,
       Roulette,
-      Tab
+      Tab,
+      NumSlider
     }
 
     Object.keys(components).forEach(key => {

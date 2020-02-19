@@ -9,20 +9,16 @@ export default {
 
     // box
     width: {
-      type: String,
-      default: ''
+      type: String
     },
     height: {
-      type: String,
-      default: ''
+      type: String
     },
     backgroundColor: {
-      type: String,
-      default: ''
+      type: String
     },
     backgroundImage: {
-      type: String,
-      default: ''
+      type: String
     },
 
     // position
@@ -30,24 +26,19 @@ export default {
       type: String
     },
     zIndex: {
-      type: String,
-      default: '1'
+      type: String
     },
     top: {
-      type: String,
-      default: ''
+      type: String
     },
     bottom: {
-      type: String,
-      default: ''
+      type: String
     },
     left: {
-      type: String,
-      default: ''
+      type: String
     },
     right: {
-      type: String,
-      default: ''
+      type: String
     },
     center: {
       type: String

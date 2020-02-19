@@ -9,6 +9,7 @@
 - [组件](docs/components/README.md)
 
   - 基础组件
+    - [Page 根组件](docs/components/basic/Page.md)
     - [Section 流体块](docs/components/basic/Section.md)
     - [Position 定位块](docs/components/basic/Position.md)
     - [List 列表块](docs/components/basic/List.md)
@@ -21,5 +22,6 @@
     - [Timer 计时器](docs/components/interact/Timer.md)
     - [Roulette 轮盘](docs/components/interact/Roulette.md)
     - [Tab 标签](docs/components/interact/Tab.md)
+    - [NumSlider 滑动数字](docs/components/interact/NumSlider.md)
     - [Box 盒子](docs/components/interact/Box.md)
     - [Phase 阶段控制](docs/components/interact/Phase.md)
