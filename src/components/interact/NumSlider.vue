@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import basicMixins from '../../mixins/basic'
+import basicMixins from '../../utils/basicMixins'
 
 export default {
   mixins: [basicMixins],

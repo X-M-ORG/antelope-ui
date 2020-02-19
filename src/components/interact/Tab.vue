@@ -17,7 +17,7 @@
 <script>
 import APosition from '../basic/Position'
 
-import basicMixins from '../../mixins/basic'
+import basicMixins from '../../utils/basicMixins'
 
 export default {
   components: {
@@ -70,8 +70,12 @@ export default {
           }
         }
 
-        if (!p.props.width && !p.props.height) {
-          p.props.mode = 'relative'
+        if (
+          !item.props.width &&
+          !item.props.height &&
+          item.name === this.active
+        ) {
+          p.props.position = 'relative'
         }
 
         return p
@@ -101,10 +105,12 @@ export default {
 .a-tab-item {
   pointer-events: none;
   opacity: 0;
+  transform: translateX(100%);
 
   &.active {
     pointer-events: auto;
     opacity: 1;
+    transform: translateX(0);
   }
 }
 </style>

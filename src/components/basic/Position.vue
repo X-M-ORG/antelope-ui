@@ -1,22 +1,19 @@
 <template>
-  <div :style="positionStyle">
+  <div :style="m_basicStyle">
     <slot></slot>
   </div>
 </template>
 
 <script>
-import basicMixins from '../../mixins/basic'
-import positionMixins from '../../mixins/position'
+import basicMixins from '../../utils/basicMixins'
 
 export default {
-  mixins: [basicMixins, positionMixins],
+  mixins: [basicMixins],
 
-  computed: {
-    positionStyle() {
-      return {
-        ...this.m_basicStyle,
-        ...this.m_positionStyle
-      }
+  props: {
+    position: {
+      type: String,
+      default: 'absolute'
     }
   }
 }

@@ -2,7 +2,7 @@
   <a-position
     :class="{ active: active }"
     class="a-popup"
-    mode="fixed"
+    position="fixed"
     z-index="100"
     top="0"
     bottom="0"
@@ -34,7 +34,7 @@
 <script>
 import APosition from './Position'
 
-import { getKeysValue } from '../../utils'
+import getKeysValue from '../../utils/getKeysValue'
 
 export default {
   components: {

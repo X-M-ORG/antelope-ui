@@ -11,9 +11,9 @@
 <script>
 import APosition from '../basic/Position'
 
-import basicMixins from '../../mixins/basic'
+import basicMixins from '../../utils/basicMixins'
 
-import { getKeysValue } from '../../utils'
+import getKeysValue from '../../utils/getKeysValue'
 
 export default {
   components: {
