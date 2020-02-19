@@ -59,25 +59,22 @@ export default {
 .a-num-slider {
   position: relative;
   overflow: hidden;
-}
-
-.a-num-slider .item {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  transform: translateY(100%);
-}
-
-.a-num-slider .item.slider-in {
-  animation: sliderIn 0.5s linear;
-  animation-fill-mode: forwards;
-}
-
-.a-num-slider .item.slider-out {
-  animation: sliderOut 0.5s linear;
-  animation-fill-mode: forwards;
+  .item {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(100%);
+  }
+  .item.slider-in {
+    animation: sliderIn 0.5s linear;
+    animation-fill-mode: forwards;
+  }
+  .item.slider-out {
+    animation: sliderOut 0.5s linear;
+    animation-fill-mode: forwards;
+  }
 }
 
 @keyframes sliderIn {

@@ -142,10 +142,10 @@ export default {
   right: 0;
   white-space: nowrap;
   transform: translateX(100%);
-}
 
-.bullet.move {
-  animation: bulletMove linear 1;
+  &.move {
+    animation: bulletMove linear 1;
+  }
 }
 
 @keyframes bulletMove {

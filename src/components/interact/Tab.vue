@@ -101,9 +101,10 @@ export default {
 .a-tab-item {
   pointer-events: none;
   opacity: 0;
-}
-.a-tab-item.active {
-  pointer-events: auto;
-  opacity: 1;
+
+  &.active {
+    pointer-events: auto;
+    opacity: 1;
+  }
 }
 </style>

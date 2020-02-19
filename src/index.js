@@ -1,3 +1,4 @@
+import Page from './components/basic/Page'
 import Section from './components/basic/Section'
 import Position from './components/basic/Position'
 import List from './components/basic/List'
@@ -12,6 +13,7 @@ import Roulette from './components/interact/Roulette'
 import Tab from './components/interact/Tab'
 
 export {
+  Page,
   Section,
   Position,
   List,
@@ -34,6 +36,7 @@ export default {
     }
 
     const components = {
+      Page,
       Section,
       Position,
       List,

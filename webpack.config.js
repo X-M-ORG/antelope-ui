@@ -21,11 +21,19 @@ const config = {
     rules: [
       {
         test: /\.vue$/,
-        use: 'vue-loader'
+        use: ['vue-loader']
+      },
+      {
+        test: /\.js$/,
+        use: ['babel-loader']
+      },
+      {
+        test: /\.css$/,
+        use: ['vue-style-loader', 'css-loader']
       },
       {
         test: /\.scss$/,
-        use: ['css-loader', 'sass-loader']
+        use: ['vue-style-loader', 'css-loader', 'sass-loader']
       }
     ]
   },

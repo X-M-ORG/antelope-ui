@@ -167,10 +167,11 @@ export default {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s linear;
-}
-.a-popup.active {
-  transform: translateX(0);
-  opacity: 1;
-  pointer-events: auto;
+
+  &.active {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 </style>
