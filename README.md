@@ -25,3 +25,9 @@ import { Button } from 'antelope-ui'
 
 Vue.component('AButton', Button)
 ```
+
+#### 可选参数
+
+| name   | type   | require | default | desc                                           |
+| ------ | ------ | ------- | ------- | ---------------------------------------------- |
+| prefix | String | false   | 'A'     | 组件前缀，默认 a 开头，如 a-position、a-button |
