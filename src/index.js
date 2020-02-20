@@ -1,3 +1,5 @@
+import getImagesMap from './utils/getImagesMap'
+
 import Page from './components/basic/Page'
 import Section from './components/basic/Section'
 import Position from './components/basic/Position'
@@ -58,5 +60,9 @@ export default {
     })
 
     installed = true
+  },
+
+  utils: {
+    getImagesMap
   }
 }
