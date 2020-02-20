@@ -76,7 +76,7 @@ export default {
 
         let file
 
-        if (this.$route.meta.aImagesMap) {
+        if (this.$route && this.$route.meta.aImagesMap) {
           file = this.$route.meta.aImagesMap[key]
         }
 

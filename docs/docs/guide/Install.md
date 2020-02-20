@@ -26,6 +26,16 @@ import { Button } from 'antelope-ui'
 Vue.component('AButton', Button)
 ```
 
+src 引入挂载
+
+```html
+<script src="vue.js"></script>
+<script src="dist/antelope-ui.js"></script>
+<script>
+  Vue.use(window.antelope.default)
+</script>
+```
+
 #### 可选参数
 
 | name   | type   | require | default | desc                                           |
