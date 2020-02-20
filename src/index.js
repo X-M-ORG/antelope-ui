@@ -34,7 +34,7 @@ export {
 let installed = false
 
 export default {
-  install(Vue) {
+  install(Vue, options = {}) {
     if (installed) {
       return
     }
@@ -55,8 +55,10 @@ export default {
       NumSlider
     }
 
+    const { prefix = 'A' } = options
+
     Object.keys(components).forEach(key => {
-      Vue.component('A' + key, components[key])
+      Vue.component(prefix + key, components[key])
     })
 
     installed = true
