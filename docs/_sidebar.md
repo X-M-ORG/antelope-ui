@@ -1,10 +1,11 @@
 - [前言](README.md)
 
-- [须知](docs/require/README.md)
+- [开发指南](docs/guide/README.md)
 
-  - [开发准备](docs/require/beforeReady.md)
-  - [基础属性](docs/require/BasicParams.md)
-  - [基础事件](docs/require/BasicEvent.md)
+  - [安装](docs/guide/Install.md)
+  - [准备](docs/guide/Ready.md)
+  - [基础属性](docs/guide/BasicParams.md)
+  - [基础事件](docs/guide/BasicEvent.md)
 
 - [组件](docs/components/README.md)
 
