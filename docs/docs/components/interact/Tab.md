@@ -6,10 +6,10 @@
 
 ## Props
 
-| name           | type   | require | default       | desc                     |
-| -------------- | ------ | ------- | ------------- | ------------------------ |
-| items          | Array  | true    | 'ease-in-out' | 每项的参数配置，下面详解 |
-| default-active | String | false   |               | 默认展示的内容块         |
+| name           | type   | require | default | desc                     |
+| -------------- | ------ | ------- | ------- | ------------------------ |
+| items          | Array  | true    |         | 每项的参数配置，下面详解 |
+| default-active | String | false   |         | 默认展示的内容块         |
 
 ### items object
 
