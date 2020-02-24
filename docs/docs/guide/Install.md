@@ -10,6 +10,8 @@ npm i antelope-ui -S
 <script src="dist/antelope-ui.js"></script>
 ```
 
+> 若无需 svga 组件，则引入 dist/antelope-ui.not-svga.js
+
 # 挂载
 
 ```js
@@ -25,6 +27,8 @@ import { Button } from 'antelope-ui'
 
 Vue.component('AButton', Button)
 ```
+
+> 若无需 svga 组件，则引入 antelope-ui/dist/antelope-ui.not-svga.js
 
 src 引入挂载
 

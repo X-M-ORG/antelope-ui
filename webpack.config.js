@@ -5,7 +5,10 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const config = {
   mode: 'production',
 
-  entry: './src/index.js',
+  entry: {
+    'antelope-ui': './src/index.js',
+    'antelope-ui.not-svga': './src/index.not-svga.js'
+  },
 
   resolve: {
     extensions: ['.js', '.vue', '.json']
@@ -13,7 +16,6 @@ const config = {
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'antelope-ui.js',
     library: 'antelope',
     libraryTarget: 'umd'
   },
