@@ -108,7 +108,7 @@ export default {
   },
 
   methods: {
-    open({ name, row = {}, params = {}, beforeOpen, afterOpen } = {}) {
+    open({ name, row = {}, options = {}, beforeOpen, afterOpen } = {}) {
       if (this.slotNames.indexOf(name) === -1) {
         return
       }
@@ -116,7 +116,7 @@ export default {
       this.$set(
         this,
         'activeOptions',
-        getKeysValue(['bgClose', 'zIndex', 'top', 'left', 'center'], params)
+        getKeysValue(['bgClose', 'zIndex', 'top', 'left', 'center'], options)
       )
 
       this.$emit('beforeOpen')
