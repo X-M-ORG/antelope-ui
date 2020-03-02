@@ -159,21 +159,11 @@ export default {
       getNextActive 获取下一步的 index
     */
     getTotalSteps({ steps, result }) {
-      let jump = steps % this.items.length
+      let lastJump = result + 1
+      let prevJump = steps - lastJump
+      let firstJump = prevJump % this.items.length
 
-      if (jump !== result + 1) {
-        this.activeIndex = new Array(jump)
-          .join()
-          .split(',')
-          .reduce(index => {
-            if (index - 1 > 0) {
-              index--
-            } else {
-              index = this.items.length - 1
-            }
-            return index
-          }, result)
-      }
+      this.activeIndex = this.items.length - firstJump - 1
 
       return steps
     },
