@@ -5,6 +5,7 @@ import Section from './components/basic/Section'
 import Position from './components/basic/Position'
 import List from './components/basic/List'
 import Svga from './components/basic/Svga'
+import Fps9 from './components/basic/Fps9'
 import Sprite from './components/basic/Sprite'
 import Button from './components/basic/Button'
 import Popup from './components/basic/Popup'
@@ -21,6 +22,7 @@ export {
   Position,
   List,
   Svga,
+  Fps9,
   Sprite,
   Button,
   Popup,
@@ -45,6 +47,7 @@ export default {
       Position,
       List,
       Svga,
+      Fps9,
       Sprite,
       Button,
       Popup,
