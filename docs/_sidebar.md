@@ -15,6 +15,7 @@
     - [Position 定位块](docs/components/basic/Position.md)
     - [List 列表块](docs/components/basic/List.md)
     - [Svga 道具块](docs/components/basic/Svga.md)
+    - [Fps9 九帧图](docs/components/basic/Fps9.md)
     - [Sprite 雪碧图](docs/components/basic/Sprite.md)
     - [Button 按钮](docs/components/basic/Button.md)
     - [Popup 浮层](docs/components/basic/Popup.md)
