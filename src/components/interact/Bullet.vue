@@ -1,12 +1,6 @@
 <template>
   <div :style="bulletStyle">
-    <div
-      ref="bullet"
-      class="bullet"
-      v-for="(txt, index) in bullets"
-      :key="index"
-      :style="{ animationDuration: duration + 's' }"
-    >
+    <div ref="bullet" class="bullet" v-for="(txt, index) in bullets" :key="index" :style="{ animationDuration: duration + 's' }">
       <div :style="itemStyle" v-html="txt"></div>
     </div>
   </div>

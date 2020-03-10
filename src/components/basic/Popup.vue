@@ -1,31 +1,8 @@
 <template>
-  <a-position
-    :class="{ active: active }"
-    class="a-popup"
-    position="fixed"
-    z-index="100"
-    top="0"
-    bottom="0"
-    left="0"
-    right="0"
-  >
-    <a-position
-      z-index="1"
-      top="0"
-      bottom="0"
-      left="0"
-      right="0"
-      background-color="rgba(0,0,0,0.7)"
-      @a-tap="iOptions.bgClose ? close() : null"
-    ></a-position>
+  <a-position :class="{ active: active }" class="a-popup" position="fixed" z-index="100" top="0" bottom="0" left="0" right="0">
+    <a-position z-index="1" top="0" bottom="0" left="0" right="0" background-color="rgba(0,0,0,0.7)" @a-tap="iOptions.bgClose ? close() : null"></a-position>
 
-    <a-position
-      class="a-popup-item"
-      v-bind="slotPosition[name]"
-      v-for="name in slotNames"
-      :key="name"
-      :class="{ active: name === activeName }"
-    >
+    <a-position class="a-popup-item" v-bind="slotPosition[name]" v-for="name in slotNames" :key="name" :class="{ active: name === activeName }">
       <slot :name="name" :row="row"></slot>
     </a-position>
   </a-position>
@@ -57,6 +34,8 @@ export default {
     return {
       active: false,
       activeName: '',
+      closeTimer: 0,
+
       row: {},
 
       defaultOptions: {
@@ -113,6 +92,11 @@ export default {
         return
       }
 
+      if (this.closeTimer) {
+        clearTimeout(this.closeTimer)
+        this.closeTimer = 0
+      }
+
       this.$set(
         this,
         'activeOptions',
@@ -146,7 +130,7 @@ export default {
 
         this.$emit('afterClose')
 
-        setTimeout(() => {
+        this.closeTimer = setTimeout(() => {
           this.activeName = ''
           this.row = {}
           this.$set(this, 'activeOptions', {})
