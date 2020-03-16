@@ -35,7 +35,10 @@ export default {
   },
 
   mounted() {
-    this.$el.addEventListener('touchstart', e => e.stopPropagation())
+    this.$el.addEventListener(
+      'touchstart',
+      e => this.visible && e.stopPropagation()
+    )
   },
 
   methods: {
