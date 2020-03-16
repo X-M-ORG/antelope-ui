@@ -15,6 +15,7 @@ import Timer from './components/interact/Timer'
 import Roulette from './components/interact/Roulette'
 import Tab from './components/interact/Tab'
 import NumSlider from './components/interact/NumSlider'
+import Box from './components/interact/Box'
 
 export {
   Page,
@@ -30,7 +31,8 @@ export {
   Timer,
   Roulette,
   Tab,
-  NumSlider
+  NumSlider,
+  Box
 }
 
 let installed = false
@@ -55,7 +57,8 @@ export default {
       Timer,
       Roulette,
       Tab,
-      NumSlider
+      NumSlider,
+      Box
     }
 
     const { prefix = 'A' } = options

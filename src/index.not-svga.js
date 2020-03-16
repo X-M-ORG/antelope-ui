@@ -4,6 +4,7 @@ import Page from './components/basic/Page'
 import Section from './components/basic/Section'
 import Position from './components/basic/Position'
 import List from './components/basic/List'
+import Fps9 from './components/basic/Fps9'
 import Sprite from './components/basic/Sprite'
 import Button from './components/basic/Button'
 import Popup from './components/basic/Popup'
@@ -13,12 +14,14 @@ import Timer from './components/interact/Timer'
 import Roulette from './components/interact/Roulette'
 import Tab from './components/interact/Tab'
 import NumSlider from './components/interact/NumSlider'
+import Box from './components/interact/Box'
 
 export {
   Page,
   Section,
   Position,
   List,
+  Fps9,
   Sprite,
   Button,
   Popup,
@@ -26,7 +29,8 @@ export {
   Timer,
   Roulette,
   Tab,
-  NumSlider
+  NumSlider,
+  Box
 }
 
 let installed = false
@@ -42,6 +46,7 @@ export default {
       Section,
       Position,
       List,
+      Fps9,
       Sprite,
       Button,
       Popup,
@@ -49,7 +54,8 @@ export default {
       Timer,
       Roulette,
       Tab,
-      NumSlider
+      NumSlider,
+      Box
     }
 
     const { prefix = 'A' } = options
