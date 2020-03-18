@@ -1,9 +1,9 @@
 <template>
-  <a-position :class="{ active: active }" class="a-popup" position="fixed" z-index="100" top="0" bottom="0" left="0" right="0">
-    <a-position z-index="1" top="0" bottom="0" left="0" right="0" background-color="rgba(0,0,0,0.7)" @a-tap="iOptions.bgClose ? close() : null"></a-position>
+  <a-position :class="{ active: active, visible: visible }" class="a-popup" position="fixed" z-index="100" top="0" bottom="0" left="0" right="0">
+    <a-position z-index="1" top="0" bottom="0" left="0" right="0" background-color="rgba(0,0,0,0.7)" @a-tap="iBgClose ? close() : null"></a-position>
 
-    <a-position class="a-popup-item" v-bind="slotPosition[name]" v-for="name in slotNames" :key="name" :class="{ active: name === activeName }">
-      <slot :name="name" :row="row"></slot>
+    <a-position class="a-popup-item" v-bind="slot.position" v-for="slot in iSlots" :key="slot.name" :class="{ active: slot.active }">
+      <slot :name="slot.name" :row="slot.row"></slot>
     </a-position>
   </a-position>
 </template>
@@ -33,10 +33,11 @@ export default {
   data() {
     return {
       active: false,
-      activeName: '',
-      closeTimer: 0,
+      visible: false,
 
-      row: {},
+      visibleSlots: [],
+
+      openHandler: Promise.resolve(),
 
       defaultOptions: {
         bgClose: false,
@@ -48,37 +49,50 @@ export default {
           ['bgClose', 'zIndex', 'top', 'left', 'center'],
           this.options
         )
-      },
-
-      activeOptions: {}
+      }
     }
   },
 
   computed: {
-    iOptions() {
-      return {
-        ...this.defaultOptions,
-        ...this.activeOptions
-      }
-    },
+    iSlots() {
+      return this.slotNames.reduce((slots, name, index) => {
+        let options = { ...this.defaultOptions }
 
-    slotPosition() {
-      let defaultPosition = getKeysValue(
-        ['zIndex', 'top', 'left', 'center'],
-        this.iOptions
-      )
+        let visibleIndex = this.visibleSlots.findIndex(i => i.name === name)
+        let visible = this.visibleSlots[visibleIndex]
 
-      return this.slotNames.reduce((position, name) => {
-        position[name] = { ...defaultPosition }
-
-        if (this.activeName !== name) {
-          position[name].top = '0'
-          position[name].left = '150%'
-          delete position[name].center
+        if (visible) {
+          options = {
+            ...options,
+            ...visible.options
+          }
         }
 
-        return position
-      }, {})
+        let position = {
+          ...getKeysValue(['zIndex', 'top', 'left', 'center'], options)
+        }
+        if (visible) {
+          position.zIndex = String(10 + visibleIndex)
+        } else {
+          position.top = '0'
+          position.left = '150%'
+          delete position.center
+        }
+
+        slots.push({
+          active: !!visible,
+          name,
+          position,
+          row: visible ? visible.row : {}
+        })
+
+        return slots
+      }, [])
+    },
+
+    iBgClose() {
+      let use = this.visibleSlots[0] || this.defaultOptions
+      return this.visibleSlots.length === 1 && !!use.options.bgClose
     }
   },
 
@@ -92,33 +106,40 @@ export default {
         return
       }
 
-      if (this.closeTimer) {
-        clearTimeout(this.closeTimer)
-        this.closeTimer = 0
-      }
+      this.openHandler = this.openHandler.then(() => {
+        this.$emit('beforeOpen')
 
-      this.$set(
-        this,
-        'activeOptions',
-        getKeysValue(['bgClose', 'zIndex', 'top', 'left', 'center'], options)
-      )
+        Promise.resolve(typeof beforeOpen === 'function' && beforeOpen()).then(
+          p => {
+            this.active = this.visible = true
 
-      this.$emit('beforeOpen')
+            this.visibleSlots.push({
+              name,
+              row,
+              close: 0,
+              options: getKeysValue(
+                ['bgClose', 'zIndex', 'top', 'left', 'center'],
+                options
+              )
+            })
 
-      Promise.resolve(typeof beforeOpen === 'function' && beforeOpen()).then(
-        p => {
-          this.active = true
-          this.activeName = name
-          this.row = row
+            this.$emit('afterOpen')
 
-          this.$emit('afterOpen')
-
-          typeof afterOpen === 'function' && afterOpen(p)
-        }
-      )
+            typeof afterOpen === 'function' && afterOpen(p)
+          }
+        )
+      })
     },
 
-    close({ beforeClose, afterClose } = {}) {
+    close({ name = '', beforeClose, afterClose } = {}) {
+      if (
+        name &&
+        (this.slotNames.indexOf(name) === -1 ||
+          !this.visibleSlots.find(i => i.name === name))
+      ) {
+        return
+      }
+
       this.$emit('beforeClose')
 
       Promise.resolve(
@@ -126,19 +147,32 @@ export default {
       ).then(p => {
         p = p || this.row
 
-        this.active = false
-
         this.$emit('afterClose')
 
-        this.closeTimer = setTimeout(() => {
-          this.activeName = ''
-          this.row = {}
-          this.$set(this, 'activeOptions', {})
+        if (name && this.visibleSlots.length > 1) {
+          this.visibleSlots.splice(
+            this.visibleSlots.findIndex(i => i.name === name),
+            1
+          )
+        } else {
+          this.$set(this, 'visibleSlots', [])
+        }
 
-          this.$emit('afterCloseAnimation')
+        if (this.visibleSlots.length === 0) {
+          this.active = false
+        }
 
-          typeof afterClose === 'function' && afterClose(p)
-        }, 300)
+        this.openHandler = this.openHandler.then(() =>
+          new Promise(r => {
+            setTimeout(r, 300)
+          }).then(() => {
+            if (this.visibleSlots.length === 0) {
+              this.visible = false
+            }
+            this.$emit('afterCloseAnimation')
+            typeof afterClose === 'function' && afterClose(p)
+          })
+        )
       })
     }
   }
@@ -150,12 +184,24 @@ export default {
   transform: translateX(150%);
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.2s linear;
+  transition: opacity 0.3s linear;
+
+  &.visible {
+    transform: translateX(0);
+  }
 
   &.active {
-    transform: translateX(0);
-    opacity: 1;
     pointer-events: auto;
+    opacity: 1;
+  }
+
+  .a-popup-item {
+    opacity: 0;
+    transition: opacity 0.3s linear;
+
+    &.active {
+      opacity: 1;
+    }
   }
 }
 </style>

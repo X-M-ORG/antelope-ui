@@ -23,7 +23,17 @@
 
 ## Slot
 
-无
+两个 slot：
+
+- wait：等待时
+- arrival：倒计时结束时
+
+其中，wait 的 slot-scope 存在以下值：
+
+- all 总共还有 all 秒
+- h 还有 h 小时
+- m 减去 h 小时，还有 m 分
+- s 减去 h 小时 m 分，还有 s 秒
 
 ---
 

@@ -75,12 +75,15 @@ this.$refs['a-popup'].open({
 </a-popup>
 ```
 
+> 可以多次 open，以开启多个浮层
+
 ### close
 
 close 即关闭，参数较少，如下：
 
 | name        | type     | require | default | desc                           |
 | ----------- | -------- | ------- | ------- | ------------------------------ |
+| name        | String   | false   |         | 关闭浮层的名称，不传则关闭所以 |
 | beforeClose | Function | false   |         | 关闭浮层前的事件，同异步都可以 |
 | afterClose  | Function | false   |         | 关闭浮层后的事件，同异步都可以 |
 
