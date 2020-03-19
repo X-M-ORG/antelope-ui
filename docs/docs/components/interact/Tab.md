@@ -9,7 +9,7 @@
 | name           | type   | require | default | desc                     |
 | -------------- | ------ | ------- | ------- | ------------------------ |
 | items          | Array  | true    |         | 每项的参数配置，下面详解 |
-| default-active | String | false   |         | 默认展示的内容块         |
+| default-active | String | true    |         | 默认展示的内容块         |
 
 ### items object
 

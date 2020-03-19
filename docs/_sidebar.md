@@ -10,8 +10,8 @@
 - [组件](docs/components/README.md)
 
   - 基础组件
-    - [Page 根组件](docs/components/basic/Page.md)
     - [Section 流体块](docs/components/basic/Section.md)
+    - [Sections 流体块列表](docs/components/basic/Sections.md)
     - [Position 定位块](docs/components/basic/Position.md)
     - [List 列表块](docs/components/basic/List.md)
     - [Svga 道具块](docs/components/basic/Svga.md)

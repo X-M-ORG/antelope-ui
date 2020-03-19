@@ -1,5 +1,5 @@
 <template>
-  <a-section class="a-page" v-bind="$attrs" v-on="$listeners">
+  <a-section class="a-sections" v-bind="$attrs" v-on="$listeners">
     <slot></slot>
   </a-section>
 </template>
@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss">
-.a-page {
+.a-sections {
   > *:not(:first-child) {
     margin-top: -0.02rem;
   }

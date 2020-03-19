@@ -1,7 +1,7 @@
 import getImagesMap from './utils/getImagesMap'
 
-import Page from './components/basic/Page'
 import Section from './components/basic/Section'
+import Sections from './components/basic/Sections'
 import Position from './components/basic/Position'
 import List from './components/basic/List'
 import Fps9 from './components/basic/Fps9'
@@ -17,8 +17,8 @@ import NumSlider from './components/interact/NumSlider'
 import Box from './components/interact/Box'
 
 export {
-  Page,
   Section,
+  Sections,
   Position,
   List,
   Fps9,
@@ -42,8 +42,8 @@ export default {
     }
 
     const components = {
-      Page,
       Section,
+      Sections,
       Position,
       List,
       Fps9,

@@ -1,7 +1,7 @@
 import getImagesMap from './utils/getImagesMap'
 
-import Page from './components/basic/Page'
 import Section from './components/basic/Section'
+import Sections from './components/basic/Sections'
 import Position from './components/basic/Position'
 import List from './components/basic/List'
 import Svga from './components/basic/Svga'
@@ -18,8 +18,8 @@ import NumSlider from './components/interact/NumSlider'
 import Box from './components/interact/Box'
 
 export {
-  Page,
   Section,
+  Sections,
   Position,
   List,
   Svga,
@@ -44,8 +44,8 @@ export default {
     }
 
     const components = {
-      Page,
       Section,
+      Sections,
       Position,
       List,
       Svga,
