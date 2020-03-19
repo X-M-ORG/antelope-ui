@@ -38,4 +38,6 @@ switchIndex 接收一个 Number|String 参数，即要切换至的内容块在 i
 
 个数由传参设置。
 
-!> 提供 name 为 tab-bar 的 slot 以供切换栏在 tab 内的情况，故 items 中，内容块名称不得为 tab-bar；此 slot 位于所有内容块之上。
+!> 提供 name 为 tab-bar 的 slot 以供切换栏在 tab 内的情况，故 items 中，内容块名称不得为 tab-bar。
+
+!> tab-bar 接收一个 scope.active 属性以判断当前位于哪一个 tab。

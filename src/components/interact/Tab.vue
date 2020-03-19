@@ -1,6 +1,6 @@
 <template>
   <div :style="tabStyle">
-    <slot name="tab-bar"></slot>
+    <slot name="tab-bar" :active="active"></slot>
 
     <a-position class="a-tab-item" v-for="(item, index) in cItems" :key="index" :class="{ active: item.name === active }" v-bind="item.props">
       <slot :name="item.name"></slot>
