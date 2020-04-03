@@ -7,7 +7,7 @@ const config = {
 
   entry: {
     'antelope-ui': './src/index.js',
-    'antelope-ui.not-svga': './src/index.not-svga.js'
+    'antelope-ui.core': './src/index.core.js'
   },
 
   resolve: {
