@@ -3,7 +3,7 @@
     <a-position z-index="1" top="0" bottom="0" left="0" right="0" background-color="rgba(0,0,0,0.7)" @a-tap="iBgClose ? close() : null"></a-position>
 
     <a-position class="a-popup-item" v-bind="slot.position" v-for="slot in iSlots" :key="slot.name" :class="{ active: slot.active }">
-      <slot :name="slot.name" :row="slot.row"></slot>
+      <slot :name="slot.name" :row="slot.row" :active="slot.active"></slot>
     </a-position>
   </a-position>
 </template>
