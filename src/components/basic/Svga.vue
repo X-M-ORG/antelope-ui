@@ -32,20 +32,43 @@ export default {
 
   methods: {
     loadSvgAnimation(id, url) {
-      const player = new SVGA.Player(id)
-      const parser = new SVGA.Parser(id)
+      let _svgaLoad = window._svgaLoad || Promise.resolve()
 
-      parser.load(
-        url,
-        videoItem => {
-          player.setVideoItem(videoItem)
-          player.startAnimation()
+      window._svgaLoad = _svgaLoad.then(
+        () =>
+          new Promise(r => {
+            setTimeout(() => {
+              const player = new SVGA.Player(id)
+              const parser = new SVGA.Parser(id)
 
-          this.$emit('load-success')
-        },
-        error => {
-          this.$emit('load-error', error)
-        }
+              if (window.SVGA_URL_MAP && window.SVGA_URL_MAP[url]) {
+                let videoItem = window.SVGA_URL_MAP[url]
+                player.setVideoItem(videoItem)
+                player.startAnimation()
+                this.$emit('load-success')
+                r()
+              } else {
+                parser.load(
+                  url,
+                  videoItem => {
+                    if (window.SVGA_URL_MAP) {
+                      window.SVGA_URL_MAP[url] = videoItem
+                    } else {
+                      window.SVGA_URL_MAP = { [url]: videoItem }
+                    }
+
+                    player.setVideoItem(videoItem)
+                    player.startAnimation()
+                    this.$emit('load-success')
+                    r()
+                  },
+                  error => {
+                    this.$emit('load-error', error)
+                  }
+                )
+              }
+            }, 20)
+          })
       )
     }
   }
