@@ -14,7 +14,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="stylus">
 .a-sections {
   > *:not(:first-child) {
     margin-top: -0.02rem;
