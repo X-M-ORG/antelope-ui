@@ -55,7 +55,7 @@ export default {
 
   computed: {
     iSlots() {
-      return this.slotNames.reduce((slots, name, index) => {
+      return this.slotNames.reduce((slots, name) => {
         let options = { ...this.defaultOptions }
 
         let visibleIndex = this.visibleSlots.findIndex(i => i.name === name)
