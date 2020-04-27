@@ -1,17 +1,20 @@
 <template>
-  <div :style="rouletteStyle">
+  <div :style="mixins_position_style">
     <a-position v-for="(item, index) in cItems" :key="index" v-bind="item.style">
       <slot :index="item.index" :active="item.active" :row="item.row"></slot>
     </a-position>
 
-    <audio ref="audio" v-if="audio" :src="audio"></audio>
+    <audio ref="audio" v-if="audio" :src="audio" preload="auto"></audio>
   </div>
 </template>
 
 <script>
 import APosition from '../basic/Position'
 
-import basicMixins from '../../utils/basicMixins'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
 import getKeysValue from '../../utils/getKeysValue'
 
@@ -20,7 +23,7 @@ export default {
     APosition
   },
 
-  mixins: [basicMixins],
+  mixins: [status, box, position, event],
 
   props: {
     items: {
@@ -40,14 +43,6 @@ export default {
   },
 
   computed: {
-    rouletteStyle() {
-      return {
-        height: '100%',
-        width: '100%',
-        ...this.m_basicStyle
-      }
-    },
-
     cItems() {
       return this.items.map((item, index) => ({
         index,
@@ -100,7 +95,7 @@ export default {
       this.$set(
         this,
         'activeOptions',
-        getKeysValue(['func', 'maxSpeed', 'minSpeed', 'toMaxStep'], options)
+        getKeysValue(options, ['func', 'maxSpeed', 'minSpeed', 'toMaxStep'])
       )
 
       this.$emit('beforeStart')

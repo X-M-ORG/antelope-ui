@@ -7,10 +7,13 @@
 </template>
 
 <script>
-import basicMixins from '../../utils/basicMixins'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
 export default {
-  mixins: [basicMixins],
+  mixins: [status, box, position, event],
 
   props: {
     items: {
@@ -40,7 +43,7 @@ export default {
         height: '100%',
         width: '100%',
         overflow: 'hidden',
-        ...this.m_basicStyle
+        ...this.mixins_position_style
       }
     }
   },
@@ -146,6 +149,7 @@ export default {
   0% {
     transform: translateX(100%);
   }
+
   100% {
     transform: translateX(-150%);
   }

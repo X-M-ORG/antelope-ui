@@ -1,14 +1,17 @@
 <template>
-  <div :style="m_basicStyle">
+  <div :style="mixins_position_style">
     <slot></slot>
   </div>
 </template>
 
 <script>
-import basicMixins from '../../utils/basicMixins'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
 export default {
-  mixins: [basicMixins],
+  mixins: [status, box, position, event],
 
   props: {
     position: {

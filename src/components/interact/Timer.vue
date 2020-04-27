@@ -1,15 +1,18 @@
 <template>
-  <div :style="timerStyle">
+  <div :style="mixins_position_style">
     <slot v-if="timeSecond > 0" name="wait" :time="timePrams"></slot>
     <slot v-else name="arrival"></slot>
   </div>
 </template>
 
 <script>
-import basicMixins from '../../utils/basicMixins'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
 export default {
-  mixins: [basicMixins],
+  mixins: [status, box, position, event],
 
   props: {
     start: {
@@ -47,14 +50,6 @@ export default {
   },
 
   computed: {
-    timerStyle() {
-      return {
-        height: '100%',
-        width: '100%',
-        ...this.m_basicStyle
-      }
-    },
-
     timePrams() {
       let all = this.timeSecond / 1000
       let h = Math.floor(all / 3600)
@@ -75,7 +70,7 @@ export default {
 
   methods: {
     initTimer() {
-      if (this.start && this.start) {
+      if (this.start && this.end) {
         const start = new Date(this.start).getTime()
         const end = new Date(this.end).getTime()
         this.timeSecond = end - start
@@ -86,8 +81,12 @@ export default {
       }
 
       if (this.timeSecond) {
-        this.timer && clearInterval(this.timer)
-        this.startTimer()
+        if (this.timeSecond > 0) {
+          this.timer && clearInterval(this.timer)
+          this.startTimer()
+        } else {
+          this.$emit('timer-end')
+        }
       }
     },
 
@@ -96,10 +95,10 @@ export default {
         this.timeSecond -= 1000
       }
       this.timer = setInterval(() => {
-        if (this.timeSecond > 0) {
-          this.timeSecond -= 1000
-          this.$emit('timer-reduce', this.timeSecond)
-        } else {
+        this.timeSecond -= 1000
+        this.$emit('timer-reduce', this.timeSecond)
+
+        if (this.timeSecond <= 0) {
           clearInterval(this.timer)
           this.timer = 0
           this.$emit('timer-end')

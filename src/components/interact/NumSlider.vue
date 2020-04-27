@@ -1,14 +1,17 @@
 <template>
-  <div class="a-num-slider" :style="numSliderStyle">
+  <div class="a-num-slider" :style="mixins_position_style">
     <div class="item" v-for="item of 10" :key="item" :class="{ 'slider-in': (item-1) === inValue, 'slider-out': (item-1) === outValue }">{{ item - 1 }}</div>
   </div>
 </template>
 
 <script>
-import basicMixins from '../../utils/basicMixins'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
 export default {
-  mixins: [basicMixins],
+  mixins: [status, box, position, event],
 
   props: {
     value: {
@@ -29,18 +32,6 @@ export default {
     }
   },
 
-  computed: {
-    numSliderStyle() {
-      let style = {
-        height: '100%',
-        width: '100%',
-        ...this.m_basicStyle
-      }
-
-      return style
-    }
-  },
-
   watch: {
     value(newVal, oldVal = 0) {
       this.outValue = Number(oldVal)
@@ -54,6 +45,7 @@ export default {
 .a-num-slider {
   position: relative;
   overflow: hidden;
+
   .item {
     position: absolute;
     top: 0;
@@ -62,10 +54,12 @@ export default {
     right: 0;
     transform: translateY(100%);
   }
+
   .item.slider-in {
     animation: sliderIn 0.5s linear;
     animation-fill-mode: forwards;
   }
+
   .item.slider-out {
     animation: sliderOut 0.5s linear;
     animation-fill-mode: forwards;
@@ -76,14 +70,17 @@ export default {
   0% {
     transform: translateY(100%);
   }
+
   100% {
     transform: translateY(0);
   }
 }
+
 @keyframes sliderOut {
   0% {
     transform: translateY(0);
   }
+
   100% {
     transform: translateY(-100%);
   }

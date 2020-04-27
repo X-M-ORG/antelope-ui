@@ -1,6 +1,6 @@
 <template>
-  <div :style="m_basicStyle">
-    <a-section v-bind="contentAttr" @a-tap="popoverVisible">
+  <div :style="mixins_position_style">
+    <a-section v-bind="contentAttr" @a-tap="togglePopoverVisible">
       <slot name="content"></slot>
     </a-section>
 
@@ -11,10 +11,13 @@
 </template>
 
 <script>
-import basicMixins from '../../utils/basicMixins'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
 export default {
-  mixins: [basicMixins],
+  mixins: [status, box, position, event],
 
   props: {
     contentAttr: {
@@ -42,8 +45,8 @@ export default {
   },
 
   methods: {
-    popoverVisible() {
-      if (this.disabled) {
+    togglePopoverVisible() {
+      if (!this.status) {
         return
       }
 

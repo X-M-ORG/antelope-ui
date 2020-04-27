@@ -5,10 +5,13 @@
 </template>
 
 <script>
-import basicMixins from '../../utils/basicMixins'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
 export default {
-  mixins: [basicMixins],
+  mixins: [status, box, position, event],
 
   props: {
     moveX: {
@@ -21,18 +24,10 @@ export default {
     }
   },
 
-  data() {
-    return {
-      isTouch: false
-    }
-  },
-
   computed: {
     buttonStyle() {
       let style = {
-        height: '100%',
-        width: '100%',
-        ...this.m_basicStyle
+        ...this.mixins_position_style
       }
 
       if (style.backgroundImage) {
@@ -42,7 +37,7 @@ export default {
           style.backgroundSize = style.width + ' auto'
         }
 
-        if (this.isTouch && !this.disabled) {
+        if (this.mixins_is_tap && this.status) {
           if (this.moveX) {
             style.backgroundPositionX = this.moveX
           } else if (this.moveY) {

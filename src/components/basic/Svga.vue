@@ -1,14 +1,17 @@
 <template>
-  <div class="a-svga" :style="m_basicStyle" :id="id"></div>
+  <div class="a-svga" :style="mixins_position_style" :id="id"></div>
 </template>
 
 <script>
-import basicMixins from '../../utils/basicMixins'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
 import SVGA from 'svgaplayerweb'
 
 export default {
-  mixins: [basicMixins],
+  mixins: [status, box, position, event],
 
   props: {
     id: {

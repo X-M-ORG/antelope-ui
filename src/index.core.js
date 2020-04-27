@@ -1,3 +1,5 @@
+import config from './config'
+
 import getImagesMap from './utils/getImagesMap'
 
 import Section from './components/basic/Section'
@@ -40,6 +42,10 @@ export default {
     if (installed) {
       return
     }
+
+    Object.keys(options).forEach(k => {
+      config[k] = options[k]
+    })
 
     const components = {
       Section,

@@ -11,14 +11,17 @@
 <script>
 import APosition from '../basic/Position'
 
-import basicMixins from '../../utils/basicMixins'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
 export default {
   components: {
     APosition
   },
 
-  mixins: [basicMixins],
+  mixins: [status, box, position, event],
 
   props: {
     defaultActive: {
@@ -34,7 +37,7 @@ export default {
 
   computed: {
     tabStyle() {
-      let style = { overflow: 'hidden', ...this.m_basicStyle }
+      let style = { overflow: 'hidden', ...this.mixins_position_style }
 
       if (this.active) {
         let { props } = this.items.find(i => i.name === this.active)

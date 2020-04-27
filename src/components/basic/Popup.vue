@@ -45,10 +45,13 @@ export default {
         top: '50%',
         left: '50%',
         center: '1',
-        ...getKeysValue(
-          ['bgClose', 'zIndex', 'top', 'left', 'center'],
-          this.options
-        )
+        ...getKeysValue(this.options, [
+          'bgClose',
+          'zIndex',
+          'top',
+          'left',
+          'center'
+        ])
       }
     }
   },
@@ -69,7 +72,7 @@ export default {
         }
 
         let position = {
-          ...getKeysValue(['zIndex', 'top', 'left', 'center'], options)
+          ...getKeysValue(options, ['zIndex', 'top', 'left', 'center'])
         }
         if (visible) {
           position.zIndex = String(10 + visibleIndex)
@@ -117,10 +120,13 @@ export default {
               name,
               row,
               close: 0,
-              options: getKeysValue(
-                ['bgClose', 'zIndex', 'top', 'left', 'center'],
-                options
-              )
+              options: getKeysValue(options, [
+                'bgClose',
+                'zIndex',
+                'top',
+                'left',
+                'center'
+              ])
             })
 
             this.$emit('afterOpen')

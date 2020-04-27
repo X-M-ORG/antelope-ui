@@ -3,15 +3,18 @@
 </template>
 
 <script>
-import basicMixins from '../../utils/basicMixins'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
 export default {
-  mixins: [basicMixins],
+  mixins: [status, box, position, event],
 
   computed: {
     fps9Style() {
       return {
-        ...this.m_basicStyle,
+        ...this.mixins_position_style,
         backgroundSize: '300% 300%'
       }
     }
