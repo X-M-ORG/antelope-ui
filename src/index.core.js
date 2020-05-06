@@ -64,10 +64,8 @@ export default {
       Box
     }
 
-    const { prefix = 'A' } = options
-
     Object.keys(components).forEach(key => {
-      Vue.component(prefix + key, components[key])
+      Vue.component(config.componentPrefix + key, components[key])
     })
 
     installed = true
