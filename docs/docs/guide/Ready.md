@@ -49,3 +49,9 @@ const route = {
 ```
 
 这样，就可以在框架组件上使用 background-image 属性。
+
+---
+
+## SVGA 资源
+
+目前 svga 资源不支持本地加载，所以需要先上传到 cdn 上，使用 url 链接。
