@@ -10,8 +10,8 @@
   依赖的混合:
     status
 */
-import config from '../config'
-import getKeysValue from '../utils/getKeysValue'
+import config from '@/config'
+import getKeysValue from '@/utils/getKeysValue'
 
 let backgroundImageMaps = {}
 

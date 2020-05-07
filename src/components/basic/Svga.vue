@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import status from '../../mixins/status'
-import box from '../../mixins/box'
-import position from '../../mixins/position'
-import event from '../../mixins/event'
+import status from '@/mixins/status'
+import box from '@/mixins/box'
+import position from '@/mixins/position'
+import event from '@/mixins/event'
 
 import SVGA from 'svgaplayerweb'
 
@@ -14,54 +14,60 @@ export default {
   mixins: [status, box, position, event],
 
   props: {
-    id: {
-      type: String,
-      default: ''
-    },
-
     url: {
       type: String,
       default: ''
     }
   },
 
+  data() {
+    return {
+      id: 'svga-box',
+      player: null
+    }
+  },
+
   mounted() {
-    if (this.id && this.url) {
+    if (!window.__SVGA_DATA) {
+      window.__SVGA_DATA = {
+        id: 0,
+        queue: Promise.resolve(),
+        videos: {}
+      }
+    }
+
+    if (this.url) {
+      this.id += ++window.__SVGA_DATA.id
+
       this.$nextTick(() => {
-        this.loadSvgAnimation(`#${this.id}`, this.url)
+        this.loadSvgaAnimation(`#${this.id}`, this.url)
       })
     }
   },
 
   methods: {
-    loadSvgAnimation(id, url) {
-      let _svgaLoad = window._svgaLoad || Promise.resolve()
+    loadSvgaAnimation(id, url) {
+      let { queue, videos } = window.__SVGA_DATA
 
-      window._svgaLoad = _svgaLoad.then(
+      window.__SVGA_DATA.queue = queue.then(
         () =>
           new Promise(r => {
             setTimeout(() => {
-              const player = new SVGA.Player(id)
-              const parser = new SVGA.Parser(id)
+              this.player = new SVGA.Player(id)
 
-              if (window.SVGA_URL_MAP && window.SVGA_URL_MAP[url]) {
-                let videoItem = window.SVGA_URL_MAP[url]
-                player.setVideoItem(videoItem)
-                player.startAnimation()
+              if (videos[url]) {
+                this.player.setVideoItem(videos[url])
+                this.player.startAnimation()
                 this.$emit('load-success')
                 r()
               } else {
-                parser.load(
+                new SVGA.Parser(id).load(
                   url,
                   videoItem => {
-                    if (window.SVGA_URL_MAP) {
-                      window.SVGA_URL_MAP[url] = videoItem
-                    } else {
-                      window.SVGA_URL_MAP = { [url]: videoItem }
-                    }
+                    window.__SVGA_DATA.videos[url] = videoItem
 
-                    player.setVideoItem(videoItem)
-                    player.startAnimation()
+                    this.player.setVideoItem(videoItem)
+                    this.player.startAnimation()
                     this.$emit('load-success')
                     r()
                   },

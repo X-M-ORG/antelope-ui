@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import APosition from '../basic/Position'
+import APosition from '@/components/basic/Position'
 
-import status from '../../mixins/status'
-import box from '../../mixins/box'
-import position from '../../mixins/position'
-import event from '../../mixins/event'
+import status from '@/mixins/status'
+import box from '@/mixins/box'
+import position from '@/mixins/position'
+import event from '@/mixins/event'
 
-import getKeysValue from '../../utils/getKeysValue'
+import getKeysValue from '@/utils/getKeysValue'
 
 export default {
   components: {

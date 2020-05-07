@@ -13,7 +13,7 @@
   依赖的混合:
     box
 */
-import getKeysValue from '../utils/getKeysValue'
+import getKeysValue from '@/utils/getKeysValue'
 
 export default {
   props: {

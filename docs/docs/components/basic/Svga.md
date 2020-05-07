@@ -14,5 +14,4 @@
 
 | name | type   | require | default | desc                                 |
 | ---- | ------ | ------- | ------- | ------------------------------------ |
-| id   | String | true    |         | id 名，同 dom 的，页面不得有相同的   |
 | url  | String | true    |         | svga 资源的 url 地址，不支持本地文件 |
