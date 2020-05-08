@@ -10,17 +10,17 @@ import box from '@/mixins/box'
 import position from '@/mixins/position'
 import event from '@/mixins/event'
 
+import getPropsValue from '@/utils/getPropsValue'
+
 export default {
   mixins: [status, box, position, event],
 
   props: {
     moveX: {
-      type: String,
-      default: ''
+      type: String
     },
     moveY: {
-      type: String,
-      default: ''
+      type: String
     }
   },
 
@@ -31,17 +31,23 @@ export default {
       }
 
       if (style.backgroundImage) {
-        if (this.moveX) {
+        const { moveX, moveY, status } = getPropsValue(this, [
+          'moveX',
+          'moveY',
+          'status'
+        ])
+
+        if (moveX) {
           style.backgroundSize = 'auto ' + style.height
-        } else if (this.moveY) {
+        } else if (moveY) {
           style.backgroundSize = style.width + ' auto'
         }
 
-        if (this.mixins_is_tap && this.status) {
-          if (this.moveX) {
-            style.backgroundPositionX = this.moveX
-          } else if (this.moveY) {
-            style.backgroundPositionY = this.moveY
+        if (this.mixins_is_tap && status) {
+          if (moveX) {
+            style.backgroundPositionX = moveX
+          } else if (moveY) {
+            style.backgroundPositionY = moveY
           }
         }
       }

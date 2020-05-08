@@ -1,18 +1,10 @@
 # 安装
 
-使用 npm 或 src
+## 使用 npm 安装（推荐）
 
 ```npm
 npm i antelope-ui -S
 ```
-
-```html
-<script src="dist/antelope-ui.js"></script>
-```
-
-> 若无需 svga 组件，则引入 dist/antelope-ui.core.js
-
-# 挂载
 
 ```js
 import antelope from 'antelope-ui'
@@ -20,7 +12,9 @@ import antelope from 'antelope-ui'
 Vue.use(antelope)
 ```
 
-或者按需引入
+!> 若无需 svga 组件，可引入 antelope-ui/dist/antelope-ui.core.js 以减少体积
+
+### 按需引入
 
 ```js
 import { Button } from 'antelope-ui'
@@ -28,9 +22,9 @@ import { Button } from 'antelope-ui'
 Vue.component('AButton', Button)
 ```
 
-> 若无需 svga 组件，则引入 antelope-ui/dist/antelope-ui.core.js
+---
 
-src 引入挂载
+## 使用 src 引入
 
 ```html
 <script src="vue.js"></script>
@@ -40,8 +34,15 @@ src 引入挂载
 </script>
 ```
 
-#### 可选参数
+!> 若无需 svga 组件，可引入 dist/antelope-ui.core.js 以减少体积
 
-| name   | type   | require | default | desc                                           |
-| ------ | ------ | ------- | ------- | ---------------------------------------------- |
-| prefix | String | false   | 'A'     | 组件前缀，默认 a 开头，如 a-position、a-button |
+---
+
+## 挂载参数
+
+| name                | type    | require | default | desc                           |
+| ------------------- | ------- | ------- | ------- | ------------------------------ |
+| componentPrefix     | String  | false   | 'A'     | 挂载后组件前缀                 |
+| imageSizeAutoLoader | Boolean | false   | false   | 图片资源自动加载宽高（背景图） |
+| imageSizeUnit       | String  | false   | 'px'    | 资源宽高的参数                 |
+| imageTimes          | Number  | false   | 1       | 图片倍数                       |

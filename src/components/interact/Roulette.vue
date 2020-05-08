@@ -16,7 +16,7 @@ import box from '@/mixins/box'
 import position from '@/mixins/position'
 import event from '@/mixins/event'
 
-import getKeysValue from '@/utils/getKeysValue'
+import getPropsValue from '@/utils/getPropsValue'
 
 export default {
   components: {
@@ -95,7 +95,7 @@ export default {
       this.$set(
         this,
         'activeOptions',
-        getKeysValue(options, ['func', 'maxSpeed', 'minSpeed', 'toMaxStep'])
+        getPropsValue(options, ['func', 'maxSpeed', 'minSpeed', 'toMaxStep'])
       )
 
       this.$emit('beforeStart')

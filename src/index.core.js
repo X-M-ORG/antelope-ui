@@ -1,6 +1,7 @@
 import config from './config'
 
 import getImagesMap from './utils/getImagesMap'
+import createdTemplate from './utils/createdTemplate'
 
 import Section from './components/basic/Section'
 import Sections from './components/basic/Sections'
@@ -72,6 +73,7 @@ export default {
   },
 
   utils: {
-    getImagesMap
+    getImagesMap,
+    createdTemplate
   }
 }

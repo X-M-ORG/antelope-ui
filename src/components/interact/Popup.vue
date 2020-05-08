@@ -11,7 +11,7 @@
 <script>
 import APosition from '@/components/basic/Position'
 
-import getKeysValue from '@/utils/getKeysValue'
+import getPropsValue from '@/utils/getPropsValue'
 
 export default {
   components: {
@@ -45,7 +45,7 @@ export default {
         top: '50%',
         left: '50%',
         center: '1',
-        ...getKeysValue(this.options, [
+        ...getPropsValue(this.options, [
           'bgClose',
           'zIndex',
           'top',
@@ -72,7 +72,7 @@ export default {
         }
 
         let position = {
-          ...getKeysValue(options, ['zIndex', 'top', 'left', 'center'])
+          ...getPropsValue(options, ['zIndex', 'top', 'left', 'center'])
         }
         if (visible) {
           position.zIndex = String(10 + visibleIndex)
@@ -120,7 +120,7 @@ export default {
               name,
               row,
               close: 0,
-              options: getKeysValue(options, [
+              options: getPropsValue(options, [
                 'bgClose',
                 'zIndex',
                 'top',

@@ -11,12 +11,16 @@
     status
 */
 import config from '@/config'
-import getKeysValue from '@/utils/getKeysValue'
+import getPropsValue from '@/utils/getPropsValue'
 
 let backgroundImageMaps = {}
 
 export default {
   props: {
+    template: {
+      type: String,
+      default: ''
+    },
     width: {
       type: String
     },
@@ -46,7 +50,7 @@ export default {
     mixins_box_style() {
       let style = {
         position: 'relative',
-        ...getKeysValue(this, [
+        ...getPropsValue(this, [
           'width',
           'height',
           'backgroundColor',
@@ -87,9 +91,9 @@ export default {
 
   methods: {
     _getBackgroundImagePath(name) {
-      let suffix = this.status
+      let suffix = getPropsValue(this, 'status')
 
-      switch (this.status) {
+      switch (suffix) {
         case 1:
         case true: {
           suffix = ''
@@ -126,7 +130,7 @@ export default {
         this.mixins_load_promise_reject = null
       }
 
-      let backgroundImage = getKeysValue(this, 'backgroundImage')
+      let backgroundImage = getPropsValue(this, 'backgroundImage')
 
       if (backgroundImage) {
         let image = backgroundImageMaps[backgroundImage]

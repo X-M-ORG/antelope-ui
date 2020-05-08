@@ -13,7 +13,7 @@
   依赖的混合:
     box
 */
-import getKeysValue from '@/utils/getKeysValue'
+import getPropsValue from '@/utils/getPropsValue'
 
 export default {
   props: {
@@ -46,32 +46,36 @@ export default {
         ...this.mixins_box_style
       }
 
-      if (typeof this.position !== 'undefined') {
+      const position = getPropsValue(this, 'position')
+
+      if (typeof position !== 'undefined') {
         style = {
           ...style,
-          ...getKeysValue(this, ['zIndex', 'top', 'bottom', 'left', 'right']),
-          position: this.position || 'absolute'
+          ...getPropsValue(this, ['zIndex', 'top', 'bottom', 'left', 'right']),
+          position: position || 'absolute'
         }
 
         if (
-          typeof this.top !== 'undefined' &&
-          typeof this.bottom !== 'undefined'
+          typeof style.top !== 'undefined' &&
+          typeof style.bottom !== 'undefined'
         ) {
           delete style.height
         }
 
         if (
-          typeof this.left !== 'undefined' &&
-          typeof this.right !== 'undefined'
+          typeof style.left !== 'undefined' &&
+          typeof style.right !== 'undefined'
         ) {
           delete style.width
         }
 
-        if (typeof this.center !== 'undefined') {
-          if (this.center === 'x') {
+        const center = getPropsValue(this, 'center')
+
+        if (typeof center !== 'undefined') {
+          if (center === 'x') {
             style.left = style.left || '50%'
             style.transform = 'translateX(-50%)'
-          } else if (this.center === 'y') {
+          } else if (center === 'y') {
             style.top = style.top || '50%'
             style.transform = 'translateY(-50%)'
           } else {
