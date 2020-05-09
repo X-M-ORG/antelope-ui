@@ -27,7 +27,7 @@ export default {
   computed: {
     buttonStyle() {
       let style = {
-        ...this.mixins_position_style
+        ...this.mixinPositionStyle
       }
 
       if (style.backgroundImage) {
@@ -43,7 +43,7 @@ export default {
           style.backgroundSize = style.width + ' auto'
         }
 
-        if (this.mixins_is_tap && status) {
+        if (this.mixinEventIsTap && status) {
           if (moveX) {
             style.backgroundPositionX = moveX
           } else if (moveY) {

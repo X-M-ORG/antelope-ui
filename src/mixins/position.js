@@ -41,9 +41,9 @@ export default {
   },
 
   computed: {
-    mixins_position_style() {
+    mixinPositionStyle() {
       let style = {
-        ...this.mixins_box_style
+        ...this.mixinBoxStyle
       }
 
       const position = getPropsValue(this, 'position')

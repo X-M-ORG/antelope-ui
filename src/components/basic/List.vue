@@ -26,7 +26,7 @@ export default {
     listStyle() {
       return {
         overflow: 'hidden',
-        ...this.mixins_position_style
+        ...this.mixinPositionStyle
       }
     },
 

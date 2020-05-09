@@ -1,5 +1,5 @@
 <template>
-  <div :style="mixins_position_style">
+  <div :style="mixinPositionStyle">
     <slot v-if="timeSecond > 0" name="wait" :time="timePrams"></slot>
     <slot v-else name="arrival"></slot>
   </div>

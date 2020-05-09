@@ -43,7 +43,7 @@ export default {
         height: '100%',
         width: '100%',
         overflow: 'hidden',
-        ...this.mixins_position_style
+        ...this.mixinPositionStyle
       }
     }
   },

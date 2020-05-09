@@ -37,8 +37,8 @@ export default {
 
   data() {
     return {
-      mixins_load_promise_reject: null,
-      mixins_box_background_image: {
+      mixinBoxBackgroundImage: {
+        loadPromiseReject: null,
         src: '',
         width: 0,
         height: 0
@@ -47,7 +47,7 @@ export default {
   },
 
   computed: {
-    mixins_box_style() {
+    mixinBoxStyle() {
       let style = {
         position: 'relative',
         ...getPropsValue(this, [
@@ -58,16 +58,16 @@ export default {
         ])
       }
 
-      if (this.mixins_box_background_image.src) {
-        style.backgroundImage = `url(${this.mixins_box_background_image.src})`
+      if (this.mixinBoxBackgroundImage.src) {
+        style.backgroundImage = `url(${this.mixinBoxBackgroundImage.src})`
         style.backgroundSize = '100% 100%'
 
         if (config.imageSizeAutoLoader) {
           if (!style.width) {
-            style.width = this._getBackgroundImageParams('width')
+            style.width = getBackgroundImageParams(this, 'width')
           }
           if (!style.height) {
-            style.height = this._getBackgroundImageParams('height')
+            style.height = getBackgroundImageParams(this, 'height')
           }
         }
       }
@@ -78,97 +78,100 @@ export default {
 
   watch: {
     backgroundImage() {
-      this._setBackgroundImage()
+      setBackgroundImage(this)
     },
     status() {
-      this._setBackgroundImage()
+      setBackgroundImage(this)
     }
   },
 
   mounted() {
-    this._setBackgroundImage()
-  },
+    setBackgroundImage(this)
+  }
+}
 
-  methods: {
-    _getBackgroundImagePath(name) {
-      let suffix = getPropsValue(this, 'status')
+/*
+  尽可能减少混合的方法，所以写成工具函数
+  getBackgroundImagePath 获取背景图的路径，根据 status 进行处理
+  getBackgroundImageParams 获取背景图的参数，根据 config 的配置进行处理
+  setBackgroundImage 设置背景图的信息
+*/
+function getBackgroundImagePath(vm, name) {
+  let suffix = getPropsValue(vm, 'status')
 
-      switch (suffix) {
-        case 1:
-        case true: {
-          suffix = ''
-          break
-        }
-        case 0:
-        case false: {
-          suffix = 'disabled'
-          break
-        }
-      }
-
-      if (suffix) {
-        let k = name.split('.')
-        k.splice(k.length - 1, 0, suffix)
-        name = k.join('.')
-      }
-
-      let file
-
-      if (this.$route && this.$route.meta && this.$route.meta.aImagesMap) {
-        file = this.$route.meta.aImagesMap[name]
-      }
-
-      return file || name
-    },
-    _getBackgroundImageParams(key) {
-      let value = this.mixins_box_background_image[key]
-      return (value * config.imageTimes).toFixed(2) + config.imageSizeUnit
-    },
-    _setBackgroundImage() {
-      if (this.mixins_load_promise_reject) {
-        this.mixins_load_promise_reject()
-        this.mixins_load_promise_reject = null
-      }
-
-      let backgroundImage = getPropsValue(this, 'backgroundImage')
-
-      if (backgroundImage) {
-        let image = backgroundImageMaps[backgroundImage]
-
-        if (image) {
-          this.mixins_box_background_image = {
-            src: image.src,
-            width: image.width,
-            height: image.height
-          }
-        } else {
-          new Promise((resolve, reject) => {
-            this.mixins_load_promise_reject = reject
-
-            let image = new Image()
-            image.src = this._getBackgroundImagePath(backgroundImage)
-            image.onload = () => {
-              resolve(image)
-            }
-
-            backgroundImageMaps[image.src] = image
-          })
-            .then(image => {
-              this.mixins_box_background_image = {
-                src: image.src,
-                width: image.width,
-                height: image.height
-              }
-            })
-            .catch(() => {})
-        }
-      } else {
-        this.mixins_box_background_image = {
-          src: '',
-          width: 0,
-          height: 0
-        }
-      }
+  switch (suffix) {
+    case 1:
+    case true: {
+      suffix = ''
+      break
+    }
+    case 0:
+    case false: {
+      suffix = 'disabled'
+      break
     }
   }
+
+  if (suffix) {
+    let k = name.split('.')
+    k.splice(k.length - 1, 0, suffix)
+    name = k.join('.')
+  }
+
+  let file
+
+  if (vm.$route && vm.$route.meta && vm.$route.meta.aImagesMap) {
+    file = vm.$route.meta.aImagesMap[name]
+  }
+
+  return file || name
+}
+function getBackgroundImageParams(vm, key) {
+  return (
+    (vm.mixinBoxBackgroundImage[key] * config.imageTimes).toFixed(2) +
+    config.imageSizeUnit
+  )
+}
+function setBackgroundImage(vm) {
+  if (vm.mixinBoxBackgroundImage.loadPromiseReject) {
+    vm.mixinBoxBackgroundImage.loadPromiseReject()
+    vm.mixinBoxBackgroundImage.loadPromiseReject = null
+  }
+
+  const backgroundImagePath = getBackgroundImagePath(
+    vm,
+    getPropsValue(vm, 'backgroundImage')
+  )
+
+  let getImagePromise
+
+  if (backgroundImagePath) {
+    getImagePromise = backgroundImageMaps[backgroundImagePath]
+      ? Promise.resolve(backgroundImageMaps[backgroundImagePath])
+      : new Promise((resolve, reject) => {
+          vm.mixinBoxBackgroundImage.loadPromiseReject = reject
+
+          let image = new Image()
+          image.src = backgroundImagePath
+          image.onload = () => {
+            resolve(image)
+          }
+
+          backgroundImageMaps[image.src] = image
+        })
+  } else {
+    getImagePromise = Promise.resolve({ src: '', width: 0, height: 0 })
+  }
+
+  getImagePromise
+    .then(image => {
+      if (vm.mixinBoxBackgroundImage.src !== image.src) {
+        Object.assign(vm.mixinBoxBackgroundImage, {
+          src: image.src,
+          width: image.width,
+          height: image.height
+        })
+      }
+    })
+    .catch(() => {})
 }

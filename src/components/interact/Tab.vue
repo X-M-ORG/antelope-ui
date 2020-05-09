@@ -37,7 +37,7 @@ export default {
 
   computed: {
     tabStyle() {
-      let style = { overflow: 'hidden', ...this.mixins_position_style }
+      let style = { overflow: 'hidden', ...this.mixinPositionStyle }
 
       if (this.active) {
         let { props } = this.items.find(i => i.name === this.active)

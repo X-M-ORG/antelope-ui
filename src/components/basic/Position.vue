@@ -1,5 +1,5 @@
 <template>
-  <div :style="mixins_position_style">
+  <div :style="mixinPositionStyle">
     <slot></slot>
   </div>
 </template>

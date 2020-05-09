@@ -2,42 +2,41 @@
   混合定位属性
   status
 */
+import getPropsValue from '@/utils/getPropsValue'
 
 export default {
   data() {
     return {
-      mixins_touchstart: () => {},
-      mixins_touchmove: () => {},
-      mixins_touchend: () => {},
-      mixins_is_touch: false,
-      mixins_is_tap: false
+      mixinEventTouchstart: () => {},
+      mixinEventTouchmove: () => {},
+      mixinEventTouchend: () => {},
+      mixinEventIsTouch: false,
+      mixinEventIsTap: false
     }
   },
 
   mounted() {
-    this.mixins_touchstart = () => {
-      this.mixins_is_touch = true
-      this.mixins_is_tap = true
+    this.mixinEventTouchstart = () => {
+      this.mixinEventIsTouch = this.mixinEventIsTap = true
     }
-    this.mixins_touchmove = () => {
-      this.mixins_is_tap = false
+    this.mixinEventTouchmove = () => {
+      this.mixinEventIsTap = false
     }
-    this.mixins_touchend = () => {
-      if (this.mixins_is_tap && this.status) {
+    this.mixinEventTouchend = () => {
+      if (this.mixinEventIsTap && getPropsValue(this, 'status')) {
         this.$emit('a-tap')
       }
 
-      this.mixins_is_touch = false
-      this.mixins_is_tap = false
+      this.mixinEventIsTouch = this.mixinEventIsTap = false
     }
 
-    this.$el.addEventListener('touchstart', this.mixins_touchstart)
-    this.$el.addEventListener('touchmove', this.mixins_touchmove)
-    this.$el.addEventListener('touchend', this.mixins_touchend)
+    this.$el.addEventListener('touchstart', this.mixinEventTouchstart)
+    this.$el.addEventListener('touchmove', this.mixinEventTouchmove)
+    this.$el.addEventListener('touchend', this.mixinEventTouchend)
   },
   destroyed() {
-    this.$el.removeEventListener('touchstart', this.mixins_touchstart)
-    this.$el.removeEventListener('touchmove', this.mixins_touchmove)
-    this.$el.removeEventListener('touchend', this.mixins_touchend)
+    this.$el.removeEventListener('touchstart', this.mixinEventTouchstart)
+    this.$el.removeEventListener('touchmove', this.mixinEventTouchmove)
+    this.$el.removeEventListener('touchend', this.mixinEventTouchend)
   }
 }

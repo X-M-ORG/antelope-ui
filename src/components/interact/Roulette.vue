@@ -1,5 +1,5 @@
 <template>
-  <div :style="mixins_position_style">
+  <div :style="mixinPositionStyle">
     <a-position v-for="(item, index) in cItems" :key="index" v-bind="item.style">
       <slot :index="item.index" :active="item.active" :row="item.row"></slot>
     </a-position>

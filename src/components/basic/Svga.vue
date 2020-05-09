@@ -1,5 +1,5 @@
 <template>
-  <div class="a-svga" :style="mixins_position_style" :id="id"></div>
+  <div class="a-svga" :style="mixinPositionStyle" :id="id"></div>
 </template>
 
 <script>
