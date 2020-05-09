@@ -4,20 +4,59 @@
 
 ---
 
-## Props
+### Props
 
-| name       | type             | require | default | desc                                                              |
-| ---------- | ---------------- | ------- | ------- | ----------------------------------------------------------------- |
-| items      | Array            | true    | []      | 弹幕的数组，每一项为弹幕文案                                      |
-| item-style | String \| Object | false   |         | 弹幕文案的样式，可以使用内联 style，也可以使用 vue 的 styleObject |
-| duration   | String           | false   | '20'    | 弹幕动画时间，并非从出现到消失的时间，可以根据实际效果微调        |
-| between    | String           | false   | '50'    | 两个弹幕之间的间隔，区间值用 - ，例如：50-100                     |
+- 混合：[组件混合表](docs/components/mixins/Components.md)
+- 自有：
 
-## Slot
+| name     | type   | require | default | desc                                                       |
+| -------- | ------ | ------- | ------- | ---------------------------------------------------------- |
+| items    | Array  | true    | []      | 弹幕的数组，每一项为弹幕文案，支持 v-html                  |
+| duration | String | false   | '20'    | 弹幕动画时间，并非从出现到消失的时间，可以根据实际效果微调 |
+| between  | String | false   | '50'    | 两个弹幕之间的间隔，区间值用 - ，例如：50-100              |
 
-无
+### 示例
 
----
+若设定样式，给 .bullet-item 进行设置即可。
+
+```html
+<a-bullet
+  position
+  top="2.95rem"
+  left="0"
+  right="0"
+  height="0.48rem"
+  :items="bullet"
+></a-bullet>
+
+<script>
+  export default {
+    data() {
+      return {
+        bullet: [
+          '啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦',
+          '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈',
+          '呀呀呀呀呀呀呀呀呀呀呀呀呀呀呀'
+        ]
+      }
+    }
+  }
+</script>
+
+<style>
+  .bullet-item {
+    display: inline-block;
+    padding: 0 0.3rem;
+    font-size: 0.22rem;
+    font-weight: 500;
+    background-color: rgba(137, 0, 144, 0.8);
+    color: #ffffff;
+    white-space: nowrap;
+    border-radius: 0.24rem;
+    line-height: 0.48rem;
+  }
+</style>
+```
 
 > 若 items 更新，则下一个弹幕是新 items 的第一项
 

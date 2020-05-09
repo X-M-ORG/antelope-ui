@@ -3,7 +3,7 @@
     <a-position z-index="1" top="0" bottom="0" left="0" right="0" background-color="rgba(0,0,0,0.7)" @a-tap="iBgClose ? close() : null"></a-position>
 
     <a-position class="a-popup-item" v-bind="slot.position" v-for="slot in iSlots" :key="slot.name" :class="{ active: slot.active }">
-      <slot :name="slot.name" :row="slot.row" :active="slot.active"></slot>
+      <slot :name="slot.name" :data="slot.data" :active="slot.active"></slot>
     </a-position>
   </a-position>
 </template>
@@ -32,61 +32,54 @@ export default {
 
   data() {
     return {
+      /*
+        组件状态
+        active 控制组件是否激活，此值控制浮层的渐隐渐现
+        visible 控制组件是否显示，此值控制浮层是否载入可见区域视图
+      */
       active: false,
       visible: false,
 
-      visibleSlots: [],
-
-      openHandler: Promise.resolve(),
-
+      // 初始属性
       defaultOptions: {
         bgClose: false,
         zIndex: '2',
         top: '50%',
         left: '50%',
-        center: '1',
-        ...getPropsValue(this.options, [
-          'bgClose',
-          'zIndex',
-          'top',
-          'left',
-          'center'
-        ])
-      }
+        center: '1'
+      },
+
+      // 已开启的
+      visibleSlots: []
     }
   },
 
   computed: {
     iSlots() {
       return this.slotNames.reduce((slots, name) => {
-        let options = { ...this.defaultOptions }
-
-        let visibleIndex = this.visibleSlots.findIndex(i => i.name === name)
-        let visible = this.visibleSlots[visibleIndex]
-
-        if (visible) {
-          options = {
-            ...options,
-            ...visible.options
-          }
+        // 若已开启则取已有的数据
+        const visibleIndex = this.visibleSlots.findIndex(i => i.name === name)
+        const visibleInfo = this.visibleSlots[visibleIndex] || null
+        const options = {
+          ...this.defaultOptions,
+          ...(visibleInfo ? visibleInfo.options : {})
         }
 
-        let position = {
-          ...getPropsValue(options, ['zIndex', 'top', 'left', 'center'])
-        }
-        if (visible) {
-          position.zIndex = String(10 + visibleIndex)
-        } else {
-          position.top = '0'
-          position.left = '150%'
-          delete position.center
+        // 根据激活情况确定定位
+        let position = { top: '0', left: '150%' }
+        if (visibleInfo) {
+          Object.assign(
+            position,
+            { zIndex: String(10 + visibleIndex) },
+            getPropsValue(options, ['top', 'left', 'center'])
+          )
         }
 
         slots.push({
-          active: !!visible,
+          active: !!visibleInfo,
           name,
           position,
-          row: visible ? visible.row : {}
+          data: visibleInfo ? visibleInfo.data : {}
         })
 
         return slots
@@ -94,92 +87,93 @@ export default {
     },
 
     iBgClose() {
-      let use = this.visibleSlots[0] || this.defaultOptions
-      return this.visibleSlots.length === 1 && !!use.options.bgClose
+      const { length } = this.visibleSlots
+      const options = length
+        ? this.visibleSlots[length - 1].options
+        : this.defaultOptions
+
+      return !!options.bgClose
     }
   },
 
   mounted() {
     this.$parent.$refs['a-popup'] = this
+
+    Object.assign(
+      this.defaultOptions,
+      getPropsValue(this, Object.keys(this.defaultOptions))
+    )
   },
 
   methods: {
-    open({ name, row = {}, options = {}, beforeOpen, afterOpen } = {}) {
-      if (this.slotNames.indexOf(name) === -1) {
-        return
-      }
-
-      this.openHandler = this.openHandler.then(() => {
-        this.$emit('beforeOpen')
-
-        Promise.resolve(typeof beforeOpen === 'function' && beforeOpen()).then(
-          p => {
-            this.active = this.visible = true
-
-            this.visibleSlots.push({
-              name,
-              row,
-              close: 0,
-              options: getPropsValue(options, [
-                'bgClose',
-                'zIndex',
-                'top',
-                'left',
-                'center'
-              ])
-            })
-
-            this.$emit('afterOpen')
-
-            typeof afterOpen === 'function' && afterOpen(p)
-          }
-        )
-      })
-    },
-
-    close({ name = '', beforeClose, afterClose } = {}) {
+    open({ name, options = {}, data = {} } = {}) {
       if (
-        name &&
-        (this.slotNames.indexOf(name) === -1 ||
-          !this.visibleSlots.find(i => i.name === name))
+        this.slotNames.indexOf(name) === -1 ||
+        this.visibleSlots.findIndex(i => i.name === name) > -1
       ) {
         return
       }
 
-      this.$emit('beforeClose')
-
-      Promise.resolve(
-        typeof beforeClose === 'function' && beforeClose(this.row)
-      ).then(p => {
-        p = p || this.row
-
-        this.$emit('afterClose')
-
-        if (name && this.visibleSlots.length > 1) {
-          this.visibleSlots.splice(
-            this.visibleSlots.findIndex(i => i.name === name),
-            1
-          )
-        } else {
-          this.$set(this, 'visibleSlots', [])
-        }
-
-        if (this.visibleSlots.length === 0) {
-          this.active = false
-        }
-
-        this.openHandler = this.openHandler.then(() =>
-          new Promise(r => {
-            setTimeout(r, 300)
-          }).then(() => {
-            if (this.visibleSlots.length === 0) {
-              this.visible = false
-            }
-            this.$emit('afterCloseAnimation')
-            typeof afterClose === 'function' && afterClose(p)
-          })
-        )
+      this.active = this.visible = true
+      this.visibleSlots.push({
+        name,
+        options: getPropsValue(options, [
+          'bgClose',
+          'zIndex',
+          'top',
+          'left',
+          'center'
+        ]),
+        data
       })
+
+      return new Promise(r => {
+        setTimeout(() => {
+          r()
+        }, 1000)
+      })
+    },
+
+    close(names = []) {
+      names = [].concat(names)
+
+      if (!names.length) {
+        names = this.visibleSlots.map(i => i.name)
+      }
+
+      names = names.filter(
+        name =>
+          this.slotNames.indexOf(name) > -1 &&
+          this.visibleSlots.findIndex(i => i.name === name) > -1
+      )
+
+      if (!names.length) {
+        return
+      }
+
+      // 若将关闭的和剩余的一致，则留在动画结束后关闭
+      if (this.visibleSlots.length === names.length) {
+        return new Promise(r => {
+          this.active = false
+
+          setTimeout(() => {
+            this.visible = false
+            this.$set(this, 'visibleSlots', [])
+            r()
+          }, 300)
+        })
+      } else {
+        this.$set(
+          this,
+          'visibleSlots',
+          this.visibleSlots.filter(({ name }) => names.find(i => i !== name))
+        )
+        return new Promise(r => {
+          setTimeout(() => {
+            r()
+          }, 300)
+        })
+      }
     }
   }
 }

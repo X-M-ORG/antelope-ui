@@ -1,7 +1,7 @@
 <template>
   <div :style="bulletStyle">
     <div ref="bullet" class="bullet" v-for="(txt, index) in bullets" :key="index" :style="{ animationDuration: duration + 's' }">
-      <div :style="itemStyle" v-html="txt"></div>
+      <div class="bullet-item" v-html="txt"></div>
     </div>
   </div>
 </template>
@@ -19,11 +19,6 @@ export default {
     items: {
       type: Array,
       default: () => []
-    },
-
-    itemStyle: {
-      type: [String, Object],
-      default: ''
     },
 
     duration: {

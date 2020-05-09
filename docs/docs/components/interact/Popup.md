@@ -4,91 +4,110 @@
 
 所以由此组件的作用主要是管理浮层项，以优化活动页面对浮层的使用。
 
+!> 全局只允许有一个 Popup，需通过 this.\$refs 调用。
+
 ---
 
-## Props
+### Props
 
-| name       | type  | require | default | desc                                       |
-| ---------- | ----- | ------- | ------- | ------------------------------------------ |
-| slot-names | Array | false   | []      | slot 名称数组，页面中 N 个浮层项的名称数组 |
+- 混合：无
+- 自有：
 
-## Emit
+| name       | type   | require | default        | desc                                         |
+| ---------- | ------ | ------- | -------------- | -------------------------------------------- |
+| slot-names | Array  | false   | []             | slot 名称数组，页面中 N 个浮层项的名称数组   |
+| options    | Object | false   | options object | 设定浮层的初始属性，开启某个浮层时可传参覆盖 |
 
-| name                  | desc           |
-| --------------------- | -------------- |
-| before-open           | 浮层开启前     |
-| after-open            | 浮层开启后     |
-| before-close          | 浮层关闭前     |
-| after-close           | 浮层关闭后     |
-| after-close-animation | 浮层动画结束后 |
+options object：
 
-## 调用
+| name    | type    | require | default | desc                                        |
+| ------- | ------- | ------- | ------- | ------------------------------------------- |
+| bgClose | Boolean | false   | false   | 背景朦层是否可以关闭浮层                    |
+| zIndex  | String  | false   | '2'     | 朦层的层级                                  |
+| top     | String  | false   | '50%'   | 上定位                                      |
+| left    | String  | false   | '50%'   | 左定位                                      |
+| center  | String  | false   | '1'     | x:水平居中 y:垂直居中 存在或其他值:垂直水平 |
 
-!> 全局只允许有一个 Popup，且必须由页面级组件配置。
+### 示例
 
-Popup 会自动注册在页面组件的\$ref 上，通过 this.\$refs['a-popup'] 即可获取该组件实例。
+简单看下 template 的使用方法
 
-Popup 实例提供两个方法以供调用， open、close，下面讲讲具体传参。
+```html
+<a-popup ref="popup" :slot-names="['rule', 'pay']" :options="{ top: '40%' }">
+  <a-section slot="rule">活动规则浮层</a-section>
+  <a-section slot="pay">充值浮层</a-section>
+</a-popup>
+```
 
-### open
+### 操作
 
-open 顾名思义即开启浮层，传参 Object 格式，参数如下：
+Popup 实例提供两个方法以供调用：
 
-| name       | type     | require | default | desc                             |
-| ---------- | -------- | ------- | ------- | -------------------------------- |
-| name       | String   | true    |         | 开启的浮层项的名称               |
-| options    | Object   | false   | {}      | 设置 Popup 的属性，下面详解      |
-| row        | Object   | false   | {}      | 传给给浮层项内部的数据，下面详解 |
-| beforeOpen | Function | false   |         | 开启浮层前的事件，同异步都可以   |
-| afterOpen  | Function | false   |         | 开启浮层后的事件，同异步都可以   |
+- open 开启浮层
+- close 关闭浮层
 
-#### options object
+#### Popup.open(openOptions)
 
-Popup 存在一些属性，这个可以在开启的时候进行设置，如下：
+openOptions：
 
-| name    | type    | require | default | desc                                 |
-| ------- | ------- | ------- | ------- | ------------------------------------ |
-| bgClose | Boolean | false   | false   | 背景是否可以关闭浮层                 |
-| zIndex  | String  | false   | '2'     | 层级                                 |
-| top     | String  | false   | '50%'   | 上定位                               |
-| left    | String  | false   | '50%'   | 左定位                               |
-| center  | String  | false   | '1'     | 是否居中，同 Position 组件的参数效果 |
+| name    | type   | require | default | desc                              |
+| ------- | ------ | ------- | ------- | --------------------------------- |
+| name    | String | true    |         | 开启的浮层项的名称，slot-names 项 |
+| options | Object | false   | {}      | 同 Props.options，将覆盖初始属性  |
+| data    | Object | false   | {}      | 传递给此浮层的数据                |
 
-#### row 的使用方法
+> 该方法返回一个 Promise，将在浮层开启的动画结束后 resolve
+
+> 该方法支持多次调用，新开浮层位于前一个之上
 
 示例：
 
 ```js
-this.$refs['a-popup'].open({
-  name: 'sample',
-  row: {
-    name: '张三'
-  }
-})
+this.$refs.popup
+  .open({
+    name: 'pay',
+    data: {
+      user: '张三'
+    }
+  })
+  .then(() => {
+    console.log('开启pay浮层~')
+  })
 ```
 
 ```html
-<a-popup :slot-names="['sample']">
-  <a-section slot="sample" slot-scope="scope" width="6.19rem" height="6.89rem">
-    <div>{{ scope.row.name }}</div>
+<a-popup ref="popup" :slot-names="['rule', 'pay']" :options="{ top: '40%' }">
+  <a-section slot="rule">活动规则浮层</a-section>
+
+  <a-section slot="pay" slot-scope="scope">
+    <div>充值浮层：</div>
+    <div>当前充值用户：{{ scope.data.user }}</div>
   </a-section>
 </a-popup>
 ```
 
-> 可以多次 open，以开启多个浮层
+#### Popup.close(undefined | String | Array)
 
-### close
+根据传参数类型将执行不同操作
 
-close 即关闭，参数较少，如下：
+- undefined：不传参则关闭全部浮层，**默认**
+- String：传递字符串，则关闭相应 name 的浮层
+- Array：传递 name 的数组，则关闭相应的浮层
 
-| name        | type     | require | default | desc                           |
-| ----------- | -------- | ------- | ------- | ------------------------------ |
-| name        | String   | false   |         | 关闭浮层的名称，不传则关闭所以 |
-| beforeClose | Function | false   |         | 关闭浮层前的事件，同异步都可以 |
-| afterClose  | Function | false   |         | 关闭浮层后的事件，同异步都可以 |
+> 该方法返回一个 Promise，将在浮层关闭的动画结束后 resolve
 
-> afterClose 在 after-close-animation 事件抛出后触发
+示例：
 
-## Slot
+```js
+this.$refs.popup.clse('pay').then(() => {
+  console.log('关闭pay浮层~')
+})
 
-数目和名称由传参设定
+this.$refs.popup.clse().then(() => {
+  console.log('关闭所有浮层~')
+})
+
+this.$refs.popup.clse(['pay', 'rule']).then(() => {
+  console.log('关闭pay和rule浮层~')
+})
+```

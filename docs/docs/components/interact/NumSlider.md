@@ -6,6 +6,9 @@
 
 ## Props
 
+- 混合：[组件混合表](docs/components/mixins/Components.md)
+- 自有：
+
 | name  | type   | require | default | desc   |
 | ----- | ------ | ------- | ------- | ------ |
 | value | Number | true    |         | 当前值 |

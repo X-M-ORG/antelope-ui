@@ -6,6 +6,9 @@
 
 ## Props
 
+- 混合：[组件混合表](docs/components/mixins/Components.md)
+- 自有：
+
 | name       | type   | require | default       | desc                                                        |
 | ---------- | ------ | ------- | ------------- | ----------------------------------------------------------- |
 | items      | Array  | true    | 'ease-in-out' | 每项的参数配置，下面详解                                    |

@@ -54,7 +54,7 @@ export default {
       let all = this.timeSecond / 1000
       let h = Math.floor(all / 3600)
       let m = Math.floor(all / 60) - h * 60
-      let s = all - h * 3600 - m * 60
+      let s = Math.ceil(all - h * 3600 - m * 60)
 
       h = h < 10 ? `0${h}` : h
       m = m < 10 ? `0${m}` : m

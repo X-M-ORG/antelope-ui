@@ -21,7 +21,7 @@
 
 | 组件      | status | box | position | event |
 | --------- | :----: | :-: | :------: | :---: |
-| Popup     |   √    |  √  |    √     |   √   |
+| Popup     |        |     |          |       |
 | Bullet    |   √    |  √  |    √     |   √   |
 | Timer     |   √    |  √  |    √     |   √   |
 | Roulette  |   √    |  √  |    √     |   √   |

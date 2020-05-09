@@ -4,14 +4,17 @@
 
 ---
 
-## Props
+### Props
+
+- 混合：[组件混合表](docs/components/mixins/Components.md)
+- 自有：
 
 | name         | type   | require | default | desc                                                          |
 | ------------ | ------ | ------- | ------- | ------------------------------------------------------------- |
 | content-attr | Object | false   |         | 常规内容的传递参数，同 a-section 的传递参数，暂不支持绑定事件 |
 | popover-attr | Object | false   |         | 弹出内容的传递参数，同 a-section 的传递参数，暂不支持绑定事件 |
 
-## Slot
+### Slot
 
 存在两个 slot：
 

@@ -2,6 +2,19 @@
 
 ---
 
+<!-- #### v1.4.0
+
+日期: 2020-05-11
+
+细节：
+
+- 优化 Sprite 组件的内部结构，无需再传递 props.size
+- 优化 Popup 组件，改动较多，请查阅：[Popup 浮层](docs/components/interact/Popup.md)
+- 优化 Bullet 组件的传参，设定样式无需在传递 props.itemStyle
+- 文档同步
+
+--- -->
+
 #### v1.3.3
 
 日期: 2020-05-08
