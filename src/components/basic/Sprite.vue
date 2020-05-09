@@ -10,14 +10,14 @@ import box from '@/mixins/box'
 import position from '@/mixins/position'
 import event from '@/mixins/event'
 
+import getPropsValue from '@/utils/getPropsValue'
+
+import config from '@/config'
+
 export default {
   mixins: [status, box, position, event],
 
   props: {
-    size: {
-      type: String,
-      default: ''
-    },
     x: {
       type: String,
       default: ''
@@ -35,14 +35,18 @@ export default {
       }
 
       if (style.backgroundImage) {
-        if (this.size) {
-          style.backgroundSize = this.size
+        const { width, height } = this.mixinBoxBackgroundImage
+        style.backgroundSize = [
+          (width * config.imageTimes).toFixed(2) + config.imageSizeUnit,
+          (height * config.imageTimes).toFixed(2) + config.imageSizeUnit
+        ].join(' ')
+
+        const { x, y } = getPropsValue(this, ['x', 'y'])
+        if (x) {
+          style.backgroundPositionX = x
         }
-        if (this.x) {
-          style.backgroundPositionX = this.x
-        }
-        if (this.y) {
-          style.backgroundPositionY = this.y
+        if (y) {
+          style.backgroundPositionY = y
         }
       }
 

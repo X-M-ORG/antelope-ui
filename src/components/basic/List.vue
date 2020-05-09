@@ -1,6 +1,6 @@
 <template>
   <div :style="listStyle">
-    <div :style="iStyle">
+    <div :style="contentStyle">
       <slot></slot>
     </div>
   </div>
@@ -11,6 +11,8 @@ import status from '@/mixins/status'
 import box from '@/mixins/box'
 import position from '@/mixins/position'
 import event from '@/mixins/event'
+
+import getPropsValue from '@/utils/getPropsValue'
 
 export default {
   mixins: [status, box, position, event],
@@ -30,8 +32,8 @@ export default {
       }
     },
 
-    iStyle() {
-      let d = this.direction
+    contentStyle() {
+      let d = getPropsValue(this, 'direction')
       return {
         height: '100%',
         width: '100%',

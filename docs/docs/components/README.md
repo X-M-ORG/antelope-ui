@@ -10,8 +10,9 @@
 - [Position 定位属性](docs/components/mixins/Position.md)
 - [Event 事件监听](docs/components/mixins/Event.md)
 - [Status 组件状态](docs/components/mixins/Status.md)
+- [组件混合表](docs/components/mixins/Components.md)
 
-!> 并非所有的组件都混合了四种特性，混合程度查看该组件的文档
+!> 并非所有的组件都混合了四种特性，混合程度查看组件混合表
 
 #### 基础组件
 
@@ -20,15 +21,15 @@
 - [Section 流体块，跟随文档流的布局块](docs/components/basic/Section.md)
 - [Sections 流体块列表，解决多个流体块拼接的细微问题](docs/components/basic/Sections.md)
 - [Position 定位块，脱离文档流的布局块](docs/components/basic/Position.md)
-- [List 列表块，加载长列表，常用于隐藏滚动条](docs/components/basic/List.md)
+- [Button 按钮，继承布局类，点击效果](docs/components/basic/Button.md)
 - [Svga 道具块，加载 svga 动画](docs/components/basic/Svga.md)
 - [Fps9 九帧图，加载九帧图动画](docs/components/basic/Fps9.md)
-- [Sprite 雪碧图/精灵图，加载特殊数字或图案](docs/components/basic/Sprite.md)
-- [Button 按钮，继承布局类，点击效果](docs/components/basic/Button.md)
+- [Sprite 雪碧图，加载特殊数字或图案](docs/components/basic/Sprite.md)
+- [List 列表块，加载长列表，常用于隐藏滚动条](docs/components/basic/List.md)
 
-#### 互动组件
+#### 交互组件
 
-这些组件通常存在某些特殊的互动效果，相较复杂。
+这些组件通常存在某些特殊的交互效果，相较复杂。
 
 - [Popup 页面统一的浮层，提供阴影、渐变的效果](docs/components/interact/Popup.md)
 - [Bullet 弹幕，滚动播放的广播、弹幕效果](docs/components/interact/Bullet.md)

@@ -4,4 +4,13 @@
 
 ---
 
-> 没有特殊参数，九帧图模块就是特殊的 section，传参一致
+### Props
+
+- 混合：[组件混合表](docs/components/mixins/Components.md)
+- 自有：无
+
+### 示例
+
+```html
+<a-fps9 width="1rem" height="2rem" background-image="fps9.png"></a-fps9>
+```

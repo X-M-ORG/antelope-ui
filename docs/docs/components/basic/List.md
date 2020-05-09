@@ -4,12 +4,23 @@
 
 ---
 
-## Props
+### Props
+
+- 混合：[组件混合表](docs/components/mixins/Components.md)
+- 自有：
 
 | name      | type   | require | default | desc     |
 | --------- | ------ | ------- | ------- | -------- |
 | direction | String | false   | y       | 滚动方向 |
 
-## Slot
+### 示例
 
-默认 slot
+```html
+<a-list height="6rem" width="3rem">
+  <a-section
+    height="12rem"
+    width="3rem"
+    background-image="rule.png"
+  ></a-section>
+</a-list>
+```

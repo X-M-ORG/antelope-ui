@@ -3,12 +3,14 @@
 </template>
 
 <script>
+import SVGA from 'svgaplayerweb'
+
 import status from '@/mixins/status'
 import box from '@/mixins/box'
 import position from '@/mixins/position'
 import event from '@/mixins/event'
 
-import SVGA from 'svgaplayerweb'
+import getPropsValue from '@/utils/getPropsValue'
 
 export default {
   mixins: [status, box, position, event],
@@ -36,11 +38,13 @@ export default {
       }
     }
 
-    if (this.url) {
+    const url = getPropsValue(this, 'url')
+
+    if (url) {
       this.id += ++window.__SVGA_DATA.id
 
       this.$nextTick(() => {
-        this.loadSvgaAnimation(`#${this.id}`, this.url)
+        this.loadSvgaAnimation(`#${this.id}`, url)
       })
     }
   },

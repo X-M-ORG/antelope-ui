@@ -16,19 +16,20 @@
     - [Position 定位属性](docs/components/mixins/Position.md)
     - [Event 事件监听](docs/components/mixins/Event.md)
     - [Status 组件状态](docs/components/mixins/Status.md)
+    - [组件混合表](docs/components/mixins/Components.md)
 
   - 基础组件
 
     - [Section 流体块](docs/components/basic/Section.md)
     - [Sections 流体块列表](docs/components/basic/Sections.md)
     - [Position 定位块](docs/components/basic/Position.md)
-    - [List 列表块](docs/components/basic/List.md)
+    - [Button 按钮](docs/components/basic/Button.md)
     - [Svga 道具块](docs/components/basic/Svga.md)
     - [Fps9 九帧图](docs/components/basic/Fps9.md)
-    - [Sprite 雪碧图/精灵图](docs/components/basic/Sprite.md)
-    - [Button 按钮](docs/components/basic/Button.md)
+    - [Sprite 雪碧图](docs/components/basic/Sprite.md)
+    - [List 列表块](docs/components/basic/List.md)
 
-  - 互动组件
+  - 交互组件
 
     - [Popup 浮层](docs/components/interact/Popup.md)
     - [Bullet 弹幕](docs/components/interact/Bullet.md)

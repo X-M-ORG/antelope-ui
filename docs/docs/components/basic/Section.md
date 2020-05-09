@@ -4,6 +4,21 @@
 
 ---
 
-## Slot
+### Props
 
-默认 slot
+- 混合：[组件混合表](docs/components/mixins/Components.md)
+- 自有：无
+
+### 示例
+
+```html
+<a-section
+  width="7.5rem"
+  height="4rem"
+  background-color="#ffffff"
+  background-image="bg.png"
+  @a-tap="tapEvent()"
+>
+  <a-section @a-tap="tap()">点我</a-section>
+</a-section>
+```
