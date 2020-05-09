@@ -122,7 +122,7 @@ export default {
     },
     _getBackgroundImageParams(key) {
       let value = this.mixins_box_background_image[key]
-      return value * config.imageTimes + config.imageSizeUnit
+      return (value * config.imageTimes).toFixed(2) + config.imageSizeUnit
     },
     _setBackgroundImage() {
       if (this.mixins_load_promise_reject) {

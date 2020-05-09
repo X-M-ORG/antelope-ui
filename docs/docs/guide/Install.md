@@ -12,7 +12,7 @@ import antelope from 'antelope-ui'
 Vue.use(antelope)
 ```
 
-!> 若无需 svga 组件，可引入 antelope-ui/dist/antelope-ui.core.js 以减少体积
+> 若无需 svga 组件，可引入 antelope-ui/dist/antelope-ui.core.js 以减少体积
 
 ### 按需引入
 
@@ -34,7 +34,7 @@ Vue.component('AButton', Button)
 </script>
 ```
 
-!> 若无需 svga 组件，可引入 dist/antelope-ui.core.js 以减少体积
+> 若无需 svga 组件，可引入 dist/antelope-ui.core.js 以减少体积
 
 ---
 

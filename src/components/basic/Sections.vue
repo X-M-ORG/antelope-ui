@@ -1,23 +1,24 @@
 <template>
-  <a-section class="a-sections" v-bind="$attrs" v-on="$listeners">
+  <div class="a-sections" :style="mixins_position_style">
     <slot></slot>
-  </a-section>
+  </div>
 </template>
 
 <script>
-import ASection from './Section'
+import status from '@/mixins/status'
+import box from '@/mixins/box'
+import position from '@/mixins/position'
+import event from '@/mixins/event'
 
 export default {
-  components: {
-    ASection
-  }
+  mixins: [status, box, position, event]
 }
 </script>
 
 <style lang="stylus">
 .a-sections {
   > *:not(:first-child) {
-    margin-top: -0.02rem;
+    margin-top: -1px;
   }
 }
 </style>
