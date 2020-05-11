@@ -14,10 +14,10 @@
     box
 */
 import getPropsValue from '@/utils/getPropsValue'
-import { mergeLogogramPorps } from '@/utils/logogramPorps'
+import { createQuickPorps } from '@/utils/quickPorps'
 
 export default {
-  props: mergeLogogramPorps({
+  props: createQuickPorps({
     position: {
       type: String
     },

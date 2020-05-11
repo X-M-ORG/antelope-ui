@@ -12,12 +12,12 @@
 */
 import config from '@/config'
 import getPropsValue from '@/utils/getPropsValue'
-import { mergeLogogramPorps } from '@/utils/logogramPorps'
+import { createQuickPorps } from '@/utils/quickPorps'
 
 window.__BACKGROUND_LOAD_PROMISE = {}
 
 export default {
-  props: mergeLogogramPorps({
+  props: createQuickPorps({
     template: {
       type: String,
       default: ''

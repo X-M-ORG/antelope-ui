@@ -1,6 +1,6 @@
 import clone from '@/utils/clone'
 
-const logogramPorps = {
+const quickPorps = {
   template: 'tpl',
   width: 'w',
   height: 'h',
@@ -16,15 +16,15 @@ const logogramPorps = {
   center: 'pc'
 }
 
-export default logogramPorps
+export default quickPorps
 
-export function mergeLogogramPorps(obj) {
+export function createQuickPorps(obj) {
   let props = {}
   Object.keys(obj).forEach(key => {
     props[key] = clone(obj[key])
 
-    if (logogramPorps[key]) {
-      props[logogramPorps[key]] = clone(obj[key])
+    if (quickPorps[key]) {
+      props[quickPorps[key]] = clone(obj[key])
     }
   })
 
