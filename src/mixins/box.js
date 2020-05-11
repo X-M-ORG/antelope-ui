@@ -124,7 +124,7 @@ function getBackgroundImageParams(vm, name) {
   let path
 
   if (vm.$route && vm.$route.meta && vm.$route.meta.aImagesMap) {
-    path = vm.$route.meta.aImagesMap[name]
+    path = vm.$route.meta.aImagesMap[name] || name
   }
 
   return { name, path }
