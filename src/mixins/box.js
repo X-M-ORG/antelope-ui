@@ -63,11 +63,14 @@ export default {
         style.backgroundSize = '100% 100%'
 
         if (config.imageSizeAutoLoader) {
+          const { imageTimes, imageSizeUnit } = config
+          const { width, height } = this.mixinBoxBackgroundImage
+
           if (!style.width) {
-            style.width = getBackgroundImageParams(this, 'width')
+            style.width = (width * imageTimes).toFixed(2) + imageSizeUnit
           }
           if (!style.height) {
-            style.height = getBackgroundImageParams(this, 'height')
+            style.height = (height * imageTimes).toFixed(2) + imageSizeUnit
           }
         }
       }
@@ -92,11 +95,10 @@ export default {
 
 /*
   尽可能减少混合的方法，所以写成工具函数
-  getBackgroundImagePath 获取背景图的路径，根据 status 进行处理
-  getBackgroundImageParams 获取背景图的参数，根据 config 的配置进行处理
+  getBackgroundImageParams 获取背景图的参数，根据 status 进行处理，返回 name 和 path
   setBackgroundImage 设置背景图的信息
 */
-function getBackgroundImagePath(vm, name) {
+function getBackgroundImageParams(vm, name) {
   let suffix = getPropsValue(vm, 'status')
 
   switch (suffix) {
@@ -118,19 +120,13 @@ function getBackgroundImagePath(vm, name) {
     name = k.join('.')
   }
 
-  let file
+  let path
 
   if (vm.$route && vm.$route.meta && vm.$route.meta.aImagesMap) {
-    file = vm.$route.meta.aImagesMap[name]
+    path = vm.$route.meta.aImagesMap[name]
   }
 
-  return file || name
-}
-function getBackgroundImageParams(vm, key) {
-  return (
-    (vm.mixinBoxBackgroundImage[key] * config.imageTimes).toFixed(2) +
-    config.imageSizeUnit
-  )
+  return { name, path }
 }
 function setBackgroundImage(vm) {
   if (vm.mixinBoxBackgroundImage.loadPromiseReject) {
@@ -138,23 +134,23 @@ function setBackgroundImage(vm) {
     vm.mixinBoxBackgroundImage.loadPromiseReject = null
   }
 
-  const backgroundImagePath = getBackgroundImagePath(
-    vm,
-    getPropsValue(vm, 'backgroundImage')
-  )
+  const {
+    name: backgroundImageName,
+    path: backgroundImagePath
+  } = getBackgroundImageParams(vm, getPropsValue(vm, 'backgroundImage'))
 
   let getImagePromise = Promise.resolve({ src: '', width: 0, height: 0 })
 
   if (backgroundImagePath) {
-    if (!__BACKGROUND_LOAD_PROMISE[backgroundImagePath]) {
-      __BACKGROUND_LOAD_PROMISE[backgroundImagePath] = new Promise(resolve => {
+    if (!__BACKGROUND_LOAD_PROMISE[backgroundImageName]) {
+      __BACKGROUND_LOAD_PROMISE[backgroundImageName] = new Promise(resolve => {
         let image = new Image()
         image.src = backgroundImagePath
         image.onload = () => resolve(image)
       })
     }
 
-    getImagePromise = __BACKGROUND_LOAD_PROMISE[backgroundImagePath]
+    getImagePromise = __BACKGROUND_LOAD_PROMISE[backgroundImageName]
   }
 
   getImagePromise
