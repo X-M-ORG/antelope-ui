@@ -1,7 +1,7 @@
 <template>
   <div :style="mixinPositionStyle">
     <a-position v-for="(item, index) in cItems" :key="index" v-bind="item.style">
-      <slot :index="item.index" :active="item.active" :row="item.row"></slot>
+      <slot :index="item.index" :active="item.active" :data="item.data"></slot>
     </a-position>
 
     <audio ref="audio" v-if="audio" :src="audio" preload="auto"></audio>
@@ -31,7 +31,7 @@ export default {
       default: () => []
     },
 
-    itemStyle: {
+    options: {
       type: Object,
       default: () => ({})
     },
@@ -48,10 +48,10 @@ export default {
         index,
         active: index === this.activeIndex,
         style: {
-          ...this.itemStyle,
+          ...this.options,
           ...item.position
         },
-        row: item.row || {}
+        data: item.data || {}
       }))
     },
 
@@ -84,40 +84,19 @@ export default {
   },
 
   methods: {
-    start({
-      options = {},
-      steps = this.items.length,
-      result = 0,
-      beforeStart,
-      afterStart,
-      afterEnd
-    } = {}) {
+    run({ steps = this.items.length, result = 0, options = {} }) {
       this.$set(
         this,
         'activeOptions',
         getPropsValue(options, ['func', 'maxSpeed', 'minSpeed', 'toMaxStep'])
       )
 
-      this.$emit('beforeStart')
-
       if (this.$refs.audio) {
         this.$refs.audio.currentTime = 0
         this.$refs.audio.play()
       }
 
-      Promise.resolve(typeof beforeStart === 'function' && beforeStart()).then(
-        () => {
-          this.$emit('afterStart')
-          typeof afterStart === 'function' && afterStart()
-
-          this.$emit('beforeEnd')
-          this.jumpMain(this.getTotalSteps({ steps, result })).then(() => {
-            this.$emit('afterEnd')
-
-            typeof afterEnd === 'function' && afterEnd()
-          })
-        }
-      )
+      return this.jumpMain(this.getTotalSteps({ steps, result }))
     },
     init() {
       this.activeIndex = -1
@@ -154,9 +133,9 @@ export default {
       getNextActive 获取下一步的 index
     */
     getTotalSteps({ steps, result }) {
-      let lastJump = result + 1
-      let prevJump = steps - lastJump
-      let firstJump = prevJump % this.items.length
+      let lastJump = result + 1 // 最后一圈走的步数
+      let prevJump = steps - lastJump // 前面N圈总计要走的步数
+      let firstJump = prevJump % this.items.length // 第一圈要走的步数
 
       this.activeIndex = this.items.length - firstJump - 1
 

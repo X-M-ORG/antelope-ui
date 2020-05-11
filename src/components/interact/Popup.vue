@@ -3,7 +3,7 @@
     <a-position z-index="1" top="0" bottom="0" left="0" right="0" background-color="rgba(0,0,0,0.7)" @a-tap="iBgClose ? close() : null"></a-position>
 
     <a-position class="a-popup-item" v-bind="slot.position" v-for="slot in iSlots" :key="slot.name" :class="{ active: slot.active }">
-      <slot :name="slot.name" :data="slot.data" :active="slot.active"></slot>
+      <slot :name="slot.name" :active="slot.active" :data="slot.data"></slot>
     </a-position>
   </a-position>
 </template>
@@ -19,7 +19,7 @@ export default {
   },
 
   props: {
-    slotNames: {
+    items: {
       type: Array,
       default: () => []
     },
@@ -56,7 +56,7 @@ export default {
 
   computed: {
     iSlots() {
-      return this.slotNames.reduce((slots, name) => {
+      return this.items.reduce((slots, name) => {
         // 若已开启则取已有的数据
         const visibleIndex = this.visibleSlots.findIndex(i => i.name === name)
         const visibleInfo = this.visibleSlots[visibleIndex] || null
@@ -108,7 +108,7 @@ export default {
   methods: {
     open({ name, options = {}, data = {} } = {}) {
       if (
-        this.slotNames.indexOf(name) === -1 ||
+        this.items.indexOf(name) === -1 ||
         this.visibleSlots.findIndex(i => i.name === name) > -1
       ) {
         return
@@ -143,7 +143,7 @@ export default {
 
       names = names.filter(
         name =>
-          this.slotNames.indexOf(name) > -1 &&
+          this.items.indexOf(name) > -1 &&
           this.visibleSlots.findIndex(i => i.name === name) > -1
       )
 

@@ -153,7 +153,11 @@ function setBackgroundImage(vm) {
     getImagePromise = __BACKGROUND_LOAD_PROMISE[backgroundImageName]
   }
 
-  getImagePromise
+  new Promise((resolve, reject) => {
+    vm.mixinBoxBackgroundImage.loadPromiseReject = reject
+
+    return getImagePromise.then(resolve)
+  })
     .then(image => {
       if (vm.mixinBoxBackgroundImage.src !== image.src) {
         Object.assign(vm.mixinBoxBackgroundImage, {

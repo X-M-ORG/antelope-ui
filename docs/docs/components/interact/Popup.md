@@ -13,10 +13,10 @@
 - 混合：无
 - 自有：
 
-| name       | type   | require | default        | desc                                         |
-| ---------- | ------ | ------- | -------------- | -------------------------------------------- |
-| slot-names | Array  | false   | []             | slot 名称数组，页面中 N 个浮层项的名称数组   |
-| options    | Object | false   | options object | 设定浮层的初始属性，开启某个浮层时可传参覆盖 |
+| name    | type   | require | default        | desc                                         |
+| ------- | ------ | ------- | -------------- | -------------------------------------------- |
+| items   | Array  | false   | []             | 浮层名称的数组，页面中 N 个浮层项的名称数组  |
+| options | Object | false   | options object | 设定浮层的初始属性，开启某个浮层时可传参覆盖 |
 
 options object：
 
@@ -33,11 +33,20 @@ options object：
 简单看下 template 的使用方法
 
 ```html
-<a-popup ref="popup" :slot-names="['rule', 'pay']" :options="{ top: '40%' }">
+<a-popup ref="popup" :items="['rule', 'pay']" :options="{ top: '40%' }">
   <a-section slot="rule">活动规则浮层</a-section>
   <a-section slot="pay">充值浮层</a-section>
 </a-popup>
 ```
+
+### slot-scope object
+
+每一项可以通过 slot-scope="scope" 取到以下参数：
+
+| name         | type    | require | default | desc                                   |
+| ------------ | ------- | ------- | ------- | -------------------------------------- |
+| scope.active | Boolean | false   | false   | 当前浮层的激活状态                     |
+| scope.data   | Object  | false   | {}      | 当前浮层的数据，由 Popup.open 函数传递 |
 
 ### 操作
 
@@ -50,17 +59,28 @@ Popup 实例提供两个方法以供调用：
 
 openOptions：
 
-| name    | type   | require | default | desc                              |
-| ------- | ------ | ------- | ------- | --------------------------------- |
-| name    | String | true    |         | 开启的浮层项的名称，slot-names 项 |
-| options | Object | false   | {}      | 同 Props.options，将覆盖初始属性  |
-| data    | Object | false   | {}      | 传递给此浮层的数据                |
+| name    | type   | require | default | desc                             |
+| ------- | ------ | ------- | ------- | -------------------------------- |
+| name    | String | true    |         | 开启的浮层项的名称，items 项     |
+| options | Object | false   | {}      | 同 Props.options，将覆盖初始属性 |
+| data    | Object | false   | {}      | 传递给此浮层的数据               |
 
 > 该方法返回一个 Promise，将在浮层开启的动画结束后 resolve
 
 > 该方法支持多次调用，新开浮层位于前一个之上
 
 示例：
+
+```html
+<a-popup ref="popup" :items="['rule', 'pay']" :options="{ top: '40%' }">
+  <a-section slot="rule">活动规则浮层</a-section>
+
+  <a-section slot="pay" slot-scope="scope">
+    <div>充值浮层：</div>
+    <div>当前充值用户：{{ scope.data.user }}</div>
+  </a-section>
+</a-popup>
+```
 
 ```js
 this.$refs.popup
@@ -73,17 +93,6 @@ this.$refs.popup
   .then(() => {
     console.log('开启pay浮层~')
   })
-```
-
-```html
-<a-popup ref="popup" :slot-names="['rule', 'pay']" :options="{ top: '40%' }">
-  <a-section slot="rule">活动规则浮层</a-section>
-
-  <a-section slot="pay" slot-scope="scope">
-    <div>充值浮层：</div>
-    <div>当前充值用户：{{ scope.data.user }}</div>
-  </a-section>
-</a-popup>
 ```
 
 #### Popup.close(undefined | String | Array)
