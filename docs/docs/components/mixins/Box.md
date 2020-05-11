@@ -6,13 +6,15 @@
 
 ## Props
 
-| name             | type   | require | default | desc                                   |
-| ---------------- | ------ | ------- | ------- | -------------------------------------- |
-| template         | String | false   |         | 模板名称，下面详述                     |
-| width            | String | false   |         | 元素宽，不传值或留空则为默认流体的宽度 |
-| height           | String | false   |         | 元素高，不传之或留空则由内部元素撑高   |
-| background-color | String | false   |         | 背景色，同 css 写法                    |
-| background-image | String | false   |         | 背景图，下面详述                       |
+| name             | logogram | type   | require | default | desc                                   |
+| ---------------- | -------- | ------ | ------- | ------- | -------------------------------------- |
+| template         | tpl      | String | false   |         | 模板名称，下面详述                     |
+| width            | w        | String | false   |         | 元素宽，不传值或留空则为默认流体的宽度 |
+| height           | h        | String | false   |         | 元素高，不传之或留空则由内部元素撑高   |
+| background-color | bg-c     | String | false   |         | 背景色，同 css 写法                    |
+| background-image | bg-i     | String | false   |         | 背景图，下面详述                       |
+
+> logogram 为简写属性，与 name 作用相同
 
 ### template
 

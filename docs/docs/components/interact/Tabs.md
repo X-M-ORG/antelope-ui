@@ -1,4 +1,4 @@
-# Tabs 标签
+# Tabs 标签页
 
 标签，控制不同内容显示。
 
@@ -11,7 +11,7 @@
 
 | name   | type               | require | default | desc                 |
 | ------ | ------------------ | ------- | ------- | -------------------- |
-| active | String             | false   |         | 默认激活的 slot name |
+| active | String             | false   |         | 激活的 slot name     |
 | items  | Array\<slot name\> | false   | []      | slot name 名称的数组 |
 
 ### 示例

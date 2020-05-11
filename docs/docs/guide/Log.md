@@ -2,13 +2,26 @@
 
 ---
 
+#### v1.5.0
+
+日期: 2020-05-11
+
+细节：
+
+- 重写：Tab 更名为 Tabs，改动较多，请查阅相关文档
+- 优化：Popup、Roulette 的传参优化，改动较多，请查阅相关文档
+- 新增：混合的盒子属性和定位属性的相关 props 支持简写，请查阅相关文档
+- 新增：只要存在定位属性中的任意 props 将自动开启定位模式
+
+---
+
 #### v1.4.2
 
 日期: 2020-05-11
 
 细节：
 
-- 紧急修复上一个版本导致图片状态失效的 bug
+- 修复：上一个版本导致图片状态失效的 bug
 
 #### v1.4.1
 
@@ -16,7 +29,7 @@
 
 细节：
 
-- 修复复用图片因任务队列问题无法加载的 bug
+- 修复：复用图片因任务队列问题无法加载的 bug
 
 #### v1.4.0
 
@@ -24,10 +37,10 @@
 
 细节：
 
-- 优化 Sprite 组件的内部结构，无需再传递 props.size
-- 优化 Popup 组件，改动较多，请查阅：[Popup 浮层](docs/components/interact/Popup.md)
-- 优化 Bullet 组件的传参，设定样式无需在传递 props.itemStyle
-- 文档同步
+- 优化：Sprite 组件的内部结构，无需再传递 props.size
+- 优化：Popup 组件，改动较多，请查阅：[Popup 浮层](docs/components/interact/Popup.md)
+- 优化：Bullet 组件的传参，设定样式无需在传递 props.itemStyle
+- 文档：同步现有组件
 
 ---
 
@@ -37,7 +50,7 @@
 
 细节：
 
-- 支持创建组件模板，详细使用方法：[Box 盒子属性](docs/components/mixins/Box.md#template)
+- 新增：支持创建组件模板，详细使用方法：[Box 盒子属性](docs/components/mixins/Box.md#template)
 
 #### v1.3.2
 
@@ -45,8 +58,8 @@
 
 细节：
 
-- 优化 SVGA 组件，无需再传递 props.id
-- 优化源码结构，使用 @ 进行引用
+- 优化：SVGA 组件无需再传递 props.id
+- 优化：源码结构，使用 @ 进行引用
 
 #### v1.3.1
 

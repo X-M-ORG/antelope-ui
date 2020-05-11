@@ -14,9 +14,10 @@
     box
 */
 import getPropsValue from '@/utils/getPropsValue'
+import { mergeLogogramPorps } from '@/utils/logogramPorps'
 
 export default {
-  props: {
+  props: mergeLogogramPorps({
     position: {
       type: String
     },
@@ -38,7 +39,7 @@ export default {
     center: {
       type: String
     }
-  },
+  }),
 
   computed: {
     mixinPositionStyle() {
@@ -47,13 +48,17 @@ export default {
       }
 
       const position = getPropsValue(this, 'position')
+      const positionP = getPropsValue(this, [
+        'center',
+        'zIndex',
+        'top',
+        'bottom',
+        'left',
+        'right'
+      ])
 
-      if (typeof position !== 'undefined') {
-        style = {
-          ...style,
-          ...getPropsValue(this, ['zIndex', 'top', 'bottom', 'left', 'right']),
-          position: position || 'absolute'
-        }
+      if (typeof position !== 'undefined' || Object.keys(positionP).length) {
+        style = { ...style, ...positionP, position: position || 'absolute' }
 
         if (
           typeof style.top !== 'undefined' &&
@@ -69,13 +74,11 @@ export default {
           delete style.width
         }
 
-        const center = getPropsValue(this, 'center')
-
-        if (typeof center !== 'undefined') {
-          if (center === 'x') {
+        if (typeof style.center !== 'undefined') {
+          if (style.center === 'x') {
             style.left = style.left || '50%'
             style.transform = 'translateX(-50%)'
-          } else if (center === 'y') {
+          } else if (style.center === 'y') {
             style.top = style.top || '50%'
             style.transform = 'translateY(-50%)'
           } else {
@@ -83,6 +86,8 @@ export default {
             style.top = style.top || '50%'
             style.transform = 'translate(-50%, -50%)'
           }
+
+          delete style.center
         }
       }
 

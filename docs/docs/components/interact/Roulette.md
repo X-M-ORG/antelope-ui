@@ -75,11 +75,11 @@ Roulette 的思路是生成一个大的区域，每一项进行定位，根据�
 
 每一项可以通过 slot-scope="scope" 取到以下参数：
 
-| name         | type    | require | default | desc                                   |
-| ------------ | ------- | ------- | ------- | -------------------------------------- |
-| scope.index  | Number  | false   | false   | 当前项的索引                           |
-| scope.active | Boolean | false   | false   | 当前项的激活状态                       |
-| scope.data   | Object  | false   | {}      | 当前项的数据，由 Roulette.run 函数传递 |
+| name         | type    | require | default | desc                                     |
+| ------------ | ------- | ------- | ------- | ---------------------------------------- |
+| scope.index  | Number  | false   | false   | 当前项的索引                             |
+| scope.active | Boolean | false   | false   | 当前项的激活状态                         |
+| scope.data   | Object  | false   | {}      | 当前项的数据，由 props.items[].data 传递 |
 
 ### 操作
 

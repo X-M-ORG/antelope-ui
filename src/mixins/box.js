@@ -12,11 +12,12 @@
 */
 import config from '@/config'
 import getPropsValue from '@/utils/getPropsValue'
+import { mergeLogogramPorps } from '@/utils/logogramPorps'
 
 window.__BACKGROUND_LOAD_PROMISE = {}
 
 export default {
-  props: {
+  props: mergeLogogramPorps({
     template: {
       type: String,
       default: ''
@@ -33,7 +34,7 @@ export default {
     backgroundImage: {
       type: String
     }
-  },
+  }),
 
   data() {
     return {
