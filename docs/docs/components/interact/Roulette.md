@@ -13,13 +13,13 @@ Roulette 的思路是生成一个大的区域，每一项进行定位，根据�
 - 混合：[组件混合表](docs/components/mixins/Components.md)
 - 自有：
 
-| name    | type   | require | default      | desc                                                                                              |
-| ------- | ------ | ------- | ------------ | ------------------------------------------------------------------------------------------------- |
-| items   | Array  | true    | items object | 每项的参数配置，下面详解                                                                          |
-| options | Object | false   |              | 每项的默认参数，item 为 position 组件，参考：[Position 定位块](docs/components/basic/Position.md) |
-| audio   | String | false   |              | 转动开始到结束时的整体音效                                                                        |
+| name    | type                 | require | default | desc                                                                                              |
+| ------- | -------------------- | ------- | ------- | ------------------------------------------------------------------------------------------------- |
+| items   | Array\<item object\> | true    | []      | 每项的参数配置，下面详解                                                                          |
+| options | Object               | false   |         | 每项的默认参数，item 为 position 组件，参考：[Position 定位块](docs/components/basic/Position.md) |
+| audio   | String               | false   |         | 转动开始到结束时的整体音效                                                                        |
 
-#### items object
+**item object：**
 
 | name     | type   | require | default | desc                                                                   |
 | -------- | ------ | ------- | ------- | ---------------------------------------------------------------------- |
@@ -75,11 +75,11 @@ Roulette 的思路是生成一个大的区域，每一项进行定位，根据�
 
 每一项可以通过 slot-scope="scope" 取到以下参数：
 
-| name         | type    | require | default | desc                                 |
-| ------------ | ------- | ------- | ------- | ------------------------------------ |
-| scope.index  | Number  | false   | false   | 当前项的索引                         |
-| scope.active | Boolean | false   | false   | 当前项的激活状态                     |
-| scope.data   | Object  | false   | {}      | 当前项的数据，由 Popup.open 函数传递 |
+| name         | type    | require | default | desc                                   |
+| ------------ | ------- | ------- | ------- | -------------------------------------- |
+| scope.index  | Number  | false   | false   | 当前项的索引                           |
+| scope.active | Boolean | false   | false   | 当前项的激活状态                       |
+| scope.data   | Object  | false   | {}      | 当前项的数据，由 Roulette.run 函数传递 |
 
 ### 操作
 
@@ -113,7 +113,7 @@ options object：
 | minSpeed  | Number | false   | 960           | 最慢的速度到下一个 |
 | toMaxStep | Number | false   | 4             | 几步到达最快速度   |
 
-func：
+func value：
 
 - ease-in-out：默认值，以慢速开始和结束
 - ease-in：以慢速开始

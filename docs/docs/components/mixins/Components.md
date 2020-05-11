@@ -25,6 +25,6 @@
 | Bullet    |   √    |  √  |    √     |   √   |
 | Timer     |   √    |  √  |    √     |   √   |
 | Roulette  |   √    |  √  |    √     |   √   |
-| Tab       |   √    |  √  |    √     |   √   |
+| Tabs       |   √    |  √  |    √     |   √   |
 | NumSlider |   √    |  √  |    √     |   √   |
 | Box       |   √    |  √  |    √     |   √   |

@@ -13,12 +13,12 @@
 - 混合：无
 - 自有：
 
-| name    | type   | require | default        | desc                                         |
-| ------- | ------ | ------- | -------------- | -------------------------------------------- |
-| items   | Array  | false   | []             | 浮层名称的数组，页面中 N 个浮层项的名称数组  |
-| options | Object | false   | options object | 设定浮层的初始属性，开启某个浮层时可传参覆盖 |
+| name    | type               | require | default        | desc                                         |
+| ------- | ------------------ | ------- | -------------- | -------------------------------------------- |
+| items   | Array\<slot name\> | false   | []             | slot name 名称的数组                         |
+| options | Object             | false   | options object | 设定浮层的初始属性，开启某个浮层时可传参覆盖 |
 
-options object：
+**options object：**
 
 | name    | type    | require | default | desc                                        |
 | ------- | ------- | ------- | ------- | ------------------------------------------- |
@@ -46,7 +46,7 @@ options object：
 | name         | type    | require | default | desc                                   |
 | ------------ | ------- | ------- | ------- | -------------------------------------- |
 | scope.active | Boolean | false   | false   | 当前浮层的激活状态                     |
-| scope.data   | Object  | false   | {}      | 当前浮层的数据，由 Popup.open 函数传递 |
+| scope.data   | Any     | false   |         | 当前浮层的数据，由 Popup.open 函数传递 |
 
 ### 操作
 
@@ -63,7 +63,7 @@ openOptions：
 | ------- | ------ | ------- | ------- | -------------------------------- |
 | name    | String | true    |         | 开启的浮层项的名称，items 项     |
 | options | Object | false   | {}      | 同 Props.options，将覆盖初始属性 |
-| data    | Object | false   | {}      | 传递给此浮层的数据               |
+| data    | Any    | false   |         | 传递给此浮层的数据               |
 
 > 该方法返回一个 Promise，将在浮层开启的动画结束后 resolve
 

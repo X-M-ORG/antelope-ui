@@ -35,6 +35,6 @@
     - [Bullet 弹幕](docs/components/interact/Bullet.md)
     - [Timer 计时器](docs/components/interact/Timer.md)
     - [Roulette 轮盘](docs/components/interact/Roulette.md)
-    - [Tab 标签页](docs/components/interact/Tab.md)
+    - [Tabs 标签页](docs/components/interact/Tabs.md)
     - [NumSlider 滑动数字](docs/components/interact/NumSlider.md)
     - [Box 盒子](docs/components/interact/Box.md)

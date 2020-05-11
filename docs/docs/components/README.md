@@ -35,6 +35,6 @@
 - [Bullet 弹幕，滚动播放的广播、弹幕效果](docs/components/interact/Bullet.md)
 - [Timer 计时器，常用于倒计时](docs/components/interact/Timer.md)
 - [Roulette 轮盘，转盘抽奖效果](docs/components/interact/Roulette.md)
-- [Tab 标签页，切换控制标签](docs/components/interact/Tab.md)
+- [Tabs 标签页，切换控制标签](docs/components/interact/Tabs.md)
 - [NumSlider 滑动数字，切换数字的显示](docs/components/interact/NumSlider.md)
 - [Box 盒子，用于礼盒道具的基本显示和内容显隐控制](docs/components/interact/Box.md)
