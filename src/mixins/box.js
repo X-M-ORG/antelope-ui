@@ -138,20 +138,23 @@ function setBackgroundImage(vm) {
     vm.mixinBoxBackgroundImage.loadPromiseReject = null
   }
 
-  const originImagePath = getPropsValue(vm, 'backgroundImage')
+  const backgroundImagePath = getBackgroundImagePath(
+    vm,
+    getPropsValue(vm, 'backgroundImage')
+  )
 
   let getImagePromise = Promise.resolve({ src: '', width: 0, height: 0 })
 
-  if (originImagePath) {
-    if (!__BACKGROUND_LOAD_PROMISE[originImagePath]) {
-      __BACKGROUND_LOAD_PROMISE[originImagePath] = new Promise(resolve => {
+  if (backgroundImagePath) {
+    if (!__BACKGROUND_LOAD_PROMISE[backgroundImagePath]) {
+      __BACKGROUND_LOAD_PROMISE[backgroundImagePath] = new Promise(resolve => {
         let image = new Image()
-        image.src = getBackgroundImagePath(vm, originImagePath)
+        image.src = backgroundImagePath
         image.onload = () => resolve(image)
       })
     }
 
-    getImagePromise = __BACKGROUND_LOAD_PROMISE[originImagePath]
+    getImagePromise = __BACKGROUND_LOAD_PROMISE[backgroundImagePath]
   }
 
   getImagePromise
