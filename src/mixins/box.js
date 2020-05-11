@@ -13,7 +13,7 @@
 import config from '@/config'
 import getPropsValue from '@/utils/getPropsValue'
 
-let backgroundImageMaps = {}
+window.__BACKGROUND_IMAGE_MAPS = {}
 
 export default {
   props: {
@@ -138,29 +138,26 @@ function setBackgroundImage(vm) {
     vm.mixinBoxBackgroundImage.loadPromiseReject = null
   }
 
-  const backgroundImagePath = getBackgroundImagePath(
-    vm,
-    getPropsValue(vm, 'backgroundImage')
-  )
+  const originImagePath = getPropsValue(vm, 'backgroundImage')
 
-  let getImagePromise
+  let getImagePromise = Promise.resolve({ src: '', width: 0, height: 0 })
 
-  if (backgroundImagePath) {
-    getImagePromise = backgroundImageMaps[backgroundImagePath]
-      ? Promise.resolve(backgroundImageMaps[backgroundImagePath])
+  if (originImagePath) {
+    const historyImage = __BACKGROUND_IMAGE_MAPS[originImagePath]
+
+    getImagePromise = historyImage
+      ? Promise.resolve(historyImage)
       : new Promise((resolve, reject) => {
           vm.mixinBoxBackgroundImage.loadPromiseReject = reject
 
           let image = new Image()
-          image.src = backgroundImagePath
+          image.src = getBackgroundImagePath(vm, originImagePath)
           image.onload = () => {
             resolve(image)
           }
 
-          backgroundImageMaps[image.src] = image
+          __BACKGROUND_IMAGE_MAPS[originImagePath] = image
         })
-  } else {
-    getImagePromise = Promise.resolve({ src: '', width: 0, height: 0 })
   }
 
   getImagePromise
