@@ -2,14 +2,24 @@
 
 ---
 
+#### v1.5.1
+
+日期: 2020-05-12
+
+细节：
+
+- 优化：PC 端也将触发 @a-tap 事件，具体事件为：
+  - PC 端：mousedown/mousemove/mouseup
+  - 移动端：touchstart/touchmove/touchend
+
 #### v1.5.0
 
 日期: 2020-05-11
 
 细节：
 
-- 重写：Tab 更名为 Tabs，改动较多，请查阅相关文档
-- 优化：Popup、Roulette 的传参优化，改动较多，请查阅相关文档
+- 重写：Tab 更名为 [Tabs](docs/components/interact/Tabs.md)，改动较多，请查阅相关文档
+- 优化：[Popup](docs/components/interact/Popup.md)、[Roulette](docs/components/interact/Roulette.md) 的传参优化，改动较多，请查阅相关文档
 - 新增：混合的盒子属性和定位属性的相关 props 支持简写，请查阅相关文档
 - 新增：只要存在定位属性中的任意 props 将自动开启定位模式
 
