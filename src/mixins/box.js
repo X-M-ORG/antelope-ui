@@ -19,8 +19,7 @@ window.__BACKGROUND_LOAD_PROMISE = {}
 export default {
   props: createQuickPorps({
     template: {
-      type: String,
-      default: ''
+      type: String
     },
     width: {
       type: String
@@ -125,6 +124,8 @@ function getBackgroundImageParams(vm, name) {
 
   if (vm.$route && vm.$route.meta && vm.$route.meta.aImagesMap) {
     path = vm.$route.meta.aImagesMap[name] || name
+  } else {
+    path = name
   }
 
   return { name, path }

@@ -99,10 +99,7 @@ export default {
   mounted() {
     this.$parent.$refs['a-popup'] = this
 
-    Object.assign(
-      this.defaultOptions,
-      getPropsValue(this, Object.keys(this.defaultOptions))
-    )
+    Object.assign(this.defaultOptions, getPropsValue(this, 'options'))
   },
 
   methods: {

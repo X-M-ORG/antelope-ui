@@ -16,7 +16,6 @@ import Popup from './components/interact/Popup'
 import Bullet from './components/interact/Bullet'
 import Timer from './components/interact/Timer'
 import Roulette from './components/interact/Roulette'
-import Tab from './components/interact/Tab'
 import Tabs from './components/interact/Tabs'
 import NumSlider from './components/interact/NumSlider'
 import Box from './components/interact/Box'
@@ -34,7 +33,6 @@ export {
   Bullet,
   Timer,
   Roulette,
-  Tab,
   Tabs,
   NumSlider,
   Box
@@ -65,7 +63,6 @@ export default {
       Bullet,
       Timer,
       Roulette,
-      Tab,
       Tabs,
       NumSlider,
       Box

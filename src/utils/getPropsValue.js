@@ -10,9 +10,10 @@ export default function getPropsValue(vm = {}, keys = []) {
       } else if (typeof vm[quickPorps[key]] !== 'undefined') {
         values[key] = vm[quickPorps[key]]
       }
+
       return values
     },
-    { ...getTemplateValues(vm.template) }
+    { ...getTemplateValues(vm.template || vm[quickPorps.template]) }
   )
 
   return typeof keys === 'string' ? values[keys] : values

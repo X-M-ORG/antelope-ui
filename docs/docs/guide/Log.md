@@ -2,6 +2,17 @@
 
 ---
 
+#### v1.5.2
+
+日期: 2020-05-14
+
+细节：
+
+- 修复：没有 \$route.meta.aImagesMap 的情况下网络图片不加载
+- 修复：Popup 组件 props.options 不生效
+- 修复：tpl 速写属性不生效
+- 修复：props.status 不生效
+
 #### v1.5.1
 
 日期: 2020-05-12
@@ -9,8 +20,8 @@
 细节：
 
 - 优化：PC 端也将触发 @a-tap 事件，具体事件为：
-  - PC 端：mousedown/mousemove/mouseup
-  - 移动端：touchstart/touchmove/touchend
+- PC 端：mousedown/mousemove/mouseup
+- 移动端：touchstart/touchmove/touchend
 
 #### v1.5.0
 
