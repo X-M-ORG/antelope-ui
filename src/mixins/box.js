@@ -83,6 +83,9 @@ export default {
     backgroundImage() {
       setBackgroundImage(this)
     },
+    bgI() {
+      setBackgroundImage(this)
+    },
     status() {
       setBackgroundImage(this)
     }

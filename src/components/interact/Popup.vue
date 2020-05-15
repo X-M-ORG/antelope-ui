@@ -1,6 +1,6 @@
 <template>
   <a-position :class="{ active: active, visible: visible }" class="a-popup" position="fixed" z-index="100" top="0" bottom="0" left="0" right="0">
-    <a-position z-index="1" top="0" bottom="0" left="0" right="0" background-color="rgba(0,0,0,0.7)" @a-tap="iBgClose ? close() : null"></a-position>
+    <a-position v-for="bg in iBg" :key="bg.name + '-bg'" :z-index="bg.zIndex" top="0" bottom="0" left="0" right="0" background-color="rgba(0,0,0,0.7)" @a-tap="bg.bgClose ? close() : null"></a-position>
 
     <a-position class="a-popup-item" v-bind="slot.position" v-for="slot in iSlots" :key="slot.name" :class="{ active: slot.active }">
       <slot :name="slot.name" :active="slot.active" :data="slot.data"></slot>
@@ -70,7 +70,7 @@ export default {
         if (visibleInfo) {
           Object.assign(
             position,
-            { zIndex: String(10 + visibleIndex) },
+            { zIndex: String(10 + visibleIndex * 10) },
             getPropsValue(options, ['top', 'left', 'center'])
           )
         }
@@ -78,6 +78,7 @@ export default {
         slots.push({
           active: !!visibleInfo,
           name,
+          options,
           position,
           data: visibleInfo ? visibleInfo.data : {}
         })
@@ -86,13 +87,15 @@ export default {
       }, [])
     },
 
-    iBgClose() {
-      const { length } = this.visibleSlots
-      const options = length
-        ? this.visibleSlots[length - 1].options
-        : this.defaultOptions
-
-      return !!options.bgClose
+    iBg() {
+      return this.visibleSlots.map(({ name }) => {
+        let { options, position } = this.iSlots.find(i => i.name === name)
+        return {
+          name,
+          bgClose: options.bgClose,
+          zIndex: String(Number(position.zIndex) - 1)
+        }
+      })
     }
   },
 
