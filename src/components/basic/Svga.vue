@@ -19,6 +19,11 @@ export default {
     url: {
       type: String,
       default: ''
+    },
+
+    autoplay: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -59,27 +64,29 @@ export default {
             setTimeout(() => {
               this.player = new SVGA.Player(id)
 
-              if (videos[url]) {
-                this.player.setVideoItem(videos[url])
-                this.player.startAnimation()
+              const loadHandler = videos[url]
+                ? Promise.resolve(videos[url])
+                : new Promise((resolve, reject) => {
+                    new SVGA.Parser(id).load(
+                      url,
+                      videoItem => {
+                        window.__SVGA_DATA.videos[url] = videoItem
+
+                        resolve(videoItem)
+                      },
+                      error => {
+                        this.$emit('load-error', error)
+                        reject()
+                      }
+                    )
+                  })
+
+              loadHandler.then(videoItem => {
+                this.player.setVideoItem(videoItem)
+                this.autoplay && this.player.startAnimation()
                 this.$emit('load-success')
                 r()
-              } else {
-                new SVGA.Parser(id).load(
-                  url,
-                  videoItem => {
-                    window.__SVGA_DATA.videos[url] = videoItem
-
-                    this.player.setVideoItem(videoItem)
-                    this.player.startAnimation()
-                    this.$emit('load-success')
-                    r()
-                  },
-                  error => {
-                    this.$emit('load-error', error)
-                  }
-                )
-              }
+              })
             }, 20)
           })
       )
