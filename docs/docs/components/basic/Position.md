@@ -15,21 +15,24 @@ Position 和 Section 没有什么大的区别，唯一的区别是它默认启�
 
 ### 示例
 
-```html
-<a-section
-  width="7.5rem"
-  height="4rem"
-  background-color="#ffffff"
-  background-image="bg.png"
-  @a-tap="tapEvent()"
->
-  <a-position
-    top="2rem"
-    right="0"
-    width="1rem"
-    height="2rem"
-    background-image="button.png"
-    @a-tap="tapButton()"
-  ></a-position>
-</a-section>
-```
+<vuep template="#example" :options="{ theme: 'neo' }"></vuep>
+
+<script v-pre type="text/x-template" id="example">
+<template>
+  <a-section w="400px" h="300px" bg-c="red">
+    <a-position pt="20px" pl="20px" w="60px" h="60px" bg-c="yellow">上20px.左20px</a-position>
+
+    <a-position pt="50px" pc="x" w="60px" h="60px" bg-c="black">上50px.水平居中</a-position>
+
+    <a-position pl="20px" pc="y" w="60px" h="60px" bg-c="white">左20px.垂直居中</a-position>
+
+    <a-position pc w="60px" h="60px" bg-c="blue">垂直水平</a-position>
+
+    <a-section pl="20px" pb="20px" w="60px" h="60px" bg-c="orange">左20px.下20px</a-section>
+  </a-section>
+</template>
+
+<script>
+  export default {}
+</script>
+</script>

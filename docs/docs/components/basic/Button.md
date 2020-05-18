@@ -22,15 +22,18 @@
 
 默认是未点击状态，点击后为点击状态，设置偏移量以及可以实现点击效果。
 
-```html
-<!-- btn.png 的宽度是 4.05rem，单个宽度2rem，间距 0.05rem，点击时 x 轴偏移 -2.05rem 到激活状态 -->
-<a-button
-  width="2rem"
-  height="1rem"
-  background-image="btn.png"
-  move-x="-2.05rem"
-  @a-tap="tapEvent()"
->
-  去充值
-</a-button>
-```
+### 示例
+
+<vuep template="#example" :options="{ theme: 'neo' }"></vuep>
+
+<script v-pre type="text/x-template" id="example">
+<template>
+  <div>
+    <a-button w="422px" h="143px" bg-i="/docs/components/basic/static/confirm.png" move-x="-426px"></a-button>
+  </div>
+</template>
+
+<script>
+  export default {}
+</script>
+</script>

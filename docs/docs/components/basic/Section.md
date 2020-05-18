@@ -11,14 +11,24 @@
 
 ### 示例
 
-```html
-<a-section
-  width="7.5rem"
-  height="4rem"
-  background-color="#ffffff"
-  background-image="bg.png"
-  @a-tap="tapEvent()"
->
-  <a-section @a-tap="tap()">点我</a-section>
-</a-section>
-```
+<vuep template="#example" :options="{ theme: 'neo' }"></vuep>
+
+<script v-pre type="text/x-template" id="example">
+<template>
+  <a-section w="100px" h="100px" bg-c="red">
+    <a-section w="50px" h="50px" bg-c="yellow" @a-tap="sayHello">
+      哈喽~
+    </a-section>
+  </a-section>
+</template>
+
+<script>
+  export default {
+    methods: {
+      sayHello() {
+        alert('Hello!')
+      }
+    }
+  }
+</script>
+</script>

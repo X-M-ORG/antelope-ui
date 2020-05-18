@@ -9,7 +9,9 @@
       name="viewport"
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
-    <link rel="stylesheet" href="./static/vue.css" />
+    <link rel="stylesheet" href="./static/css/themes-vue.css" />
+    <link rel="stylesheet" href="./static/css/vuep.min.css" />
+    <link rel="stylesheet" href="./static/css/neo.css" />
   </head>
   <body>
     <div id="app">加载中~</div>
@@ -18,9 +20,17 @@
         name: 'Antelope',
         repo: 'https://github.com/X-M-ORG/antelope-ui',
         coverpage: true,
-        loadSidebar: true
+        loadSidebar: true,
+        auto2top: true
       }
     </script>
-    <script src="./static/docsify.min.js"></script>
+    <script src="./static/js/vue.min.js"></script>
+    <script src="./static/js/vuep.min.js"></script>
+    <script src="./static/js/docsify.min.js"></script>
+    <script src="./static/js/babel.min.js"></script>
+    <script src="./static/js/antelope-ui.js"></script>
+    <script>
+      Vue.use(window.antelope.default)
+    </script>
   </body>
 </html>

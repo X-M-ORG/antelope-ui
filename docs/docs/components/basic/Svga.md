@@ -17,6 +17,17 @@
 
 ### 示例
 
-```html
-<a-svga height="1rem" width="1rem" url="xxxx.svga"></a-svga>
-```
+<vuep template="#example" :options="{ theme: 'neo' }"></vuep>
+
+<script v-pre type="text/x-template" id="example">
+<template>
+  <a-section w="250px" h="200px" bg-c="#ddd">
+    <a-svga pl="0" pt="0" w="100px" h="100px" url="https://svga.io/assets/svga/index-response.svga"></a-svga>
+    <a-svga pr="0" pt="0" w="100px" h="100px" url="https://svga.io/assets/svga/index-response.svga"></a-svga>
+  </a-section>
+</template>
+
+<script>
+  export default {}
+</script>
+</script>

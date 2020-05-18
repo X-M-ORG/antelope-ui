@@ -11,10 +11,24 @@
 
 ### 示例
 
-```html
-<a-sections>
-  <a-section height="1rem" background-image="bg1.png"></a-section>
-  <a-section height="2rem" background-image="bg2.png"></a-section>
-  <a-section height="3rem" background-image="bg3.png"></a-section>
-</a-sections>
-```
+<vuep template="#example" :options="{ theme: 'neo' }"></vuep>
+
+<script v-pre type="text/x-template" id="example">
+<template>
+  <a-sections>
+    <a-section w="100px" h="100px" bg-c="red" @a-tap="sayColor('red')"></a-section>
+    <a-section w="100px" h="100px" bg-c="yellow" @a-tap="sayColor('yellow')"></a-section>
+    <a-section w="100px" h="100px" bg-c="blue" @a-tap="sayColor('blue')"></a-section>
+  </a-sections>
+</template>
+
+<script>
+  export default {
+    methods: {
+      sayColor(color) {
+        alert(color)
+      }
+    }
+  }
+</script>
+</script>
