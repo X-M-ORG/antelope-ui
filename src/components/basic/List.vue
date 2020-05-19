@@ -13,6 +13,7 @@ import position from '@/mixins/position'
 import event from '@/mixins/event'
 
 import getPropsValue from '@/utils/getPropsValue'
+import debounce from '@/utils/debounce'
 
 export default {
   mixins: [status, box, position, event],
@@ -46,22 +47,22 @@ export default {
   },
 
   methods: {
-    scroll(e) {
+    scroll: debounce(function(e) {
       const d = getPropsValue(this, 'direction')
 
       if (d === 'y') {
         const { offsetHeight, scrollHeight, scrollTop } = e.target
 
-        if (offsetHeight + scrollTop >= scrollHeight) {
+        if (offsetHeight + scrollTop + 100 > scrollHeight) {
           this.$emit('scroll-end')
         }
       } else {
         const { offsetWidth, scrollWidth, scrollLeft } = e.target
-        if (offsetWidth + scrollLeft >= scrollWidth) {
+        if (offsetWidth + scrollLeft + 100 > scrollWidth) {
           this.$emit('scroll-end')
         }
       }
-    }
+    }, 300)
   }
 }
 </script>
