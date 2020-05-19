@@ -1,6 +1,6 @@
 <template>
   <div :style="listStyle">
-    <div :style="contentStyle">
+    <div :style="contentStyle" @scroll="scroll">
       <slot></slot>
     </div>
   </div>
@@ -41,6 +41,25 @@ export default {
         [`padding-${d === 'y' ? 'right' : 'bottom'}`]: '0.2rem',
         [`overflow-${d === 'y' ? 'x' : 'y'}`]: 'hidden',
         [`overflow-${d}`]: 'scroll'
+      }
+    }
+  },
+
+  methods: {
+    scroll(e) {
+      const d = getPropsValue(this, 'direction')
+
+      if (d === 'y') {
+        const { offsetHeight, scrollHeight, scrollTop } = e.target
+
+        if (offsetHeight + scrollTop >= scrollHeight) {
+          this.$emit('scroll-end')
+        }
+      } else {
+        const { offsetWidth, scrollWidth, scrollLeft } = e.target
+        if (offsetWidth + scrollLeft >= scrollWidth) {
+          this.$emit('scroll-end')
+        }
       }
     }
   }
