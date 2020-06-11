@@ -55,7 +55,7 @@ Popup 实例提供两个方法以供调用：
 - open 开启浮层
 - close 关闭浮层
 
-#### Popup.open(openOptions)
+#### Popup.open(openOptions | name string)
 
 openOptions：
 
@@ -68,6 +68,8 @@ openOptions：
 > 该方法返回一个 Promise，将在浮层开启的动画结束后 resolve
 
 > 该方法支持多次调用，新开浮层位于前一个之上
+
+> 可以传递字符串快速开启，等同于传递：{ name: string }
 
 示例：
 

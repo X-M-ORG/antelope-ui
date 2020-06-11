@@ -100,13 +100,17 @@ export default {
   },
 
   mounted() {
-    this.$parent.$refs['a-popup'] = this
-
     Object.assign(this.defaultOptions, getPropsValue(this, 'options'))
   },
 
   methods: {
-    open({ name, options = {}, data = {} } = {}) {
+    open(opt = {}) {
+      if (typeof opt === 'string') {
+        opt = { name: opt }
+      }
+
+      const { name, options = {}, data = {} } = opt
+
       if (
         this.items.indexOf(name) === -1 ||
         this.visibleSlots.findIndex(i => i.name === name) > -1
