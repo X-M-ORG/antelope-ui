@@ -37,7 +37,7 @@ export default {
 
   data() {
     return {
-      mixinBoxBackgroundImage: {
+      mBoxBackgroundImage: {
         loadPromiseReject: null,
         src: '',
         width: 0,
@@ -58,13 +58,13 @@ export default {
         ])
       }
 
-      if (this.mixinBoxBackgroundImage.src) {
-        style.backgroundImage = `url(${this.mixinBoxBackgroundImage.src})`
+      if (this.mBoxBackgroundImage.src) {
+        style.backgroundImage = `url(${this.mBoxBackgroundImage.src})`
         style.backgroundSize = '100% 100%'
 
         if (config.imageSizeAutoLoader) {
           const { imageTimes, imageSizeUnit } = config
-          const { width, height } = this.mixinBoxBackgroundImage
+          const { width, height } = this.mBoxBackgroundImage
 
           if (!style.width) {
             style.width = (width * imageTimes).toFixed(2) + imageSizeUnit
@@ -102,27 +102,6 @@ export default {
   setBackgroundImage 设置背景图的信息
 */
 function getBackgroundImageParams(vm, name) {
-  let suffix = getPropsValue(vm, 'status')
-
-  switch (suffix) {
-    case 1:
-    case true: {
-      suffix = ''
-      break
-    }
-    case 0:
-    case false: {
-      suffix = 'disabled'
-      break
-    }
-  }
-
-  if (suffix) {
-    let k = name.split('.')
-    k.splice(k.length - 1, 0, suffix)
-    name = k.join('.')
-  }
-
   let path
 
   if (vm.$route && vm.$route.meta && vm.$route.meta.aImagesMap) {
@@ -134,9 +113,9 @@ function getBackgroundImageParams(vm, name) {
   return { name, path }
 }
 function setBackgroundImage(vm) {
-  if (vm.mixinBoxBackgroundImage.loadPromiseReject) {
-    vm.mixinBoxBackgroundImage.loadPromiseReject()
-    vm.mixinBoxBackgroundImage.loadPromiseReject = null
+  if (vm.mBoxBackgroundImage.loadPromiseReject) {
+    vm.mBoxBackgroundImage.loadPromiseReject()
+    vm.mBoxBackgroundImage.loadPromiseReject = null
   }
 
   const {
@@ -148,24 +127,26 @@ function setBackgroundImage(vm) {
 
   if (backgroundImagePath) {
     if (!__BACKGROUND_LOAD_PROMISE[backgroundImageName]) {
-      __BACKGROUND_LOAD_PROMISE[backgroundImageName] = new Promise(resolve => {
-        let image = new Image()
-        image.src = backgroundImagePath
-        image.onload = () => resolve(image)
-      })
+      __BACKGROUND_LOAD_PROMISE[backgroundImageName] = new Promise(
+        (resolve) => {
+          let image = new Image()
+          image.src = backgroundImagePath
+          image.onload = () => resolve(image)
+        }
+      )
     }
 
     getImagePromise = __BACKGROUND_LOAD_PROMISE[backgroundImageName]
   }
 
   new Promise((resolve, reject) => {
-    vm.mixinBoxBackgroundImage.loadPromiseReject = reject
+    vm.mBoxBackgroundImage.loadPromiseReject = reject
 
     return getImagePromise.then(resolve)
   })
-    .then(image => {
-      if (vm.mixinBoxBackgroundImage.src !== image.src) {
-        Object.assign(vm.mixinBoxBackgroundImage, {
+    .then((image) => {
+      if (vm.mBoxBackgroundImage.src !== image.src) {
+        Object.assign(vm.mBoxBackgroundImage, {
           src: image.src,
           width: image.width,
           height: image.height

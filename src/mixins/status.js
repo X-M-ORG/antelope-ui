@@ -2,13 +2,13 @@
   混合组件状态
 
   属性:
-  status 状态
+  disabled 禁用
 */
 export default {
   props: {
-    status: {
-      type: [String, Number, Boolean],
-      default: 1
+    disabled: {
+      type: Boolean,
+      default: false
     }
   }
 }

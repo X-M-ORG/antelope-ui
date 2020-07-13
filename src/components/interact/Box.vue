@@ -46,7 +46,7 @@ export default {
 
   methods: {
     togglePopoverVisible() {
-      if (!this.status) {
+      if (this.disabled) {
         return
       }
 

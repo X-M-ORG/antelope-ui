@@ -15,36 +15,36 @@ const TOUCHEND_EVENT = isPhone ? 'touchend' : 'mouseup'
 export default {
   data() {
     return {
-      mixinEventTouchstart: () => {},
-      mixinEventTouchmove: () => {},
-      mixinEventTouchend: () => {},
-      mixinEventIsTouch: false,
-      mixinEventIsTap: false
+      mEventTouchstart: () => {},
+      mEventTouchmove: () => {},
+      mEventTouchend: () => {},
+      mEventIsTouch: false,
+      mEventIsTap: false
     }
   },
 
   mounted() {
-    this.mixinEventTouchstart = () => {
-      this.mixinEventIsTouch = this.mixinEventIsTap = true
+    this.mEventTouchstart = () => {
+      this.mEventIsTouch = this.mEventIsTap = true
     }
-    this.mixinEventTouchmove = () => {
-      this.mixinEventIsTap = false
+    this.mEventTouchmove = () => {
+      this.mEventIsTap = false
     }
-    this.mixinEventTouchend = () => {
-      if (this.mixinEventIsTap && getPropsValue(this, 'status')) {
+    this.mEventTouchend = () => {
+      if (this.mEventIsTap && !getPropsValue(this, 'disabled')) {
         this.$emit('a-tap')
       }
 
-      this.mixinEventIsTouch = this.mixinEventIsTap = false
+      this.mEventIsTouch = this.mEventIsTap = false
     }
 
-    this.$el.addEventListener(TOUCHSTART_EVENT, this.mixinEventTouchstart)
-    this.$el.addEventListener(TOUCHMOVE_EVENT, this.mixinEventTouchmove)
-    this.$el.addEventListener(TOUCHEND_EVENT, this.mixinEventTouchend)
+    this.$el.addEventListener(TOUCHSTART_EVENT, this.mEventTouchstart)
+    this.$el.addEventListener(TOUCHMOVE_EVENT, this.mEventTouchmove)
+    this.$el.addEventListener(TOUCHEND_EVENT, this.mEventTouchend)
   },
   destroyed() {
-    this.$el.removeEventListener(TOUCHSTART_EVENT, this.mixinEventTouchstart)
-    this.$el.removeEventListener(TOUCHMOVE_EVENT, this.mixinEventTouchmove)
-    this.$el.removeEventListener(TOUCHEND_EVENT, this.mixinEventTouchend)
+    this.$el.removeEventListener(TOUCHSTART_EVENT, this.mEventTouchstart)
+    this.$el.removeEventListener(TOUCHMOVE_EVENT, this.mEventTouchmove)
+    this.$el.removeEventListener(TOUCHEND_EVENT, this.mEventTouchend)
   }
 }

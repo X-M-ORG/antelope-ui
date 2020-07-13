@@ -31,10 +31,10 @@ export default {
       }
 
       if (style.backgroundImage) {
-        const { moveX, moveY, status } = getPropsValue(this, [
+        const { moveX, moveY, disabled } = getPropsValue(this, [
           'moveX',
           'moveY',
-          'status'
+          'disabled'
         ])
 
         if (moveX) {
@@ -43,7 +43,7 @@ export default {
           style.backgroundSize = style.width + ' auto'
         }
 
-        if (this.mixinEventIsTap && status) {
+        if (this.mEventIsTap && !disabled) {
           if (moveX) {
             style.backgroundPositionX = moveX
           } else if (moveY) {
