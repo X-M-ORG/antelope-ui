@@ -13,7 +13,7 @@ import position from '@/mixins/position'
 import event from '@/mixins/event'
 
 import getPropsValue from '@/utils/getPropsValue'
-import debounce from '@/utils/debounce'
+import debounce from 'lodash/debounce'
 
 export default {
   mixins: [status, box, position, event],

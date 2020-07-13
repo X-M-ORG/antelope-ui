@@ -1,6 +1,6 @@
 import { getTemplateValues } from '@/utils/createdTemplate'
 
-import quickPorps from '@/utils/quickPorps'
+import { quickPorps } from '@/utils/quickPorps'
 
 export default function getPropsValue(vm = {}, keys = []) {
   let values = [].concat(keys).reduce(
