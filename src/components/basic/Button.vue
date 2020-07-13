@@ -39,9 +39,7 @@ export default {
 
   computed: {
     buttonStyle() {
-      let style = {
-        ...this.mPositionStyle
-      }
+      let style = { ...this.mPositionStyle }
 
       if (style.backgroundImage) {
         let { moveX, moveY, direction, space, disabled } = getPropsValue(this, [
