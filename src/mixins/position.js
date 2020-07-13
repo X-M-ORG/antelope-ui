@@ -37,7 +37,7 @@ export default {
       type: String
     },
     center: {
-      type: [String, Boolean]
+      type: String
     }
   }),
 
