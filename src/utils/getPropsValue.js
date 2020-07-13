@@ -1,4 +1,4 @@
-import { getTemplateValues } from '@/utils/createdTemplate'
+import { getTemplateValues } from '@/tools/createdTemplate'
 
 import { quickPorps } from '@/utils/quickPorps'
 

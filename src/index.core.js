@@ -1,7 +1,7 @@
 import config from './config'
 
-import getImagesMap from './utils/getImagesMap'
-import createdTemplate from './utils/createdTemplate'
+import getImagesMap from './tools/getImagesMap'
+import createdTemplate from './tools/createdTemplate'
 
 import Section from './components/basic/Section'
 import Sections from './components/basic/Sections'
@@ -44,7 +44,7 @@ export default {
       return
     }
 
-    Object.keys(options).forEach(k => {
+    Object.keys(options).forEach((k) => {
       config[k] = options[k]
     })
 
@@ -65,7 +65,7 @@ export default {
       Box
     }
 
-    Object.keys(components).forEach(key => {
+    Object.keys(components).forEach((key) => {
       Vue.component(config.componentPrefix + key, components[key])
     })
 
