@@ -26,6 +26,7 @@ export default {
   mounted() {
     this.mEventTouchstart = () => {
       this.mEventIsTouch = this.mEventIsTap = true
+      this.$el.classList.add('on-touch')
     }
     this.mEventTouchmove = () => {
       this.mEventIsTap = false
@@ -36,6 +37,7 @@ export default {
       }
 
       this.mEventIsTouch = this.mEventIsTap = false
+      this.$el.classList.remove('on-touch')
     }
 
     this.$el.addEventListener(TOUCHSTART_EVENT, this.mEventTouchstart)
