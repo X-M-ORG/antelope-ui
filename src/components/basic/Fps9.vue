@@ -14,7 +14,7 @@ export default {
   computed: {
     fps9Style() {
       return {
-        ...this.mixinPositionStyle,
+        ...this.mPositionStyle,
         backgroundSize: '300% 300%'
       }
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="a-num-slider" :style="mixinPositionStyle">
+  <div class="a-num-slider" :style="mPositionStyle">
     <div class="item" v-for="item of 10" :key="item" :class="{ 'slider-in': (item-1) === inValue, 'slider-out': (item-1) === outValue }">{{ item - 1 }}</div>
   </div>
 </template>

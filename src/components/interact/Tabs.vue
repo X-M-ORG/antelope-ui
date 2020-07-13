@@ -37,7 +37,7 @@ export default {
     tabsStyle() {
       return {
         overflow: 'hidden',
-        ...this.mixinPositionStyle
+        ...this.mPositionStyle
       }
     }
   },

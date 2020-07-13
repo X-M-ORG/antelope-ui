@@ -29,7 +29,7 @@ export default {
     listStyle() {
       return {
         overflow: 'hidden',
-        ...this.mixinPositionStyle
+        ...this.mPositionStyle
       }
     },
 

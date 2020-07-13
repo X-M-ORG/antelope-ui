@@ -1,5 +1,5 @@
 <template>
-  <div :style="mixinPositionStyle">
+  <div :style="mPositionStyle">
     <a-section v-bind="contentAttr" @a-tap="togglePopoverVisible">
       <slot name="content"></slot>
     </a-section>

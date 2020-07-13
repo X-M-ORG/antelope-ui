@@ -38,7 +38,7 @@ export default {
         height: '100%',
         width: '100%',
         overflow: 'hidden',
-        ...this.mixinPositionStyle
+        ...this.mPositionStyle
       }
     }
   },

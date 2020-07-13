@@ -27,7 +27,7 @@ export default {
   computed: {
     buttonStyle() {
       let style = {
-        ...this.mixinPositionStyle
+        ...this.mPositionStyle
       }
 
       if (style.backgroundImage) {

@@ -31,7 +31,7 @@ export default {
   computed: {
     spriteStyle() {
       let style = {
-        ...this.mixinPositionStyle
+        ...this.mPositionStyle
       }
 
       if (style.backgroundImage) {

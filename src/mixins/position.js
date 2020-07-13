@@ -22,7 +22,7 @@ export default {
       type: String
     },
     zIndex: {
-      type: String
+      type: [String, Number]
     },
     top: {
       type: String
@@ -37,28 +37,28 @@ export default {
       type: String
     },
     center: {
-      type: String
+      type: [String, Boolean]
     }
   }),
 
   computed: {
-    mixinPositionStyle() {
+    mPositionStyle() {
       let style = {
-        ...this.mBoxStyle
+        ...this.mBoxStyle,
+        ...getPropsValue(this, [
+          'center',
+          'zIndex',
+          'top',
+          'bottom',
+          'left',
+          'right'
+        ])
       }
 
       const position = getPropsValue(this, 'position')
-      const positionP = getPropsValue(this, [
-        'center',
-        'zIndex',
-        'top',
-        'bottom',
-        'left',
-        'right'
-      ])
 
-      if (typeof position !== 'undefined' || Object.keys(positionP).length) {
-        style = { ...style, ...positionP, position: position || 'absolute' }
+      if (typeof position !== 'undefined') {
+        style.position = position || 'absolute'
 
         if (
           typeof style.top !== 'undefined' &&
