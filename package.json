@@ -39,6 +39,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
+    "better-scroll": "^1.15.2",
     "lodash": "^4.17.19",
     "svgaplayerweb": "^2.3.0"
   }

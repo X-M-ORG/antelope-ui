@@ -1,27 +1,48 @@
 <template>
   <div :style="listStyle">
-    <div :style="contentStyle" @scroll="scroll">
+    <div>
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
+import BScroll from 'better-scroll'
+
 import status from '@/mixins/status'
 import box from '@/mixins/box'
 import position from '@/mixins/position'
 import event from '@/mixins/event'
 
-import getPropsValue from '@/utils/getPropsValue'
-import debounce from 'lodash/debounce'
+const BScrollEvents = [
+  'beforeScrollStart',
+  'scrollStart',
+  'scroll',
+  'scrollCancel',
+  'scrollEnd',
+  'touchEnd',
+  'flick',
+  'refresh',
+  'destroy',
+  'pullingDown',
+  'pullingUp',
+  'zoomStart',
+  'zoomEnd'
+]
 
 export default {
   mixins: [status, box, position, event],
 
   props: {
-    direction: {
-      type: String,
-      default: 'y'
+    options: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+
+  data() {
+    return {
+      scroll: null
     }
   },
 
@@ -31,38 +52,24 @@ export default {
         overflow: 'hidden',
         ...this.mPositionStyle
       }
-    },
-
-    contentStyle() {
-      let d = getPropsValue(this, 'direction')
-      return {
-        height: '100%',
-        width: '100%',
-        boxSizing: 'content-box',
-        [`padding-${d === 'y' ? 'right' : 'bottom'}`]: '0.2rem',
-        [`overflow-${d === 'y' ? 'x' : 'y'}`]: 'hidden',
-        [`overflow-${d}`]: 'scroll'
-      }
     }
   },
 
-  methods: {
-    scroll: debounce(function(e) {
-      const d = getPropsValue(this, 'direction')
+  mounted() {
+    this.$nextTick(() => {
+      this.scroll = new BScroll(this.$el, this.options)
 
-      if (d === 'y') {
-        const { offsetHeight, scrollHeight, scrollTop } = e.target
+      Object.keys(this.$listeners).forEach(name => {
+        const evnet = BScrollEvents.find(
+          i =>
+            i.toLocaleLowerCase() === name.replace(/-/g, '').toLocaleLowerCase()
+        )
 
-        if (offsetHeight + scrollTop + 100 > scrollHeight) {
-          this.$emit('scroll-end')
+        if (evnet) {
+          this.scroll.on(evnet, this.$listeners[name])
         }
-      } else {
-        const { offsetWidth, scrollWidth, scrollLeft } = e.target
-        if (offsetWidth + scrollLeft + 100 > scrollWidth) {
-          this.$emit('scroll-end')
-        }
-      }
-    }, 300)
+      })
+    })
   }
 }
 </script>
