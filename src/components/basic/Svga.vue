@@ -1,5 +1,5 @@
 <template>
-  <div class="a-svga" :style="mPositionStyle" :id="id"></div>
+  <div :style="mPositionStyle" :id="id"></div>
 </template>
 
 <script>
@@ -11,6 +11,16 @@ import position from '@/mixins/position'
 import event from '@/mixins/event'
 
 import getPropsValue from '@/utils/getPropsValue'
+
+const ANTELOPE_SVGA_MAP = 'ANTELOPE_SVGA_MAP'
+
+if (!window[ANTELOPE_SVGA_MAP]) {
+  window[ANTELOPE_SVGA_MAP] = {
+    id: 0,
+    queue: Promise.resolve(),
+    videos: {}
+  }
+}
 
 export default {
   mixins: [status, box, position, event],
@@ -35,18 +45,10 @@ export default {
   },
 
   mounted() {
-    if (!window.__SVGA_DATA) {
-      window.__SVGA_DATA = {
-        id: 0,
-        queue: Promise.resolve(),
-        videos: {}
-      }
-    }
-
     const url = getPropsValue(this, 'url')
 
     if (url) {
-      this.id += ++window.__SVGA_DATA.id
+      this.id += ++window[ANTELOPE_SVGA_MAP].id
 
       this.$nextTick(() => {
         this.loadSvgaAnimation(`#${this.id}`, url)
@@ -56,9 +58,9 @@ export default {
 
   methods: {
     loadSvgaAnimation(id, url) {
-      let { queue, videos } = window.__SVGA_DATA
+      let { queue, videos } = window[ANTELOPE_SVGA_MAP]
 
-      window.__SVGA_DATA.queue = queue.then(
+      window[ANTELOPE_SVGA_MAP].queue = queue.then(
         () =>
           new Promise(r => {
             setTimeout(() => {
@@ -70,7 +72,7 @@ export default {
                     new SVGA.Parser(id).load(
                       url,
                       videoItem => {
-                        window.__SVGA_DATA.videos[url] = videoItem
+                        window[ANTELOPE_SVGA_MAP].videos[url] = videoItem
 
                         resolve(videoItem)
                       },
@@ -87,7 +89,7 @@ export default {
                 this.$emit('load-success')
                 r()
               })
-            }, 20)
+            }, 10)
           })
       )
     }
