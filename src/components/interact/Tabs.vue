@@ -1,5 +1,5 @@
 <template>
-  <div :style="tabsStyle">
+  <div :style="mPositionStyle">
     <a-section v-for="name in items" :key="name" v-bind="active === name ? {} : positionParams">
       <slot :name="name"></slot>
     </a-section>
@@ -30,15 +30,6 @@ export default {
     items: {
       type: Array,
       default: () => []
-    }
-  },
-
-  computed: {
-    tabsStyle() {
-      return {
-        overflow: 'hidden',
-        ...this.mPositionStyle
-      }
     }
   },
 
