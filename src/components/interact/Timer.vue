@@ -56,17 +56,17 @@ export default {
       const s = Math.ceil(all - H * 3600 - m * 60)
 
       return {
-        all,
-        dd: d < 10 ? `0${d}` : d,
-        HH: H < 10 ? `0${H}` : H,
-        hh: h < 10 ? `0${h}` : h,
-        mm: m < 10 ? `0${m}` : m,
-        ss: s < 10 ? `0${s}` : s,
-        d,
-        H,
-        h,
-        m,
-        s
+        all: String(all),
+        dd: d < 10 ? `0${d}` : String(d),
+        HH: H < 10 ? `0${H}` : String(H),
+        hh: h < 10 ? `0${h}` : String(h),
+        mm: m < 10 ? `0${m}` : String(m),
+        ss: s < 10 ? `0${s}` : String(s),
+        d: String(d),
+        H: String(H),
+        h: String(h),
+        m: String(m),
+        s: String(s)
       }
     }
   },
