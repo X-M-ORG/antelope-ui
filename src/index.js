@@ -6,7 +6,7 @@ import createdTemplate from './tools/createdTemplate'
 import Section from './components/basic/Section'
 import Sections from './components/basic/Sections'
 import Position from './components/basic/Position'
-import List from './components/basic/List'
+import Scroll from './components/basic/Scroll'
 import Svga from './components/basic/Svga'
 import Fps9 from './components/basic/Fps9'
 import Sprite from './components/basic/Sprite'
@@ -24,7 +24,7 @@ export {
   Section,
   Sections,
   Position,
-  List,
+  Scroll,
   Svga,
   Fps9,
   Sprite,
@@ -54,7 +54,7 @@ export default {
       Section,
       Sections,
       Position,
-      List,
+      Scroll,
       Svga,
       Fps9,
       Sprite,
