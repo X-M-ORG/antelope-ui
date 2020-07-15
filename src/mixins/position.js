@@ -45,20 +45,23 @@ export default {
     mPositionStyle() {
       let style = {
         ...this.mBoxStyle,
-        ...getPropsValue(this, [
-          'center',
-          'zIndex',
-          'top',
-          'bottom',
-          'left',
-          'right'
-        ])
+        ...getPropsValue(this, ['zIndex'])
       }
 
       const position = getPropsValue(this, 'position')
+      const autoActive = getPropsValue(this, [
+        'top',
+        'bottom',
+        'left',
+        'right',
+        'center'
+      ])
 
-      if (typeof position !== 'undefined') {
-        style.position = position || 'absolute'
+      if (
+        typeof position !== 'undefined' ||
+        JSON.stringify(autoActive) !== '{}'
+      ) {
+        style = { ...style, position: position || 'absolute', ...autoActive }
 
         if (
           typeof style.top !== 'undefined' &&
