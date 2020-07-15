@@ -1,6 +1,6 @@
 <template>
   <div :style="mPositionStyle">
-    <slot v-if="timeSecond > 0" name="wait" :time="timePrams"></slot>
+    <slot v-if="timer.sec > 0" name="wait" :data="timeData"></slot>
     <slot v-else name="arrival"></slot>
   </div>
 </template>
@@ -15,6 +15,7 @@ export default {
   mixins: [status, box, position, event],
 
   props: {
+    // 方式1：设定开始和结束
     start: {
       type: [String, Number, Date],
       default: ''
@@ -24,16 +25,49 @@ export default {
       default: ''
     },
 
-    second: {
+    // 方式2：设定固定时间的倒计时，单位 ms
+    sec: {
       type: [String, Number],
       default: ''
+    },
+
+    // 允许手动控制倒计时
+    manual: {
+      type: [Boolean, Number, String]
     }
   },
 
   data() {
     return {
-      timer: 0,
-      timeSecond: Number(this.second)
+      timer: {
+        id: 0,
+        sec: 0
+      }
+    }
+  },
+
+  computed: {
+    timeData() {
+      const all = this.timer.sec / 1000
+      const H = Math.floor(all / 3600)
+      const d = H > 23 ? Math.floor(H / 24) : 0
+      const h = H > 23 ? H % 24 : H
+      const m = Math.floor(all / 60) - H * 60
+      const s = Math.ceil(all - H * 3600 - m * 60)
+
+      return {
+        all,
+        dd: d < 10 ? `0${d}` : d,
+        HH: H < 10 ? `0${H}` : H,
+        hh: h < 10 ? `0${h}` : h,
+        mm: m < 10 ? `0${m}` : m,
+        ss: s < 10 ? `0${s}` : s,
+        d,
+        H,
+        h,
+        m,
+        s
+      }
     }
   },
 
@@ -44,23 +78,8 @@ export default {
     end() {
       this.initTimer()
     },
-    second() {
+    sec() {
       this.initTimer()
-    }
-  },
-
-  computed: {
-    timePrams() {
-      let all = this.timeSecond / 1000
-      let h = Math.floor(all / 3600)
-      let m = Math.floor(all / 60) - h * 60
-      let s = Math.ceil(all - h * 3600 - m * 60)
-
-      h = h < 10 ? `0${h}` : h
-      m = m < 10 ? `0${m}` : m
-      s = s < 10 ? `0${s}` : s
-
-      return { h, m, s, all }
     }
   },
 
@@ -73,35 +92,36 @@ export default {
       if (this.start && this.end) {
         const start = new Date(this.start).getTime()
         const end = new Date(this.end).getTime()
-        this.timeSecond = end - start
-      } else if (this.second) {
-        this.timeSecond = Number(this.second)
+        this.timer.sec = end - start
+      } else if (this.sec) {
+        this.timer.sec = Number(this.sec)
       } else {
         return
       }
 
-      if (this.timeSecond) {
-        if (this.timeSecond > 0) {
-          this.timer && clearInterval(this.timer)
-          this.startTimer()
-        } else {
-          this.$emit('timer-end')
-        }
+      if (this.timer.sec > 0) {
+        this.timer.id && clearInterval(this.timer.id)
+        this.timer.id = 0
+
+        this.manual || this.countdownStart()
+      } else {
+        this.$emit('countdown-over')
       }
     },
 
-    startTimer() {
-      if (this.timeSecond > 0) {
-        this.timeSecond -= 1000
+    countdownStart() {
+      if (this.timer.sec > 0) {
+        this.timer.sec -= 1000
       }
-      this.timer = setInterval(() => {
-        this.timeSecond -= 1000
-        this.$emit('timer-reduce', this.timeSecond)
 
-        if (this.timeSecond <= 0) {
-          clearInterval(this.timer)
-          this.timer = 0
-          this.$emit('timer-end')
+      this.timer.id = setInterval(() => {
+        this.timer.sec -= 1000
+        this.$emit('timer-reduce', this.timer.sec)
+
+        if (this.timer.sec <= 0) {
+          this.timer.id && clearInterval(this.timer.id)
+          this.timer.id = 0
+          this.$emit('countdown-over')
         }
       }, 1000)
     }
