@@ -1,9 +1,10 @@
 <template>
-  <a-position :class="{ active: active, visible: visible }" class="a-popup" position="fixed" z-index="100" top="0" bottom="0" left="0" right="0">
-    <a-position v-for="bg in iBg" :key="bg.name + '-bg'" :z-index="bg.zIndex" top="0" bottom="0" left="0" right="0" background-color="rgba(0,0,0,0.7)" @a-tap="bg.bgClose ? close() : null"></a-position>
-
-    <a-position class="a-popup-item" v-bind="slot.position" v-for="slot in iSlots" :key="slot.name" :class="{ active: slot.active }">
-      <slot :name="slot.name" :active="slot.active" :data="slot.data"></slot>
+  <a-position class="popup" :class="{ active: active, visible: visible }" position="fixed" z-index="1000" top="0" bottom="0" left="0" right="0">
+    <a-position v-for="slot in iSlots" :key="'popup-item-' + slot.name" class="popup-item" :class="{ active: slot.active }" :z-index="slot.activeIndex" top="0" bottom="0" left="0" right="0">
+      <a-position z-index="1" top="0" bottom="0" left="0" right="0" background-color="rgba(0,0,0,0.7)" @a-tap="slot.options.bgClose ? close(slot.name) : null"></a-position>
+      <a-position z-index="2" v-bind="slot.position">
+        <slot :name="slot.name" :active="slot.active" :data="slot.data"></slot>
+      </a-position>
     </a-position>
   </a-position>
 </template>
@@ -43,59 +44,45 @@ export default {
       // 初始属性
       defaultOptions: {
         bgClose: false,
-        zIndex: '2',
+        zIndex: 1,
         top: '50%',
         left: '50%',
-        center: '1'
+        center: 'x+y'
       },
 
       // 已开启的
-      visibleSlots: []
+      activeSlots: []
     }
   },
 
   computed: {
     iSlots() {
       return this.items.reduce((slots, name) => {
-        // 若已开启则取已有的数据
-        const visibleIndex = this.visibleSlots.findIndex(i => i.name === name)
-        const visibleInfo = this.visibleSlots[visibleIndex] || null
+        // 若已开启则取已有的参数
+        const activeIndex = this.activeSlots.findIndex(i => i.name === name)
+        const activeData = this.activeSlots[activeIndex]
         const options = {
           ...this.defaultOptions,
-          ...(visibleInfo ? visibleInfo.options : {})
-        }
-
-        // 根据激活情况确定定位
-        let position = { top: '0', left: '150%' }
-        if (visibleInfo) {
-          Object.assign(
-            position,
-            { zIndex: String(10 + visibleIndex * 10) },
-            getPropsValue(options, ['top', 'left', 'center'])
-          )
+          ...(activeData ? activeData.options : {})
         }
 
         slots.push({
-          active: !!visibleInfo,
+          activeIndex,
+          active: activeData ? activeData.active : false,
           name,
           options,
-          position,
-          data: visibleInfo ? visibleInfo.data : {}
+          position: {
+            top: '0',
+            left: '150%',
+            ...(activeData
+              ? getPropsValue(options, ['top', 'left', 'center'])
+              : {})
+          },
+          data: activeData ? activeData.data : undefined
         })
 
         return slots
       }, [])
-    },
-
-    iBg() {
-      return this.visibleSlots.map(({ name }) => {
-        let { options, position } = this.iSlots.find(i => i.name === name)
-        return {
-          name,
-          bgClose: options.bgClose,
-          zIndex: String(Number(position.zIndex) - 1)
-        }
-      })
     }
   },
 
@@ -109,85 +96,82 @@ export default {
         opt = { name: opt }
       }
 
-      const { name, options = {}, data = {} } = opt
+      const { name, options = {}, data } = opt
 
       if (
         this.items.indexOf(name) === -1 ||
-        this.visibleSlots.findIndex(i => i.name === name) > -1
+        this.activeSlots.findIndex(i => i.name === name) > -1
       ) {
         return
       }
 
-      this.active = this.visible = true
-      this.visibleSlots.push({
-        name,
-        options: getPropsValue(options, [
-          'bgClose',
-          'zIndex',
-          'top',
-          'left',
-          'center'
-        ]),
-        data
-      })
-
       return new Promise(r => {
+        this.active = this.visible = true
+
+        this.activeSlots.push({
+          active: true,
+          name,
+          options,
+          data
+        })
+
         setTimeout(() => {
           r()
-        }, 1000)
+        }, 300)
       })
     },
 
     close(names = []) {
-      names = [].concat(names)
+      names = []
+        .concat(names)
+        .filter(
+          name =>
+            this.items.indexOf(name) > -1 &&
+            this.activeSlots.findIndex(i => i.name === name) > -1
+        )
 
       if (!names.length) {
-        names = this.visibleSlots.map(i => i.name)
+        names = this.activeSlots.map(i => i.name)
       }
 
-      names = names.filter(
-        name =>
-          this.items.indexOf(name) > -1 &&
-          this.visibleSlots.findIndex(i => i.name === name) > -1
-      )
-
-      if (!names.length) {
-        return
-      }
-
-      // 若将关闭的和剩余的一致，则留在动画结束后关闭
-      if (this.visibleSlots.length === names.length) {
-        return new Promise(r => {
+      return new Promise(r => {
+        // 若将关闭的和剩余的一致，则留在动画结束后关闭
+        if (this.activeSlots.length === names.length) {
           this.active = false
 
           setTimeout(() => {
             this.visible = false
-            this.$set(this, 'visibleSlots', [])
+            this.$set(this, 'activeSlots', [])
             r()
           }, 300)
-        })
-      } else {
-        this.$set(
-          this,
-          'visibleSlots',
-          this.visibleSlots.filter(({ name }) => names.find(i => i !== name))
-        )
-        return new Promise(r => {
+        } else {
+          names.forEach(name => {
+            const index = this.activeSlots.findIndex(i => i.name === name)
+            if (index > -1) {
+              this.activeSlots[index].active = false
+            }
+          })
+
           setTimeout(() => {
+            this.$set(
+              this,
+              'activeSlots',
+              this.activeSlots.filter(({ name }) => names.find(i => i !== name))
+            )
             r()
           }, 300)
-        })
-      }
+        }
+      })
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-.a-popup {
-  transform: translateX(150%);
+.popup {
   pointer-events: none;
   opacity: 0;
+  transform: translateX(200%);
   transition: opacity 0.3s linear;
 
   &.visible {
@@ -199,7 +183,7 @@ export default {
     opacity: 1;
   }
 
-  .a-popup-item {
+  .popup-item {
     opacity: 0;
     transition: opacity 0.3s linear;
 
