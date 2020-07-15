@@ -35,8 +35,6 @@ export default {
   computed: {
     bulletStyle() {
       return {
-        height: '100%',
-        width: '100%',
         overflow: 'hidden',
         ...this.mPositionStyle
       }
@@ -134,6 +132,10 @@ export default {
   right: 0;
   white-space: nowrap;
   transform: translateX(100%);
+
+  .bullet-item {
+    display: inline-block;
+  }
 
   &.move {
     animation: bulletMove linear 1;

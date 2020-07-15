@@ -17,7 +17,7 @@ import Timer from './components/interact/Timer'
 import Roulette from './components/interact/Roulette'
 import Tabs from './components/interact/Tabs'
 import NumSlider from './components/interact/NumSlider'
-import Box from './components/interact/Box'
+import Popover from './components/interact/Popover'
 
 export {
   Section,
@@ -33,7 +33,7 @@ export {
   Roulette,
   Tabs,
   NumSlider,
-  Box
+  Popover
 }
 
 let installed = false
@@ -62,7 +62,7 @@ export default {
       Roulette,
       Tabs,
       NumSlider,
-      Box
+      Popover
     }
 
     Object.keys(components).forEach((key) => {
