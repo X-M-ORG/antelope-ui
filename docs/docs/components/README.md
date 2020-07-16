@@ -25,7 +25,7 @@
 - [Svga 道具块，加载 svga 动画](docs/components/basic/Svga.md)
 - [Fps9 九帧图，加载九帧图动画](docs/components/basic/Fps9.md)
 - [Sprite 雪碧图，加载特殊数字或图案](docs/components/basic/Sprite.md)
-- [List 列表块，加载长列表，常用于隐藏滚动条](docs/components/basic/List.md)
+- [Scroll 滚动块，一般用于长列表](docs/components/basic/Scroll.md)
 
 #### 交互组件
 
@@ -36,5 +36,5 @@
 - [Timer 计时器，常用于倒计时](docs/components/interact/Timer.md)
 - [Roulette 轮盘，转盘抽奖效果](docs/components/interact/Roulette.md)
 - [Tabs 标签页，切换控制标签](docs/components/interact/Tabs.md)
-- [NumSlider 滑动数字，切换数字的显示](docs/components/interact/NumSlider.md)
-- [Box 盒子，用于礼盒道具的基本显示和内容显隐控制](docs/components/interact/Box.md)
+- [Slider 滑动块，用于内容的上下滑动显示](docs/components/interact/Slider.md)
+- [Popover 弹出口，用于礼盒道具的基本显示和内容显隐控制](docs/components/interact/Popover.md)

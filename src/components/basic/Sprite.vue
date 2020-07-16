@@ -31,11 +31,11 @@ export default {
   computed: {
     spriteStyle() {
       let style = {
-        ...this.mixinPositionStyle
+        ...this.mPositionStyle
       }
 
       if (style.backgroundImage) {
-        const { width, height } = this.mixinBoxBackgroundImage
+        const { width, height } = this.mBoxBackgroundImage
         style.backgroundSize = [
           (width * config.imageTimes).toFixed(2) + config.imageSizeUnit,
           (height * config.imageTimes).toFixed(2) + config.imageSizeUnit

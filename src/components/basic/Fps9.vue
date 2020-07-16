@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import config from '@/config'
+
 import status from '@/mixins/status'
 import box from '@/mixins/box'
 import position from '@/mixins/position'
@@ -13,10 +15,21 @@ export default {
 
   computed: {
     fps9Style() {
-      return {
-        ...this.mixinPositionStyle,
-        backgroundSize: '300% 300%'
+      let style = { ...this.mPositionStyle }
+
+      if (style.backgroundImage) {
+        if (!style.width && !style.height) {
+          const { imageTimes, imageSizeUnit } = config
+          const getSize = n => (n * imageTimes).toFixed(2) + imageSizeUnit
+
+          style.width = getSize(this.mBoxBackgroundImage.width / 3)
+          style.height = getSize(this.mBoxBackgroundImage.height / 3)
+        }
+
+        style.backgroundSize = '300% 300%'
       }
+
+      return style
     }
   }
 }

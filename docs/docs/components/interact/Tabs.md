@@ -16,19 +16,28 @@
 
 ### 示例
 
-```html
-<a-tabs :active="tabActive" :items="['tab1', 'tab2']">
-  <a-section slot="tab1">tab1</a-section>
-  <a-section slot="tab2">tab2(默认显示)</a-section>
-</a-tabs>
+<vuep template="#example" :options="{ theme: 'neo' }"></vuep>
+
+<script v-pre type="text/x-template" id="example">
+<template>
+  <a-section w="250px" h="200px" bg-c="#ddd">
+    <a-section @a-tap="tabActive = 'tab1'">切换至 tab1</a-section>
+    <a-section @a-tap="tabActive = 'tab2'">切换至 tab2</a-section>
+
+    <a-tabs :active="tabActive" :items="['tab1', 'tab2']">
+      <a-section slot="tab1" bg-c="red">tab1</a-section>
+      <a-section slot="tab2" bg-c="blue">tab2</a-section>
+    </a-tabs>
+  </a-section>
+</template>
 
 <script>
   export default {
     data() {
       return {
-        tabActive: 'tab2'
+        tabActive: 'tab1'
       }
     }
   }
 </script>
-```
+</script>

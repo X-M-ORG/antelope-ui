@@ -1,5 +1,5 @@
 <template>
-  <div :style="mixinPositionStyle">
+  <div :style="mPositionStyle">
     <a-section v-bind="contentAttr" @a-tap="togglePopoverVisible">
       <slot name="content"></slot>
     </a-section>
@@ -15,6 +15,12 @@ import status from '@/mixins/status'
 import box from '@/mixins/box'
 import position from '@/mixins/position'
 import event from '@/mixins/event'
+
+const isPhone = navigator.userAgent.match(
+  /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+)
+
+const TOUCHSTART_EVENT = isPhone ? 'touchstart' : 'mousedown'
 
 export default {
   mixins: [status, box, position, event],
@@ -39,14 +45,14 @@ export default {
 
   mounted() {
     this.$el.addEventListener(
-      'touchstart',
+      TOUCHSTART_EVENT,
       e => this.visible && e.stopPropagation()
     )
   },
 
   methods: {
     togglePopoverVisible() {
-      if (!this.status) {
+      if (this.disabled) {
         return
       }
 
@@ -56,7 +62,7 @@ export default {
         this.visible = true
 
         window.addEventListener(
-          'touchstart',
+          TOUCHSTART_EVENT,
           () => {
             this.visible = false
           },

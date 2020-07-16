@@ -1,12 +1,14 @@
-import clone from '@/utils/clone'
+import clone from 'lodash/clone'
 
-const quickPorps = {
+const boxQuickPorps = {
   template: 'tpl',
   width: 'w',
   height: 'h',
   backgroundColor: 'bgC',
-  backgroundImage: 'bgI',
+  backgroundImage: 'bgI'
+}
 
+const positionQuickPorps = {
   position: 'p',
   zIndex: 'pz',
   top: 'pt',
@@ -16,15 +18,15 @@ const quickPorps = {
   center: 'pc'
 }
 
-export default quickPorps
+export const quickPorps = {
+  ...boxQuickPorps,
+  ...positionQuickPorps
+}
 
-export function createQuickPorps(obj) {
-  let props = {}
-  Object.keys(obj).forEach(key => {
-    props[key] = clone(obj[key])
-
+export function createQuickPorps(props) {
+  Object.keys(props).forEach((key) => {
     if (quickPorps[key]) {
-      props[quickPorps[key]] = clone(obj[key])
+      props[quickPorps[key]] = clone(props[key])
     }
   })
 

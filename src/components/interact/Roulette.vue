@@ -1,10 +1,8 @@
 <template>
-  <div :style="mixinPositionStyle">
-    <a-position v-for="(item, index) in cItems" :key="index" v-bind="item.style">
-      <slot :index="item.index" :active="item.active" :data="item.data"></slot>
+  <div :style="mPositionStyle">
+    <a-position v-for="(item, index) in iItems" :key="index" v-bind="item.style">
+      <slot :index="item.index" :active="item.active"></slot>
     </a-position>
-
-    <audio ref="audio" v-if="audio" :src="audio" preload="auto"></audio>
   </div>
 </template>
 
@@ -34,24 +32,18 @@ export default {
     options: {
       type: Object,
       default: () => ({})
-    },
-
-    audio: {
-      type: String,
-      default: ''
     }
   },
 
   computed: {
-    cItems() {
-      return this.items.map((item, index) => ({
+    iItems() {
+      return this.items.map((position, index) => ({
         index,
         active: index === this.activeIndex,
         style: {
           ...this.options,
-          ...item.position
-        },
-        data: item.data || {}
+          ...position
+        }
       }))
     },
 
@@ -84,17 +76,12 @@ export default {
   },
 
   methods: {
-    run({ steps = this.items.length, result = 0, options = {} }) {
+    run({ steps = this.items.length, result = 0, options = {} } = {}) {
       this.$set(
         this,
         'activeOptions',
         getPropsValue(options, ['func', 'maxSpeed', 'minSpeed', 'toMaxStep'])
       )
-
-      if (this.$refs.audio) {
-        this.$refs.audio.currentTime = 0
-        this.$refs.audio.play()
-      }
 
       return this.jumpMain(this.getTotalSteps({ steps, result }))
     },

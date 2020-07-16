@@ -37,7 +37,7 @@ export default {
 
   data() {
     return {
-      mixinBoxBackgroundImage: {
+      mBoxBackgroundImage: {
         loadPromiseReject: null,
         src: '',
         width: 0,
@@ -47,7 +47,7 @@ export default {
   },
 
   computed: {
-    mixinBoxStyle() {
+    mBoxStyle() {
       let style = {
         position: 'relative',
         ...getPropsValue(this, [
@@ -58,13 +58,13 @@ export default {
         ])
       }
 
-      if (this.mixinBoxBackgroundImage.src) {
-        style.backgroundImage = `url(${this.mixinBoxBackgroundImage.src})`
+      if (this.mBoxBackgroundImage.src) {
+        style.backgroundImage = `url(${this.mBoxBackgroundImage.src})`
         style.backgroundSize = '100% 100%'
 
         if (config.imageSizeAutoLoader) {
           const { imageTimes, imageSizeUnit } = config
-          const { width, height } = this.mixinBoxBackgroundImage
+          const { width, height } = this.mBoxBackgroundImage
 
           if (!style.width) {
             style.width = (width * imageTimes).toFixed(2) + imageSizeUnit
@@ -85,9 +85,6 @@ export default {
     },
     bgI() {
       setBackgroundImage(this)
-    },
-    status() {
-      setBackgroundImage(this)
     }
   },
 
@@ -97,75 +94,56 @@ export default {
 }
 
 /*
-  尽可能减少混合的方法，所以写成工具函数
-  getBackgroundImageParams 获取背景图的参数，根据 status 进行处理，返回 name 和 path
+  尽可能减少混入的方法，所以写成工具函数
+  getBackgroundImageParams 获取背景图的参数，根据 status 进行处理，返回 name 和 file
   setBackgroundImage 设置背景图的信息
 */
 function getBackgroundImageParams(vm, name) {
-  let suffix = getPropsValue(vm, 'status')
-
-  switch (suffix) {
-    case 1:
-    case true: {
-      suffix = ''
-      break
-    }
-    case 0:
-    case false: {
-      suffix = 'disabled'
-      break
-    }
-  }
-
-  if (suffix) {
-    let k = name.split('.')
-    k.splice(k.length - 1, 0, suffix)
-    name = k.join('.')
-  }
-
-  let path
+  let file
 
   if (vm.$route && vm.$route.meta && vm.$route.meta.aImagesMap) {
-    path = vm.$route.meta.aImagesMap[name] || name
+    file = vm.$route.meta.aImagesMap[name] || name
   } else {
-    path = name
+    file = name
   }
 
-  return { name, path }
+  return { name, file }
 }
 function setBackgroundImage(vm) {
-  if (vm.mixinBoxBackgroundImage.loadPromiseReject) {
-    vm.mixinBoxBackgroundImage.loadPromiseReject()
-    vm.mixinBoxBackgroundImage.loadPromiseReject = null
+  if (vm.mBoxBackgroundImage.loadPromiseReject) {
+    vm.mBoxBackgroundImage.loadPromiseReject()
+    vm.mBoxBackgroundImage.loadPromiseReject = null
   }
 
   const {
     name: backgroundImageName,
-    path: backgroundImagePath
+    file: backgroundImageFile
   } = getBackgroundImageParams(vm, getPropsValue(vm, 'backgroundImage'))
 
   let getImagePromise = Promise.resolve({ src: '', width: 0, height: 0 })
 
-  if (backgroundImagePath) {
+  if (backgroundImageFile) {
     if (!__BACKGROUND_LOAD_PROMISE[backgroundImageName]) {
-      __BACKGROUND_LOAD_PROMISE[backgroundImageName] = new Promise(resolve => {
-        let image = new Image()
-        image.src = backgroundImagePath
-        image.onload = () => resolve(image)
-      })
+      __BACKGROUND_LOAD_PROMISE[backgroundImageName] = new Promise(
+        (resolve) => {
+          let image = new Image()
+          image.src = backgroundImageFile
+          image.onload = () => resolve(image)
+        }
+      )
     }
 
     getImagePromise = __BACKGROUND_LOAD_PROMISE[backgroundImageName]
   }
 
   new Promise((resolve, reject) => {
-    vm.mixinBoxBackgroundImage.loadPromiseReject = reject
+    vm.mBoxBackgroundImage.loadPromiseReject = reject
 
     return getImagePromise.then(resolve)
   })
-    .then(image => {
-      if (vm.mixinBoxBackgroundImage.src !== image.src) {
-        Object.assign(vm.mixinBoxBackgroundImage, {
+    .then((image) => {
+      if (vm.mBoxBackgroundImage.src !== image.src) {
+        Object.assign(vm.mBoxBackgroundImage, {
           src: image.src,
           width: image.width,
           height: image.height

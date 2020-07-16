@@ -1,9 +1,8 @@
 - [前言](README.md)
 
-- [思路](docs/idea/README.md)
+- 指南
 
-- [指南](docs/guide/README.md)
-
+  - [思路](docs/guide/idea.md)
   - [安装](docs/guide/Install.md)
   - [准备](docs/guide/Ready.md)
   - [更新日志](docs/guide/Log.md)
@@ -27,7 +26,7 @@
     - [Svga 道具块](docs/components/basic/Svga.md)
     - [Fps9 九帧图](docs/components/basic/Fps9.md)
     - [Sprite 雪碧图](docs/components/basic/Sprite.md)
-    - [List 列表块](docs/components/basic/List.md)
+    - [Scroll 滚动块](docs/components/basic/Scroll.md)
 
   - 交互组件
 
@@ -36,5 +35,5 @@
     - [Timer 计时器](docs/components/interact/Timer.md)
     - [Roulette 轮盘](docs/components/interact/Roulette.md)
     - [Tabs 标签页](docs/components/interact/Tabs.md)
-    - [NumSlider 滑动数字](docs/components/interact/NumSlider.md)
-    - [Box 盒子](docs/components/interact/Box.md)
+    - [Slider 滑动块](docs/components/interact/Slider.md)
+    - [Popover 弹出口](docs/components/interact/Popover.md)

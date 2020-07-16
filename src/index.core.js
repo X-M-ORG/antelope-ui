@@ -1,12 +1,12 @@
 import config from './config'
 
-import getImagesMap from './utils/getImagesMap'
-import createdTemplate from './utils/createdTemplate'
+import getImagesMap from './tools/getImagesMap'
+import createdTemplate from './tools/createdTemplate'
 
 import Section from './components/basic/Section'
 import Sections from './components/basic/Sections'
 import Position from './components/basic/Position'
-import List from './components/basic/List'
+import Scroll from './components/basic/Scroll'
 import Fps9 from './components/basic/Fps9'
 import Sprite from './components/basic/Sprite'
 import Button from './components/basic/Button'
@@ -16,14 +16,14 @@ import Bullet from './components/interact/Bullet'
 import Timer from './components/interact/Timer'
 import Roulette from './components/interact/Roulette'
 import Tabs from './components/interact/Tabs'
-import NumSlider from './components/interact/NumSlider'
-import Box from './components/interact/Box'
+import Slider from './components/interact/Slider'
+import Popover from './components/interact/Popover'
 
 export {
   Section,
   Sections,
   Position,
-  List,
+  Scroll,
   Fps9,
   Sprite,
   Button,
@@ -32,8 +32,8 @@ export {
   Timer,
   Roulette,
   Tabs,
-  NumSlider,
-  Box
+  Slider,
+  Popover
 }
 
 let installed = false
@@ -44,7 +44,7 @@ export default {
       return
     }
 
-    Object.keys(options).forEach(k => {
+    Object.keys(options).forEach((k) => {
       config[k] = options[k]
     })
 
@@ -52,7 +52,7 @@ export default {
       Section,
       Sections,
       Position,
-      List,
+      Scroll,
       Fps9,
       Sprite,
       Button,
@@ -61,11 +61,11 @@ export default {
       Timer,
       Roulette,
       Tabs,
-      NumSlider,
-      Box
+      Slider,
+      Popover
     }
 
-    Object.keys(components).forEach(key => {
+    Object.keys(components).forEach((key) => {
       Vue.component(config.componentPrefix + key, components[key])
     })
 

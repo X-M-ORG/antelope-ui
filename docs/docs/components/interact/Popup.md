@@ -110,15 +110,15 @@ this.$refs.popup
 示例：
 
 ```js
-this.$refs.popup.clse('pay').then(() => {
+this.$refs.popup.close('pay').then(() => {
   console.log('关闭pay浮层~')
 })
 
-this.$refs.popup.clse().then(() => {
+this.$refs.popup.close().then(() => {
   console.log('关闭所有浮层~')
 })
 
-this.$refs.popup.clse(['pay', 'rule']).then(() => {
+this.$refs.popup.close(['pay', 'rule']).then(() => {
   console.log('关闭pay和rule浮层~')
 })
 ```

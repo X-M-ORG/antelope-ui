@@ -16,6 +16,8 @@
 
 > quick 为速写属性，与 name 作用相同
 
+> 若不对盒子设定宽高，则会依据 background-image 传递的资源大小进行自动计算，在[挂载](/docs/guide/Install?id=挂载参数)的时候进行设定相应参数
+
 ### template
 
 通过辅助方法 createdTemplate 可以设定 template 来设定初始化的参数。
@@ -44,15 +46,13 @@ antelope.utils.createdTemplate('m-button', {
 })
 ```
 
-!> 暂只支持 a-button，后续有需求会新增支持的组件
+!> createdTemplate 的参数不支持速写属性
 
 ### background-image
 
 背景图，同 css 写法。
 
 请先阅读此文档来理解图片挂载： [准备](docs/require/beforeReady.md)
-
-再请阅读此文档来理解 status 属性对 background-image 的作用： [Status 组件状态](docs/components/mixins/Status.md)
 
 此属性传值，无需全部路径，传递值为该页面设定的资源目录下的路径路径，例如：
 

@@ -2,6 +2,30 @@
 
 ---
 
+#### v2.0.0
+
+日期: 2020-07-16
+
+细节：
+
+- 改善速写属性和模板化，对于一些意外的错误进行了修复
+- 基础工具进行了重写和优化
+- 状态混合优化了逻辑，有一些逻辑修改，参考：[Status](docs/components/mixins/Status.md)
+- 盒子混合删除了状态对于背景图加载的隐式后缀，参考：[Status](docs/components/mixins/Status.md)
+- 定位混合更新了默认激活的条件，参考：[Position](docs/components/mixins/Position.md)
+- 事件混合优化触发方式，增加 touch 的 class，参考：[Event](docs/components/mixins/Event.md)
+- Button 现在可以根据素材自动设定宽高，自动确定偏移量，参考：[Button](docs/components/basic/Button.md)
+- Fps9 现在可以根据素材自动设定宽高
+- List 重写为 Scroll，使用 better-scroll 实现，封装一些方法，参考：[Scroll](docs/components/basic/Scroll.md)
+- Box 重命名为 Popover
+- Bullet 修复了一个触发时机的 bug
+- NumSlider 重写为 Slider，支持任意内容的滚动，参考：[Slider](docs/components/interact/Slider.md)
+- Popup 调整布局，优化结构
+- Roulette 减少了不必要的传参，参考：[Roulette](docs/components/interact/Roulette.md)
+- Timer 的 slot 传参完善，支持更细节的显示，参考：[Timer](docs/components/interact/Timer.md)
+
+---
+
 #### v1.5.7
 
 日期: 2020-06-11
