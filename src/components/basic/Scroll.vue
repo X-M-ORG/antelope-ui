@@ -43,9 +43,7 @@ export default {
 
     expandOptions: {
       type: Object,
-      default: () => ({
-        coming: 200
-      })
+      default: () => ({ coming: 200 })
     }
   },
 

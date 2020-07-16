@@ -18,11 +18,14 @@ export default {
       let style = { ...this.mPositionStyle }
 
       if (style.backgroundImage) {
-        const { imageTimes, imageSizeUnit } = config
-        const getSize = n => (n * imageTimes).toFixed(2) + imageSizeUnit
+        if (!style.width && !style.height) {
+          const { imageTimes, imageSizeUnit } = config
+          const getSize = n => (n * imageTimes).toFixed(2) + imageSizeUnit
 
-        style.width = getSize(this.mBoxBackgroundImage.width / 3)
-        style.height = getSize(this.mBoxBackgroundImage.height / 3)
+          style.width = getSize(this.mBoxBackgroundImage.width / 3)
+          style.height = getSize(this.mBoxBackgroundImage.height / 3)
+        }
+
         style.backgroundSize = '300% 300%'
       }
 

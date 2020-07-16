@@ -76,7 +76,7 @@ export default {
   },
 
   methods: {
-    run({ steps = this.items.length, result = 0, options = {} }) {
+    run({ steps = this.items.length, result = 0, options = {} } = {}) {
       this.$set(
         this,
         'activeOptions',

@@ -19,15 +19,21 @@
 
 若设定样式，给 .bullet-item 进行设置即可。
 
-```html
-<a-bullet
-  position
-  top="2.95rem"
-  left="0"
-  right="0"
-  height="0.48rem"
-  :items="bullet"
-></a-bullet>
+<vuep template="#example" :options="{ theme: 'neo' }"></vuep>
+
+<script v-pre type="text/x-template" id="example">
+<template>
+  <a-section w="250px" h="200px" bg-c="#ddd">
+    <a-bullet
+      position
+      top="0"
+      left="0"
+      right="0"
+      height="48px"
+      :items="bullet"
+    ></a-bullet>
+  </a-section>
+</template>
 
 <script>
   export default {
@@ -46,17 +52,17 @@
 <style>
   .bullet-item {
     display: inline-block;
-    padding: 0 0.3rem;
-    font-size: 0.22rem;
+    padding: 0 30px;
+    font-size: 22px;
     font-weight: 500;
     background-color: rgba(137, 0, 144, 0.8);
     color: #ffffff;
     white-space: nowrap;
-    border-radius: 0.24rem;
-    line-height: 0.48rem;
+    border-radius: 24px;
+    line-height: 48px;
   }
 </style>
-```
+</script>
 
 > 若 items 更新，则下一个弹幕是新 items 的第一项
 

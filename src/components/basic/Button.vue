@@ -26,7 +26,7 @@ export default {
       type: String
     },
 
-    // 方式二，设置方向和间隔
+    // 方式2，设置方向和间隔
     direction: {
       type: String,
       default: 'x'

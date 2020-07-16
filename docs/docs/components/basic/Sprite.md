@@ -16,26 +16,16 @@
 
 ### 示例
 
-```html
-<!-- sprite.png 的每个单位是变长 1rem 的正方形，间距 0.05rem -->
-<a-sprite
-  width="1rem"
-  height="1rem"
-  background-image="sprite.png"
-  x="0"
-></a-sprite>
+<vuep template="#example" :options="{ theme: 'neo' }"></vuep>
 
-<a-sprite
-  width="1rem"
-  height="1rem"
-  background-image="sprite.png"
-  x="-1.05rem"
-></a-sprite>
+<script v-pre type="text/x-template" id="example">
+<template>
+  <div style="background-color: red">
+    <a-sprite w="56px" h="45px" v-for="i in 10" :key="i" :x="-((i - 1) * 60) + 'px'" bg-i="/docs/components/basic/static/num.png"></a-sprite>
+  </div>
+</template>
 
-<a-sprite
-  width="1rem"
-  height="1rem"
-  background-image="sprite.png"
-  x="-2.1rem"
-></a-sprite>
-```
+<script>
+  export default {}
+</script>
+</script>

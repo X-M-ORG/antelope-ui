@@ -15,16 +15,16 @@
 | Svga     |   √    |  √  |    √     |   √   |
 | Fps9     |   √    |  √  |    √     |   √   |
 | Sprite   |   √    |  √  |    √     |   √   |
-| List     |   √    |  √  |    √     |   √   |
+| Scroll   |   √    |  √  |    √     |   √   |
 
 ### 交互组件
 
-| 组件      | status | box | position | event |
-| --------- | :----: | :-: | :------: | :---: |
-| Popup     |        |     |          |       |
-| Bullet    |   √    |  √  |    √     |   √   |
-| Timer     |   √    |  √  |    √     |   √   |
-| Roulette  |   √    |  √  |    √     |   √   |
-| Tabs       |   √    |  √  |    √     |   √   |
-| NumSlider |   √    |  √  |    √     |   √   |
-| Box       |   √    |  √  |    √     |   √   |
+| 组件     | status | box | position | event |
+| -------- | :----: | :-: | :------: | :---: |
+| Popup    |        |     |          |       |
+| Bullet   |   √    |  √  |    √     |   √   |
+| Timer    |   √    |  √  |    √     |   √   |
+| Roulette |   √    |  √  |    √     |   √   |
+| Tabs     |   √    |  √  |    √     |   √   |
+| Slider   |   √    |  √  |    √     |   √   |
+| Popover  |   √    |  √  |    √     |   √   |

@@ -50,6 +50,8 @@ const route = {
 
 这样，就可以在框架组件上使用 background-image 属性。
 
+当然，background-image 也可以直接传 url 链接。
+
 ---
 
 ## SVGA 资源
