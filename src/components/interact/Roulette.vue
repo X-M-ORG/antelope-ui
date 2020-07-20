@@ -1,7 +1,7 @@
 <template>
   <div :style="mPositionStyle">
     <a-position v-for="(item, index) in iItems" :key="index" v-bind="item.style">
-      <slot :index="item.index" :active="item.active"></slot>
+      <slot :index="item.index" :active="item.active" :data="item.data"></slot>
     </a-position>
   </div>
 </template>
@@ -37,13 +37,14 @@ export default {
 
   computed: {
     iItems() {
-      return this.items.map((position, index) => ({
+      return this.items.map((item, index) => ({
         index,
         active: index === this.activeIndex,
         style: {
           ...this.options,
-          ...position
-        }
+          ...item.position
+        },
+        data: item.data || {}
       }))
     },
 

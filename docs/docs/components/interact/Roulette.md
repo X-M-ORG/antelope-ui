@@ -15,17 +15,25 @@ Roulette 的思路是生成一个大的区域，每一项进行定位，根据�
 
 | name    | type                 | require | default | desc                                                                                              |
 | ------- | -------------------- | ------- | ------- | ------------------------------------------------------------------------------------------------- |
-| items   | Array\<item object\> | true    | []      | 每项的定位属性配置，可参考：[Position 定位块](docs/components/basic/Position.md)                  |
+| items   | Array\<item object\> | true    | []      | 每项的参数配置，下面详解                                                                          |
 | options | Object               | false   |         | 每项的默认参数，item 为 position 组件，参考：[Position 定位块](docs/components/basic/Position.md) |
+
+**item object：**
+
+| name     | type   | require | default | desc                                                                   |
+| -------- | ------ | ------- | ------- | ---------------------------------------------------------------------- |
+| position | Object | false   | {}      | 定位参数，可参考：[Position 定位块](docs/components/basic/Position.md) |
+| data     | Object | false   | {}      | 每一项的数据                                                           |
 
 ### slot-scope object
 
 每一项可以通过 slot-scope="scope" 取到以下参数：
 
-| name         | type    | require | default | desc             |
-| ------------ | ------- | ------- | ------- | ---------------- |
-| scope.index  | Number  | false   | false   | 当前项的索引     |
-| scope.active | Boolean | false   | false   | 当前项的激活状态 |
+| name         | type    | require | default | desc                                     |
+| ------------ | ------- | ------- | ------- | ---------------------------------------- |
+| scope.index  | Number  | false   | false   | 当前项的索引                             |
+| scope.active | Boolean | false   | false   | 当前项的激活状态                         |
+| scope.data   | Object  | false   | {}      | 当前项的数据，由 props.items[].data 传递 |
 
 ### 操作
 
@@ -78,7 +86,8 @@ func value：
   :options="{ height: '1rem', width: '1rem' }"
 >
   <a-section height="3.07rem" width="2.99rem" slot-scope="scope">
-    active：{{ scope.active }}
+    <div>active：{{ scope.active }}</div>
+    <div>data：{{ scope.data }}</div>
   </a-section>
 </a-roulette>
 ```
@@ -95,17 +104,19 @@ this.$refs.roulette.run().then(() => {
 
 <script v-pre type="text/x-template" id="example">
 <template>
-  <a-section w="250px" h="200px" bg-c="#ddd">
+  <a-section w="300x" h="300px" bg-c="#ddd">
     <a-section @a-tap="start()">点击开始</a-section>
     <a-roulette
       ref="roulette"
-      width="200px"
-      height="200px"
+      width="300px"
+      height="300px"
       :items="items"
-      :options="{ height: '80px', width: '80px' }"
+      :options="{ height: '100px', width: '100px' }"
     >
       <a-section slot-scope="scope" :bg-c="scope.active ? 'blue' : 'red'">
-        index：{{ scope.index }}
+        <div>index：{{ scope.index }}</div>
+        <div>active：{{ scope.active }}</div>
+        <div>name：{{ scope.data.name }}</div>
       </a-section>
     </a-roulette>
   </a-section>
@@ -116,10 +127,10 @@ this.$refs.roulette.run().then(() => {
     data() {
       return {
         items: [
-          { top: 0, left: 0 },
-          { top: 0, right: 0 },
-          { bottom: 0, right: 0 },
-          { bottom: 0, left: 0 }
+          { position: { top: 0, left: 0 }, data: { name: '1' } },
+          { position: { top: 0, right: 0 }, data: { name: '2' } },
+          { position: { bottom: 0, right: 0 }, data: { name: '3' } },
+          { position: { bottom: 0, left: 0 }, data: { name: '4' } }
         ]
       }
     },
