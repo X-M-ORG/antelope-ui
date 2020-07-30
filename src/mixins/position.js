@@ -25,16 +25,16 @@ export default {
       type: [String, Number]
     },
     top: {
-      type: String
+      type: [String, Number]
     },
     bottom: {
-      type: String
+      type: [String, Number]
     },
     left: {
-      type: String
+      type: [String, Number]
     },
     right: {
-      type: String
+      type: [String, Number]
     },
     center: {
       type: String

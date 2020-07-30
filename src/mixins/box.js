@@ -22,15 +22,18 @@ export default {
       type: String
     },
     width: {
-      type: String
+      type: [String, Number]
     },
     height: {
-      type: String
+      type: [String, Number]
     },
     backgroundColor: {
       type: String
     },
     backgroundImage: {
+      type: String
+    },
+    imageSuffix: {
       type: String
     }
   }),
@@ -85,6 +88,12 @@ export default {
     },
     bgI() {
       setBackgroundImage(this)
+    },
+    imageSuffix() {
+      setBackgroundImage(this)
+    },
+    iS() {
+      setBackgroundImage(this)
     }
   },
 
@@ -100,6 +109,13 @@ export default {
 */
 function getBackgroundImageParams(vm, name) {
   let file
+
+  const suffix = getPropsValue(vm, 'imageSuffix')
+  if (suffix) {
+    let k = name.split('.')
+    k.splice(k.length - 1, 0, String(suffix))
+    name = k.join('.')
+  }
 
   if (vm.$route && vm.$route.meta && vm.$route.meta.aImagesMap) {
     file = vm.$route.meta.aImagesMap[name] || name

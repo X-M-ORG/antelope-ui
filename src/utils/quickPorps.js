@@ -5,7 +5,8 @@ const boxQuickPorps = {
   width: 'w',
   height: 'h',
   backgroundColor: 'bgC',
-  backgroundImage: 'bgI'
+  backgroundImage: 'bgI',
+  imageSuffix: 'iS'
 }
 
 const positionQuickPorps = {
