@@ -19,7 +19,7 @@ window.__BACKGROUND_LOAD_PROMISE = {}
 export default {
   props: createQuickPorps({
     template: {
-      type: String
+      type: [String, Number]
     },
     width: {
       type: [String, Number]
@@ -28,13 +28,13 @@ export default {
       type: [String, Number]
     },
     backgroundColor: {
-      type: String
+      type: [String, Number]
     },
     backgroundImage: {
-      type: String
+      type: [String, Number]
     },
     imageSuffix: {
-      type: String
+      type: [String, Number]
     }
   }),
 
