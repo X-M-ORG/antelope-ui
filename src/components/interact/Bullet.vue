@@ -30,12 +30,12 @@ export default {
     },
 
     duration: {
-      type: String,
+      type: [Number, String],
       default: '20'
     },
 
     between: {
-      type: String,
+      type: [Number, String],
       default: '50'
     }
   },
@@ -51,15 +51,29 @@ export default {
 
   data() {
     return {
-      nextTimer: 0,
-      nextIndex: 0,
-      nextAnimation: () => {},
-
       bullets: [].concat(this.items),
 
-      index: 0,
+      // 暂停、暂停计时
       paused: false,
-      pauseTime: 0
+      pauseTime: 0,
+
+      // 最后一次启动的 index 和 time
+      lastBeginIndex: 0,
+      lastBeginTime: 0,
+
+      // 下一次启动的 index 和定时器
+      nextBeginIndex: 0,
+      nextBeginTimer: 0,
+
+      // 移动的弹幕控制
+      moveTimer: {
+        // 0: {
+        //   ref: null,
+        //   residue: 0,
+        //   begin: 0,
+        //   timer: 0
+        // }
+      }
     }
   },
 
@@ -72,8 +86,8 @@ export default {
         })
       } else if (newValue.length && oldValue.length) {
         this.bullets.splice.apply(this.bullets, [
-          this.nextIndex,
-          this.bullets.length - this.nextIndex,
+          this.nextBeginIndex,
+          this.bullets.length - this.nextBeginIndex,
           ...newValue
         ])
       } else {
@@ -91,58 +105,104 @@ export default {
 
   methods: {
     beginAnimation() {
-      const index = this.nextIndex
+      const duration = Number(this.duration) * 1000
 
-      let bullet = this.$refs.bullet[index]
+      const beginIndex = this.nextBeginIndex
+      const prevIndex = this.lastBeginIndex
+      const beginRef = this.$refs.bullet[beginIndex]
+      const prevRef = this.$refs.bullet[prevIndex]
 
-      // 基础属性：滚动时间、最小间隔、最大间隔、屏幕宽度
-      const duration = Number(this.duration)
-      const [minBetween, maxBetween] = this.between
-        .split('-')
-        .map((i) => Number(i))
-      const viewWidth = bullet.offsetWidth
+      let beginDelay = 0
 
-      // 执行弹幕
-      bullet.classList.add('move')
+      if (new Set(prevRef.classList).has('move')) {
+        const moveTime = this.getBulletMoveTime(prevIndex)
+        const timeSpace = Date.now() - this.lastBeginTime
+        if (timeSpace - this.pauseTime < moveTime) {
+          beginDelay = moveTime - (timeSpace - this.pauseTime)
+        }
+      }
+
       setTimeout(() => {
-        bullet.classList.remove('move')
-      }, duration * 1000)
+        this.pauseTime = 0
 
-      // 计算当前弹幕完全进入视图的时间
-      let bulletMove = bullet.firstChild.offsetWidth
-      if (minBetween) {
-        bulletMove += minBetween
-      }
-      if (maxBetween) {
-        bulletMove += (maxBetween - minBetween) * Math.random()
-      }
-      let moveTime = bulletMove / ((viewWidth * 2.5) / duration)
+        const now = Date.now()
+        const moveTime = this.getBulletMoveTime(beginIndex)
 
-      // 设定下一次执行的相关参数
-      this.nextIndex = this.bullets.length - 1 === index ? 0 : index + 1
-      this.nextAnimation = this.beginAnimation
-      this.nextTimer = setTimeout(
-        this.nextAnimation,
-        moveTime * 1000 + this.pauseTime
-      )
+        this.lastBeginIndex = beginIndex
+        this.lastBeginTime = now
+
+        beginRef.classList.add('move')
+
+        this.moveTimer[beginIndex] = {
+          ref: beginRef,
+          residue: duration,
+          begin: now,
+          timer: setTimeout(() => {
+            delete this.moveTimer[beginIndex]
+            beginRef.classList.remove('move')
+          }, duration)
+        }
+
+        const i = beginIndex
+        this.nextBeginIndex = this.bullets.length - 1 === i ? 0 : i + 1
+        this.nextBeginTimer = setTimeout(this.beginAnimation, moveTime)
+      }, beginDelay)
     },
     endAnimation() {
-      this.nextTimer && clearTimeout(this.nextTimer)
-
-      this.nextTimer = 0
-      this.nextIndex = 0
-      this.nextAnimation = () => {}
+      clearTimeout(this.nextBeginTimer)
+      this.nextBeginTimer = 0
     },
 
     playAnimation() {
+      const now = Date.now()
+
       this.paused = false
-      this.pauseTime = Date.now() - this.pauseTime
+      this.pauseTime = now - this.pauseTime
+
+      Object.keys(this.moveTimer).forEach((i) => {
+        const { ref, residue } = this.moveTimer[i]
+
+        this.moveTimer[i].begin = now
+        this.moveTimer[i].timer = setTimeout(() => {
+          delete this.moveTimer[i]
+          ref.classList.remove('move')
+        }, residue)
+      })
+
       this.beginAnimation()
     },
     pauseAnimation() {
+      const now = Date.now()
+
       this.paused = true
-      this.pauseTime = Date.now()
+      this.pauseTime = now
+
       this.endAnimation()
+      Object.keys(this.moveTimer).forEach((i) => {
+        const { residue, begin, timer } = this.moveTimer[i]
+
+        clearTimeout(timer)
+        this.moveTimer[i].residue = residue - (now - begin)
+      })
+    },
+
+    getBulletMoveTime(index) {
+      const bullet = this.$refs.bullet[index]
+      const bulletContainerWidth = bullet.offsetWidth
+      const moveSpeed = (bulletContainerWidth * 2.5) / Number(this.duration)
+
+      let bulletMoveWidth = bullet.firstChild.offsetWidth
+      const [minBetween, maxBetween] = this.between
+        .split('-')
+        .map((i) => Number(i))
+      if (minBetween) {
+        bulletMoveWidth += minBetween
+      }
+      if (maxBetween) {
+        bulletMoveWidth += (maxBetween - minBetween) * Math.random()
+      }
+
+      return Math.floor((bulletMoveWidth / moveSpeed) * 1000)
     }
   }
 }
