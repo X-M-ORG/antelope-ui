@@ -9,11 +9,19 @@
 - 混合：[组件混合表](docs/components/mixins/Components.md)
 - 自有：
 
-| name     | type           | require | default | desc                                                       |
-| -------- | -------------- | ------- | ------- | ---------------------------------------------------------- |
-| items    | Array          | true    | []      | 弹幕的数组，每一项为弹幕文案，支持 v-html                  |
-| duration | String、Number | false   | '20'    | 弹幕动画时间，并非从出现到消失的时间，可以根据实际效果微调 |
-| between  | String、Number | false   | '50'    | 两个弹幕之间的间隔，区间值用 - ，例如：50-100              |
+| name     | type                     | require | default | desc                                                       |
+| -------- | ------------------------ | ------- | ------- | ---------------------------------------------------------- |
+| items    | Array                    | true    | []      | 弹幕的数组，每一项为弹幕文案，支持 v-html                  |
+| mode     | String: 'text' or 'slot' | true    | 'text'  | 渲染模式                                                   |
+| duration | String、Number           | false   | '20'    | 弹幕动画时间，并非从出现到消失的时间，可以根据实际效果微调 |
+| between  | String、Number           | false   | '50'    | 两个弹幕之间的间隔，区间值用 - ，例如：50-100              |
+
+#### mode
+
+允许进行 slot 自定义轮播元素，并且提供两个方法去控制播放暂停
+
+- 暂停： \$refs.bullet.pauseAnimation()
+- 播放： \$refs.bullet.playAnimation()
 
 ### 示例
 
@@ -32,6 +40,18 @@
       height="48px"
       :items="bullet"
     ></a-bullet>
+
+     <a-bullet
+      ref="bullet"
+      position
+      bottom="0"
+      left="0"
+      right="0"
+      height="48px"
+      :items="bullet"
+    >
+      <a-section slot-scope="scope" @a-tap="test(scope.data)">{{ scope.data }}</a-section>
+    </a-bullet>
   </a-section>
 </template>
 
@@ -42,9 +62,27 @@
         bullet: [
           '啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦',
           '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈',
+          '呀呀呀呀呀呀呀呀呀呀呀呀呀呀呀',
+          '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈',
           '呀呀呀呀呀呀呀呀呀呀呀呀呀呀呀'
         ]
       }
+    },
+
+    mounted() {
+      let i = true
+
+      setInterval(()=> {
+        const ref = this.$refs.bullet
+
+        if (i) {
+          ref.pauseAnimation()
+        } else {
+          ref.playAnimation()
+        }
+
+        i = !i
+      }, 5000)
     }
   }
 </script>
