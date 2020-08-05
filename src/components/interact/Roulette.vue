@@ -77,7 +77,7 @@ export default {
   },
 
   methods: {
-    run({ steps = this.items.length, result = 0, options = {} } = {}) {
+    run({ steps = this.items.length, result = -1, options = {} } = {}) {
       this.$set(
         this,
         'activeOptions',
@@ -93,14 +93,12 @@ export default {
 
     // 主执行函数
     jumpMain(total) {
-      return new Array(total)
-        .join()
-        .split(',')
+      return [...Array(total)]
         .reduce(
           (main, i, index) =>
             main.then(
               () =>
-                new Promise(resolve => {
+                new Promise((resolve) => {
                   setTimeout(
                     () => {
                       this.activeIndex = this.getNextActive({ index, total })
@@ -121,11 +119,13 @@ export default {
       getNextActive 获取下一步的 index
     */
     getTotalSteps({ steps, result }) {
-      let lastJump = result + 1 // 最后一圈走的步数
-      let prevJump = steps - lastJump // 前面N圈总计要走的步数
-      let firstJump = prevJump % this.items.length // 第一圈要走的步数
+      if (result !== -1) {
+        let lastJump = result + 1 // 最后一圈走的步数
+        let prevJump = steps - lastJump // 前面N圈总计要走的步数
+        let firstJump = prevJump % this.items.length // 第一圈要走的步数
 
-      this.activeIndex = this.items.length - firstJump - 1
+        this.activeIndex = this.items.length - firstJump - 1
+      }
 
       return steps
     },

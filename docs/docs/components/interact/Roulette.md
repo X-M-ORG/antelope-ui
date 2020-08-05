@@ -50,11 +50,11 @@ Roulette 实例提供两个方法以供调用：
 
 **runOptions：**
 
-| name    | type   | require | default        | desc                                       |
-| ------- | ------ | ------- | -------------- | ------------------------------------------ |
-| result  | Number | true    | 0              | 轮盘结束时的项的索引                       |
-| steps   | Number | false   | items 的长度   | 轮盘将要进行的步数，如果想永久，就传大一点 |
-| options | Object | false   | options object | 设置执行时的参数                           |
+| name    | type   | require | default        | desc                                         |
+| ------- | ------ | ------- | -------------- | -------------------------------------------- |
+| result  | Number | false   | -1             | 轮盘结束时的项的索引，为 0 时则以 steps 前进 |
+| steps   | Number | false   | items 的长度   | 轮盘将要进行的步数，如果想永久，就传大一点   |
+| options | Object | false   | options object | 设置执行时的参数                             |
 
 > 根据现有需求，会计算出初始位置，然后走 steps 步，最后到达索引为 result 的项
 
