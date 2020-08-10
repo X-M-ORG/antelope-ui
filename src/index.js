@@ -11,6 +11,7 @@ import Svga from './components/basic/Svga'
 import Fps9 from './components/basic/Fps9'
 import Sprite from './components/basic/Sprite'
 import Button from './components/basic/Button'
+import Avatar from './components/basic/Avatar'
 
 import Popup from './components/interact/Popup'
 import Bullet from './components/interact/Bullet'
@@ -29,6 +30,7 @@ export {
   Fps9,
   Sprite,
   Button,
+  Avatar,
   Popup,
   Bullet,
   Timer,
@@ -59,6 +61,7 @@ export default {
       Fps9,
       Sprite,
       Button,
+      Avatar,
       Popup,
       Bullet,
       Timer,
