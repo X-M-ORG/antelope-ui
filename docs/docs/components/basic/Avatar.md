@@ -38,10 +38,10 @@ function aTap($attrs, onTapAvatar) {}
 
 ### 示例
 
-**install config**
+**install**
 
 ```js
-Vue.use(window.antelope.default, {
+Vue.use(antelope, {
   onTapAvatar: ($attrs) => {
     console.log('onTapAvatar - $attrs', $attrs)
   }
