@@ -27,6 +27,7 @@
     - [Fps9 九帧图](docs/components/basic/Fps9.md)
     - [Sprite 雪碧图](docs/components/basic/Sprite.md)
     - [Scroll 滚动块](docs/components/basic/Scroll.md)
+    - [Avatar 头像块](docs/components/basic/Avatar.md)
 
   - 交互组件
 

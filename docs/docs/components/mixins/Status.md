@@ -15,5 +15,5 @@
 当 props.disabled 为 true 时，会存在一些特性的效果：
 
 - Button 组件设定 tap 偏移不会生效
-- 不会触发 a-tap 事件
+- 不会触发 a-tap 事件（Avatar 组件亦是）
 - Popover 不会弹出窗口

@@ -42,9 +42,10 @@ Vue.component('AButton', Button)
 
 ## 挂载参数
 
-| name                | type    | require | default | desc                           |
-| ------------------- | ------- | ------- | ------- | ------------------------------ |
-| componentPrefix     | String  | false   | 'A'     | 挂载后组件前缀                 |
-| imageSizeAutoLoader | Boolean | false   | false   | 图片资源自动加载宽高（背景图） |
-| imageSizeUnit       | String  | false   | 'px'    | 资源宽高的参数                 |
-| imageTimes          | Number  | false   | 1       | 图片倍数                       |
+| name                | type     | require | default | desc                                                                              |
+| ------------------- | -------- | ------- | ------- | --------------------------------------------------------------------------------- |
+| componentPrefix     | String   | false   | 'A'     | 挂载后组件前缀                                                                    |
+| imageSizeAutoLoader | Boolean  | false   | false   | 图片资源自动加载宽高（背景图）                                                    |
+| imageSizeUnit       | String   | false   | 'px'    | 资源宽高的参数                                                                    |
+| imageTimes          | Number   | false   | 1       | 图片倍数                                                                          |
+| onTapAvatar         | Function | false   | ()=>{}  | 当 Avatar 组件被点击时的触发函数，参考：[Avatar](docs/components/basic/Avatar.md) |

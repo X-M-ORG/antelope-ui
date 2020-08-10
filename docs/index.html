@@ -30,7 +30,11 @@
     <script src="./static/js/babel.min.js"></script>
     <script src="./static/js/antelope-ui.js"></script>
     <script>
-      Vue.use(window.antelope.default)
+      Vue.use(window.antelope.default, {
+        onTapAvatar: ($attrs) => {
+          console.log('onTapAvatar - $attrs', $attrs)
+        }
+      })
     </script>
   </body>
 </html>

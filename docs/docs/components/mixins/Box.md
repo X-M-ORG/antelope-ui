@@ -13,7 +13,7 @@
 | height           | h     | String | false   |         | 元素高，不传之或留空则由内部元素撑高   |
 | background-color | bg-c  | String | false   |         | 背景色，同 css 写法                    |
 | background-image | bg-i  | String | false   |         | 背景图，下面详述                       |
-| image-suffix     | bg-i  | String | false   |         | 背景图后缀，下面详述                   |
+| image-suffix     | i-s   | String | false   |         | 背景图后缀，下面详述                   |
 
 > quick 为速写属性，与 name 作用相同
 

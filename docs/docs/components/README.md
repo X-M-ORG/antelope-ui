@@ -26,6 +26,7 @@
 - [Fps9 九帧图，加载九帧图动画](docs/components/basic/Fps9.md)
 - [Sprite 雪碧图，加载特殊数字或图案](docs/components/basic/Sprite.md)
 - [Scroll 滚动块，一般用于长列表](docs/components/basic/Scroll.md)
+- [Avatar 头像块，用于显示头像及点击事件](docs/components/basic/Avatar.md)
 
 #### 交互组件
 

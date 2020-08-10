@@ -2,6 +2,15 @@
 
 ---
 
+#### v2.0.4
+
+日期:
+
+细节：
+
+- 优化代码结构
+- 增加 Avatar 组件，参考：[Avatar](docs/components/basic/Avatar.md)
+
 #### v2.0.3
 
 日期: 2020-08-05

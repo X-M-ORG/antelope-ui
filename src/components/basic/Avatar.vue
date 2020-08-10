@@ -12,10 +12,6 @@ export default {
 
   methods: {
     tapAvatar() {
-      if (this.disabled) {
-        return
-      }
-
       const aTap = this.$listeners['a-tap'] || this.$listeners.aTap
 
       if (aTap) {
