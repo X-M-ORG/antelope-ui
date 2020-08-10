@@ -64,9 +64,10 @@ Vue.use(antelope, {
   export default {
     methods: {
       test($attrs, onTapAvatar) {
-        // $attrs: { w: '100px', h: '100px', 'bg-c': 'red' }
-        // onTapAvatar: () => {}
+        // log: { w: '100px', h: '100px', 'bg-c': 'red' }
         console.log($attrs)
+
+        // log: onTapAvatar - $attrs { w: '100px', h: '100px', 'bg-c': 'red' }
         onTapAvatar($attrs)
       }
     }

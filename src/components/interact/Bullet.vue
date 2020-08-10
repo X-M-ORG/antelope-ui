@@ -53,15 +53,15 @@ export default {
     return {
       bullets: [].concat(this.items),
 
-      // 暂停、暂停计时
+      // 暂停、开始暂停的时间
       paused: false,
-      pauseTime: 0,
+      beginPaused: 0,
 
       // 最后一次启动的 index 和 time
       lastBeginIndex: 0,
       lastBeginTime: 0,
 
-      // 下一次启动的 index 和定时器
+      // 下一次启动的 index 和 time
       nextBeginIndex: 0,
       nextBeginTimer: 0,
 
@@ -73,7 +73,10 @@ export default {
         //   begin: 0,
         //   timer: 0
         // }
-      }
+      },
+
+      // 延迟执行下一个弹幕的计时器
+      beginDelayTimer: 0
     }
   },
 
@@ -107,43 +110,47 @@ export default {
     beginAnimation() {
       const duration = Number(this.duration) * 1000
 
-      const beginIndex = this.nextBeginIndex
-      const prevIndex = this.lastBeginIndex
-      const beginRef = this.$refs.bullet[beginIndex]
-      const prevRef = this.$refs.bullet[prevIndex]
+      const nextIndex = this.nextBeginIndex
+      const nextRef = this.$refs.bullet[nextIndex]
+
+      const lastIndex = this.lastBeginIndex
+      const lastRef = this.$refs.bullet[lastIndex]
 
       let beginDelay = 0
 
-      if (new Set(prevRef.classList).has('move')) {
-        const moveTime = this.getBulletMoveTime(prevIndex)
-        const timeSpace = Date.now() - this.lastBeginTime
-        if (timeSpace - this.pauseTime < moveTime) {
-          beginDelay = moveTime - (timeSpace - this.pauseTime)
+      if (lastRef && new Set(lastRef.classList).has('move')) {
+        const { residue } = this.moveTimer[lastIndex]
+
+        if (residue !== duration) {
+          const moveTime = this.getBulletMoveTime(lastRef)
+          const hasMoveTime = duration - residue
+
+          if (hasMoveTime < moveTime) {
+            beginDelay = moveTime - hasMoveTime
+          }
         }
       }
 
-      setTimeout(() => {
-        this.pauseTime = 0
-
+      this.beginDelayTimer = setTimeout(() => {
         const now = Date.now()
-        const moveTime = this.getBulletMoveTime(beginIndex)
+        const moveTime = this.getBulletMoveTime(nextRef)
 
-        this.lastBeginIndex = beginIndex
+        this.lastBeginIndex = nextIndex
         this.lastBeginTime = now
 
-        beginRef.classList.add('move')
+        nextRef.classList.add('move')
 
-        this.moveTimer[beginIndex] = {
-          ref: beginRef,
+        this.moveTimer[nextIndex] = {
+          ref: nextRef,
           residue: duration,
           begin: now,
           timer: setTimeout(() => {
-            delete this.moveTimer[beginIndex]
-            beginRef.classList.remove('move')
+            nextRef.classList.remove('move')
+            delete this.moveTimer[nextIndex]
           }, duration)
         }
 
-        const i = beginIndex
+        const i = nextIndex
         this.nextBeginIndex = this.bullets.length - 1 === i ? 0 : i + 1
         this.nextBeginTimer = setTimeout(this.beginAnimation, moveTime)
       }, beginDelay)
@@ -154,44 +161,47 @@ export default {
     },
 
     playAnimation() {
-      const now = Date.now()
-
+      // 继续已出现的弹幕的结束任务、开始下一次的进场
       this.paused = false
-      this.pauseTime = now - this.pauseTime
 
       Object.keys(this.moveTimer).forEach((i) => {
         const { ref, residue } = this.moveTimer[i]
 
-        this.moveTimer[i].begin = now
+        this.moveTimer[i].begin = Date.now()
         this.moveTimer[i].timer = setTimeout(() => {
-          delete this.moveTimer[i]
           ref.classList.remove('move')
+          delete this.moveTimer[i]
         }, residue)
       })
 
       this.beginAnimation()
     },
     pauseAnimation() {
-      const now = Date.now()
+      // 记录停止时间、停止已出现的弹幕的结束任务、停止下一次的进场
 
       this.paused = true
-      this.pauseTime = now
+      this.beginPaused = Date.now()
 
       this.endAnimation()
+
       Object.keys(this.moveTimer).forEach((i) => {
         const { residue, begin, timer } = this.moveTimer[i]
 
         clearTimeout(timer)
-        this.moveTimer[i].residue = residue - (now - begin)
+        this.moveTimer[i].residue = residue - (this.beginPaused - begin)
       })
+
+      if (this.beginDelayTimer) {
+        clearTimeout(this.beginDelayTimer)
+        this.beginDelayTimer = 0
+      }
     },
 
-    getBulletMoveTime(index) {
-      const bullet = this.$refs.bullet[index]
-      const bulletContainerWidth = bullet.offsetWidth
-      const moveSpeed = (bulletContainerWidth * 2.5) / Number(this.duration)
+    getBulletMoveTime(bullet) {
+      const moveSpeed = (bullet.offsetWidth * 2.5) / Number(this.duration)
 
       let bulletMoveWidth = bullet.firstChild.offsetWidth
+
       const [minBetween, maxBetween] = this.between
         .split('-')
         .map((i) => Number(i))
