@@ -68,7 +68,7 @@ export default {
           }
         } else {
           const { imageTimes, imageSizeUnit } = config
-          const getSize = n => (n * imageTimes).toFixed(2) + imageSizeUnit
+          const getSize = (n) => (n * imageTimes).toFixed(2) + imageSizeUnit
 
           const { width, height } = this.mBoxBackgroundImage
           space = Number(space)

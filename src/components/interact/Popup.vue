@@ -59,7 +59,7 @@ export default {
     iSlots() {
       return this.items.reduce((slots, name) => {
         // 若已开启则取已有的参数
-        const activeIndex = this.activeSlots.findIndex(i => i.name === name)
+        const activeIndex = this.activeSlots.findIndex((i) => i.name === name)
         const activeData = this.activeSlots[activeIndex]
         const options = {
           ...this.defaultOptions,
@@ -100,12 +100,12 @@ export default {
 
       if (
         this.items.indexOf(name) === -1 ||
-        this.activeSlots.findIndex(i => i.name === name) > -1
+        this.activeSlots.findIndex((i) => i.name === name) > -1
       ) {
         return
       }
 
-      return new Promise(r => {
+      return new Promise((r) => {
         this.active = this.visible = true
 
         this.activeSlots.push({
@@ -125,16 +125,16 @@ export default {
       names = []
         .concat(names)
         .filter(
-          name =>
+          (name) =>
             this.items.indexOf(name) > -1 &&
-            this.activeSlots.findIndex(i => i.name === name) > -1
+            this.activeSlots.findIndex((i) => i.name === name) > -1
         )
 
       if (!names.length) {
-        names = this.activeSlots.map(i => i.name)
+        names = this.activeSlots.map((i) => i.name)
       }
 
-      return new Promise(r => {
+      return new Promise((r) => {
         // 若将关闭的和剩余的一致，则留在动画结束后关闭
         if (this.activeSlots.length === names.length) {
           this.active = false
@@ -145,8 +145,8 @@ export default {
             r()
           }, 300)
         } else {
-          names.forEach(name => {
-            const index = this.activeSlots.findIndex(i => i.name === name)
+          names.forEach((name) => {
+            const index = this.activeSlots.findIndex((i) => i.name === name)
             if (index > -1) {
               this.activeSlots[index].active = false
             }
@@ -156,7 +156,9 @@ export default {
             this.$set(
               this,
               'activeSlots',
-              this.activeSlots.filter(({ name }) => names.find(i => i !== name))
+              this.activeSlots.filter(({ name }) =>
+                names.find((i) => i !== name)
+              )
             )
             r()
           }, 300)
@@ -168,28 +170,23 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.popup {
-  pointer-events: none;
-  opacity: 0;
-  transform: translateX(200%);
-  transition: opacity 0.3s linear;
+.popup
+  pointer-events none
+  opacity 0
+  transform translateX(200%)
+  transition opacity 0.3s linear
 
-  &.visible {
-    transform: translateX(0);
-  }
+  &.visible
+    transform translateX(0)
 
-  &.active {
-    pointer-events: auto;
-    opacity: 1;
-  }
+  &.active
+    pointer-events auto
+    opacity 1
 
-  .popup-item {
-    opacity: 0;
-    transition: opacity 0.3s linear;
+  .popup-item
+    opacity 0
+    transition opacity 0.3s linear
 
-    &.active {
-      opacity: 1;
-    }
-  }
-}
+    &.active
+      opacity 1
 </style>

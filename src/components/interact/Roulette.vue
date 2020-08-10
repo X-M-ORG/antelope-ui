@@ -93,23 +93,22 @@ export default {
 
     // 主执行函数
     jumpMain(total) {
-      return [...Array(total)]
-        .reduce(
-          (main, i, index) =>
-            main.then(
-              () =>
-                new Promise((resolve) => {
-                  setTimeout(
-                    () => {
-                      this.activeIndex = this.getNextActive({ index, total })
-                      resolve()
-                    },
-                    index ? this.getSpeed({ index, total }) : 0
-                  )
-                })
-            ),
-          Promise.resolve()
-        )
+      return [...Array(total)].reduce(
+        (main, i, index) =>
+          main.then(
+            () =>
+              new Promise((resolve) => {
+                setTimeout(
+                  () => {
+                    this.activeIndex = this.getNextActive({ index, total })
+                    resolve()
+                  },
+                  index ? this.getSpeed({ index, total }) : 0
+                )
+              })
+          ),
+        Promise.resolve()
+      )
     },
 
     /*

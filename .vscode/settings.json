@@ -1,0 +1,62 @@
+{
+  // 保存时格式化
+  "editor.formatOnSave": true,
+
+  /*
+    prettier 格式化
+
+    生效:
+     - .js .ts 文件
+
+    配置:
+    prettier.semi 是否存在结尾分号
+    prettier.singleQuote 是否使用单引号
+    prettier.trailingComma 是否存在函数尾逗号
+  */
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "none",
+
+  /*
+    vetur .vue 支持
+  */
+  "vetur.format.defaultFormatter.pug": "none",
+  "vetur.format.defaultFormatterOptions": {
+    /*
+      格式化
+
+      生效:
+      - .vue 文件中的 <script></script> 内容
+
+      配置:
+      prettier.semi 是否存在结尾分号
+      prettier.singleQuote 是否使用单引号
+      prettier.trailingComma 是否存在函数尾逗号
+    */
+    "prettier": {
+      "semi": false,
+      "singleQuote": true,
+      "trailingComma": "none"
+    }
+  },
+
+  /*
+    stylus 格式化参数
+
+    生效:
+     - .vue 文件中的 <style lang="stylus"></style> 内容
+     - .styl 文件
+
+    配置:
+    stylusSupremacy.insertColons 是否插入冒号
+    stylusSupremacy.insertSemicolons 是否插入分号
+    stylusSupremacy.insertBraces 是否插入大括号
+    stylusSupremacy.insertNewLineAroundImports import之后是否换行
+    stylusSupremacy.insertNewLineAroundBlocks 两个选择器中是否换行
+  */
+  "stylusSupremacy.insertColons": false,
+  "stylusSupremacy.insertSemicolons": false,
+  "stylusSupremacy.insertBraces": false,
+  "stylusSupremacy.insertNewLineAroundImports": true,
+  "stylusSupremacy.insertNewLineAroundBlocks": true
+}

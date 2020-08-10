@@ -62,7 +62,7 @@ export default {
 
       window[ANTELOPE_SVGA_MAP].queue = queue.then(
         () =>
-          new Promise(r => {
+          new Promise((r) => {
             setTimeout(() => {
               this.player = new SVGA.Player(id)
 
@@ -71,19 +71,19 @@ export default {
                 : new Promise((resolve, reject) => {
                     new SVGA.Parser(id).load(
                       url,
-                      videoItem => {
+                      (videoItem) => {
                         window[ANTELOPE_SVGA_MAP].videos[url] = videoItem
 
                         resolve(videoItem)
                       },
-                      error => {
+                      (error) => {
                         this.$emit('load-error', error)
                         reject()
                       }
                     )
                   })
 
-              loadHandler.then(videoItem => {
+              loadHandler.then((videoItem) => {
                 this.player.setVideoItem(videoItem)
                 this.autoplay && this.player.startAnimation()
                 this.$emit('load-success')

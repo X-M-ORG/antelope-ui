@@ -77,47 +77,37 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.a-slider {
-  position: relative;
-  overflow: hidden;
+.a-slider
+  position relative
+  overflow hidden
 
-  .slider-item {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    transform: translateY(100%);
-    animation-fill-mode: forwards;
-    animation-timing-function: linear;
-  }
+  .slider-item
+    position absolute
+    top 0
+    bottom 0
+    left 0
+    right 0
+    transform translateY(100%)
+    animation-fill-mode forwards
+    animation-timing-function linear
 
-  .slider-item.slider-in {
-    animation-name: sliderIn;
-  }
+  .slider-item.slider-in
+    animation-name sliderIn
 
-  .slider-item.slider-out {
-    animation-name: sliderOut;
-  }
-}
+  .slider-item.slider-out
+    animation-name sliderOut
 
-@keyframes sliderIn {
-  0% {
-    transform: translateY(100%);
-  }
+@keyframes sliderIn
+  0%
+    transform translateY(100%)
 
-  100% {
-    transform: translateY(0);
-  }
-}
+  100%
+    transform translateY(0)
 
-@keyframes sliderOut {
-  0% {
-    transform: translateY(0);
-  }
+@keyframes sliderOut
+  0%
+    transform translateY(0)
 
-  100% {
-    transform: translateY(-100%);
-  }
-}
+  100%
+    transform translateY(-100%)
 </style>

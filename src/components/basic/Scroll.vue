@@ -70,9 +70,9 @@ export default {
     this.$nextTick(() => {
       this.V = new BScroll(this.$el, { probeType: 2, ...this.options })
 
-      Object.keys(this.$listeners).forEach(name => {
+      Object.keys(this.$listeners).forEach((name) => {
         const e = BScrollEvents.find(
-          i =>
+          (i) =>
             i.toLocaleLowerCase() === name.replace(/-/g, '').toLocaleLowerCase()
         )
 
@@ -83,9 +83,9 @@ export default {
         }
       })
 
-      Object.keys(this.$listeners).forEach(name => {
+      Object.keys(this.$listeners).forEach((name) => {
         const e = expandEvent.find(
-          i =>
+          (i) =>
             i.toLocaleLowerCase() === name.replace(/-/g, '').toLocaleLowerCase()
         )
 

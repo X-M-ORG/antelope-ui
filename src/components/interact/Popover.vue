@@ -46,7 +46,7 @@ export default {
   mounted() {
     this.$el.addEventListener(
       TOUCHSTART_EVENT,
-      e => this.visible && e.stopPropagation()
+      (e) => this.visible && e.stopPropagation()
     )
   },
 
