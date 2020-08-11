@@ -4,12 +4,12 @@
 
 #### v2.0.4
 
-日期:
+日期: 2020-08-11
 
 细节：
 
 - 优化代码结构
-- 修复 Bullet 在快速的暂停和播放时导致的重叠问题
+- 修复 Bullet 在快速反复暂停和播放时导致的重叠问题
 - 增加 Avatar 组件，参考：[Avatar](docs/components/basic/Avatar.md)
 
 #### v2.0.3
