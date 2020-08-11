@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import APosition from '@/components/basic/Position'
+import APosition from '../basic/Position'
 
-import getPropsValue from '@/utils/getPropsValue'
+import getPropsValue from '../../utils/getPropsValue'
 
 export default {
   components: {

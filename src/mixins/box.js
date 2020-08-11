@@ -10,9 +10,9 @@
   依赖的混合:
     status
 */
-import config from '@/config'
-import getPropsValue from '@/utils/getPropsValue'
-import { createQuickPorps } from '@/utils/quickPorps'
+import config from '../config'
+import getPropsValue from '../utils/getPropsValue'
+import { createQuickPorps } from '../utils/quickPorps'
 
 window.__BACKGROUND_LOAD_PROMISE = {}
 

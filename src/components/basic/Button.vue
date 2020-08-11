@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import config from '@/config'
+import config from '../../config'
 
-import status from '@/mixins/status'
-import box from '@/mixins/box'
-import position from '@/mixins/position'
-import event from '@/mixins/event'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
-import getPropsValue from '@/utils/getPropsValue'
+import getPropsValue from '../../utils/getPropsValue'
 
 export default {
   mixins: [status, box, position, event],

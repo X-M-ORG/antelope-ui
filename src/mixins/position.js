@@ -13,8 +13,8 @@
   依赖的混合:
     box
 */
-import getPropsValue from '@/utils/getPropsValue'
-import { createQuickPorps } from '@/utils/quickPorps'
+import getPropsValue from '../utils/getPropsValue'
+import { createQuickPorps } from '../utils/quickPorps'
 
 export default {
   props: createQuickPorps({

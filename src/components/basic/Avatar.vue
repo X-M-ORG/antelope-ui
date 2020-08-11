@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import ASection from '@/components/basic/Section'
+import config from '../../config'
 
-import config from '@/config'
+import ASection from './Section'
 
 export default {
   components: { ASection },

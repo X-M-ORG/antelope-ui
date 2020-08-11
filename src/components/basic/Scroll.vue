@@ -9,10 +9,10 @@
 <script>
 import BScroll from 'better-scroll'
 
-import status from '@/mixins/status'
-import box from '@/mixins/box'
-import position from '@/mixins/position'
-import event from '@/mixins/event'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
 const BScrollEvents = [
   'beforeScrollStart',

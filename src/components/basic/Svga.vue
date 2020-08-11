@@ -5,12 +5,12 @@
 <script>
 import SVGA from 'svgaplayerweb'
 
-import status from '@/mixins/status'
-import box from '@/mixins/box'
-import position from '@/mixins/position'
-import event from '@/mixins/event'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
-import getPropsValue from '@/utils/getPropsValue'
+import getPropsValue from '../../utils/getPropsValue'
 
 const ANTELOPE_SVGA_MAP = 'ANTELOPE_SVGA_MAP'
 

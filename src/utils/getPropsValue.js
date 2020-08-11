@@ -1,7 +1,7 @@
 import clone from 'lodash/clone'
 
-import { getTemplateValues } from '@/tools/createdTemplate'
-import { quickPorps } from '@/utils/quickPorps'
+import { getTemplateValues } from '../tools/createdTemplate'
+import { quickPorps } from './quickPorps'
 
 export default function getPropsValue(vm = {}, keys = []) {
   const templateName = vm.template || vm[quickPorps.template]

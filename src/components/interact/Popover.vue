@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import status from '@/mixins/status'
-import box from '@/mixins/box'
-import position from '@/mixins/position'
-import event from '@/mixins/event'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
 const isPhone = navigator.userAgent.match(
   /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i

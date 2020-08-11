@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import ASection from '@/components/basic/Section'
+import status from '../../mixins/status'
+import box from '../../mixins/box'
+import position from '../../mixins/position'
+import event from '../../mixins/event'
 
-import status from '@/mixins/status'
-import box from '@/mixins/box'
-import position from '@/mixins/position'
-import event from '@/mixins/event'
+import ASection from '../basic/Section'
 
 export default {
   components: {
