@@ -11,6 +11,7 @@
 - 新增 a-touchstart 和 a-touchend 的 \$emit
 - 修改 Button 的间隔默认为 6 px
 - 修复 Svga 在连续切换时因 dom 被销毁而导致的中断加载的错误
+- Avatar 支持头像框的使用，参考：[Avatar](docs/components/basic/Avatar.md)
 
 #### v2.0.4
 
