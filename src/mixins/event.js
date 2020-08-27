@@ -4,9 +4,7 @@
 */
 import getPropsValue from '../utils/getPropsValue'
 
-const isPhone = navigator.userAgent.match(
-  /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-)
+const isPhone = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
 
 const TOUCHSTART_EVENT = isPhone ? 'touchstart' : 'mousedown'
 const TOUCHMOVE_EVENT = isPhone ? 'touchmove' : 'mousemove'
@@ -27,6 +25,7 @@ export default {
     this.mEventTouchstart = () => {
       this.mEventIsTouch = this.mEventIsTap = true
       this.$el.classList.add('on-touch')
+      this.$emit('a-touchstart')
     }
     this.mEventTouchmove = () => {
       this.mEventIsTap = false
@@ -38,6 +37,7 @@ export default {
 
       this.mEventIsTouch = this.mEventIsTap = false
       this.$el.classList.remove('on-touch')
+      this.$emit('a-touchend')
     }
 
     this.$el.addEventListener(TOUCHSTART_EVENT, this.mEventTouchstart)

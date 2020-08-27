@@ -8,6 +8,7 @@
 
 细节：
 
+- 新增 a-touchstart 和 a-touchend 的 \$emit
 - 修改 Button 的间隔默认为 6 px
 - 修复 Svga 在连续切换时因 dom 被销毁而导致的中断加载的错误
 
