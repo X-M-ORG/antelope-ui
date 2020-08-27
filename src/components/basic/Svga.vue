@@ -39,6 +39,7 @@ export default {
 
   data() {
     return {
+      isDestroyed: false,
       id: 'svga-box',
       player: null
     }
@@ -54,6 +55,10 @@ export default {
         this.loadSvgaAnimation(`#${this.id}`, url)
       })
     }
+  },
+
+  destroyed() {
+    this.isDestroyed = true
   },
 
   methods: {
@@ -84,10 +89,14 @@ export default {
                   })
 
               loadHandler.then((videoItem) => {
-                this.player.setVideoItem(videoItem)
-                this.autoplay && this.player.startAnimation()
-                this.$emit('load-success')
-                r()
+                if (this.isDestroyed) {
+                  r()
+                } else {
+                  this.player.setVideoItem(videoItem)
+                  this.autoplay && this.player.startAnimation()
+                  this.$emit('load-success')
+                  r()
+                }
               })
             }, 10)
           })
