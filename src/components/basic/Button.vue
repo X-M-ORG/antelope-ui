@@ -33,7 +33,7 @@ export default {
     },
     space: {
       type: [String, Number],
-      default: 5
+      default: 6
     }
   },
 
