@@ -14,7 +14,7 @@
 | move-x    | String         | false   |         | touch 时，背景图 x 轴偏移量 |
 | move-y    | String         | false   |         | touch 时，背景图 y 轴偏移量 |
 | direction | String         | false   | x       | 偏移方向                    |
-| space     | String、Number | false   | 5       | 两种状态的间隔              |
+| space     | String、Number | false   | 6       | 两种状态的间隔              |
 
 ### 定位方式
 
