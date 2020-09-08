@@ -8,7 +8,7 @@
 
 细节：
 
-- 修改 Position 组件传递 p="fixed" 不生效的问题
+- 修复 Position 组件传递 p="fixed" 不生效的问题
 - Popup.open 支持传参 onclose ，以支持对不同场景关闭时的需求
 
 #### v2.0.5
