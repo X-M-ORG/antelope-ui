@@ -96,7 +96,7 @@ export default {
         opt = { name: opt }
       }
 
-      const { name, options = {}, data } = opt
+      const { name, options = {}, data, onclose } = opt
 
       if (
         this.items.indexOf(name) === -1 ||
@@ -112,7 +112,8 @@ export default {
           active: true,
           name,
           options,
-          data
+          data,
+          onclose
         })
 
         setTimeout(() => {
@@ -141,8 +142,9 @@ export default {
 
           setTimeout(() => {
             this.visible = false
+            const oncloseArrs = this.activeSlots.map((i) => i.onclose)
             this.$set(this, 'activeSlots', [])
-            r()
+            r(oncloseArrs)
           }, 300)
         } else {
           names.forEach((name) => {
@@ -153,16 +155,28 @@ export default {
           })
 
           setTimeout(() => {
+            const oncloseArrs = []
             this.$set(
               this,
               'activeSlots',
-              this.activeSlots.filter(({ name }) =>
-                names.find((i) => i !== name)
-              )
+              this.activeSlots.filter(({ name, onclose }) => {
+                const hasClose = names.find((i) => i !== name)
+                if (hasClose) {
+                  oncloseArrs.push(onclose)
+                }
+                return hasClose
+              })
             )
             r()
           }, 300)
         }
+      }).then((oncloseArrs) => {
+        oncloseArrs
+          .filter(Boolean)
+          .reduce(
+            (next, onclose) => next.then(() => onclose()),
+            Promise.resolve()
+          )
       })
     }
   }

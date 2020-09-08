@@ -1,6 +1,6 @@
 {
   "name": "antelope-ui",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "A Component Library for Vue.js.",
   "main": "dist/antelope-ui.js",
   "scripts": {

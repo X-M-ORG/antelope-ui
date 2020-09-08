@@ -59,11 +59,12 @@ Popup 实例提供两个方法以供调用：
 
 openOptions：
 
-| name    | type   | require | default | desc                             |
-| ------- | ------ | ------- | ------- | -------------------------------- |
-| name    | String | true    |         | 开启的浮层项的名称，items 项     |
-| options | Object | false   | {}      | 同 Props.options，将覆盖初始属性 |
-| data    | Any    | false   |         | 传递给此浮层的数据               |
+| name    | type     | require | default | desc                             |
+| ------- | -------- | ------- | ------- | -------------------------------- |
+| name    | String   | true    |         | 开启的浮层项的名称，items 项     |
+| options | Object   | false   | {}      | 同 Props.options，将覆盖初始属性 |
+| data    | Any      | false   |         | 传递给此浮层的数据               |
+| onclose | Function | false   |         | 此浮层在关闭后的将执行的回调     |
 
 > 该方法返回一个 Promise，将在浮层开启的动画结束后 resolve
 

@@ -5,17 +5,15 @@ import { quickPorps } from './quickPorps'
 
 export default function getPropsValue(vm = {}, keys = []) {
   const templateName = vm.template || vm[quickPorps.template]
-  const templateStore = templateName
-    ? clone(getTemplateValues(templateName))
-    : {}
+  const templateStore = templateName ? clone(getTemplateValues(templateName)) : {}
 
   const values = [].concat(keys).reduce((values, key) => {
     const quickKey = quickPorps[key] || ''
 
-    if (typeof vm[key] !== 'undefined') {
-      values[key] = vm[key]
-    } else if (typeof vm[quickKey] !== 'undefined') {
+    if (typeof vm[quickKey] !== 'undefined') {
       values[key] = vm[quickKey]
+    } else if (typeof vm[key] !== 'undefined') {
+      values[key] = vm[key]
     }
 
     if (typeof values[key] === 'undefined') {
