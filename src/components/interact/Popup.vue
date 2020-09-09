@@ -167,17 +167,17 @@ export default {
                 return hasClose
               })
             )
-            r()
+            r(oncloseArrs)
           }, 300)
         }
-      }).then((oncloseArrs) => {
+      }).then((oncloseArrs) =>
         oncloseArrs
           .filter(Boolean)
           .reduce(
             (next, onclose) => next.then(() => onclose()),
             Promise.resolve()
           )
-      })
+      )
     }
   }
 }
