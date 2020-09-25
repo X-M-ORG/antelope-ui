@@ -20,6 +20,21 @@ export default function genEntry(components) {
         Vue.component(config.componentPrefix + key, components[key])
       })
 
+      Vue.mixin({
+        created() {
+          if (!this.$route || !this.$route.matched || !this.$route.matched[0] || !this.aImagesMap) {
+            return
+          }
+
+          if (this === this.$route.matched[0].instances.default) {
+            if (!this.$route.meta) {
+              this.$route.meta = {}
+            }
+            this.$route.meta.aImagesMap = { ...this.$route.meta.aImagesMap, ...getImagesMap(this.aImagesMap) }
+          }
+        }
+      })
+
       installed = true
     },
 

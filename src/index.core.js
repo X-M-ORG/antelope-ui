@@ -1,5 +1,5 @@
 import gen from './entrys/gen'
-import * as entrys from './entrys/core'
-export * from './entrys/core'
+import * as components from './entrys/core'
 
-export default gen(entrys)
+export * from './entrys/core'
+export default gen(components)

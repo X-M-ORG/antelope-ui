@@ -6,46 +6,22 @@
 
 ## 图片资源
 
-在没有合适的方案前，图片资源需要预先引用，生成 aImagesMap 对象挂载于 this.\$route.meta 上。
+在没有合适的方案前，图片资源需要预先引用，使用 require.context 预加载资源并挂载于 data.aImagesMap 上。
 
 - 示例代码：
 
-```js
-import bg3 from '@/img/bg3.png'
+index.vue
 
-const route = {
-  path: '/xxxxx',
-  component: () => import('./index'),
-  meta: {
-    // ...some params
-
-    aImagesMap: {
-      'bg1.png': require('@/img/bg1.png'),
-      'bg2.png': () => import('@/img/bg2.png'),
-      'bg3.png': bg3
+```vue
+<script>
+export default {
+  data() {
+    return {
+      aImagesMap: require.context('@/img/', true, /.*/)
     }
   }
 }
-```
-
-当资源多的时候很麻烦，所以提供一个辅助方法：antelope.utils.getImagesMap
-
-示例代码：
-
-```js
-import antelope from 'antelope-ui'
-
-const route = {
-  path: '/xxxxx',
-  component: () => import('./index'),
-  meta: {
-    // ...some params
-
-    aImagesMap: antelope.utils.getImagesMap(
-      require.context('@/img/', true, /.*/)
-    )
-  }
-}
+</script>
 ```
 
 这样，就可以在框架组件上使用 background-image 属性。
