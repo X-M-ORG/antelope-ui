@@ -21,7 +21,7 @@
 <script v-pre type="text/x-template" id="example">
 <template>
   <div style="background-color: red">
-    <a-sprite w="56px" h="45px" v-for="i in 10" :key="i" :x="-((i - 1) * 60) + 'px'" bg-i="/docs/components/basic/static/num.png"></a-sprite>
+    <a-sprite w="56px" h="45px" v-for="i in 10" :key="i" :x="-((i - 1) * 60) + 'px'" bg-i="/antelope-ui/docs/components/basic/static/num.png"></a-sprite>
   </div>
 </template>
 

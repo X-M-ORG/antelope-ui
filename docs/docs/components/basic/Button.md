@@ -36,10 +36,10 @@
 <script v-pre type="text/x-template" id="example">
 <template>
   <div>
-    <a-button w="422px" h="143px"  move-x="-426px" bg-i="/docs/components/basic/static/confirm.png"></a-button>
+    <a-button w="422px" h="143px"  move-x="-426px" bg-i="/antelope-ui/docs/components/basic/static/confirm.png"></a-button>
 
     <!-- 默认x轴间隔5px -->
-    <a-button bg-i="/docs/components/basic/static/confirm.png"></a-button>
+    <a-button bg-i="/antelope-ui/docs/components/basic/static/confirm.png"></a-button>
   </div>
 </template>
 

@@ -13,7 +13,6 @@
 | height           | h     | String | false   |         | 元素高，不传之或留空则由内部元素撑高   |
 | background-color | bg-c  | String | false   |         | 背景色，同 css 写法                    |
 | background-image | bg-i  | String | false   |         | 背景图，下面详述                       |
-| image-suffix     | i-s   | String | false   |         | 背景图后缀，下面详述                   |
 
 > quick 为速写属性，与 name 作用相同
 
@@ -53,7 +52,7 @@ antelope.utils.createdTemplate('m-button', {
 
 背景图，同 css 写法。
 
-请先阅读此文档来理解图片挂载： [准备](docs/require/beforeReady.md)
+请先阅读此文档来理解图片挂载： [准备](docs/guide/Ready.md?id=图片资源)
 
 此属性传值，无需全部路径，传递值为该页面设定的资源目录下的路径路径，例如：
 
@@ -65,19 +64,3 @@ antelope.utils.createdTemplate('m-button', {
 | @/img/abc/bbb.png       | bbb.png       |
 | @/img/abc/a/b/c/d/1.png | a/b/c/d/1.png |
 | ...                     | ...           |
-
-### image-suffix
-
-image-suffix 会给 background-image 添加一个 String(image-suffix) 的后缀，
-
-如：
-
-```html
-<a-section bg-i="1.png" i-s="test"></a-section>
-
-<!-- 等同于 -->
-
-<a-section bg-i="1.test.png"></a-section>
-```
-
-!> Boolean(image-suffix) 为 false 将不会添加后缀，所以请避免传递转换后为 false 的值
