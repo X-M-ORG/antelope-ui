@@ -67,29 +67,28 @@ export default {
             }
           }
         } else {
-          const { imageTimes, imageSizeUnit } = config
-          const getSize = (n) => (n * imageTimes).toFixed(2) + imageSizeUnit
-
           const { width, height } = this.mBoxBackgroundImage
           space = Number(space)
 
+          const { imageTimes, imageSizeUnit } = config
+          const getSize = (n) => (n * imageTimes).toFixed(2) + imageSizeUnit
+          const getLen = (n) => (disabled ? n : (n - space) / 2)
+
           if (direction === 'x') {
-            style.width = getSize((width - space) / 2)
+            style.width = getSize(getLen(width))
             style.height = getSize(height)
             style.backgroundSize = 'auto ' + style.height
           } else {
             style.width = getSize(width)
-            style.height = getSize((height - space) / 2)
+            style.height = getSize(getLen(height))
             style.backgroundSize = style.width + ' auto'
           }
 
           if (isActive) {
             if (direction === 'x') {
-              const n = (width - space) / 2 + space
-              style.backgroundPositionX = '-' + getSize(n)
+              style.backgroundPositionX = '-' + getSize(getLen(width) + space)
             } else {
-              const n = (height - space) / 2 + space
-              style.backgroundPositionY = '-' + getSize(n)
+              style.backgroundPositionY = '-' + getSize(getLen(height) + space)
             }
           }
         }
