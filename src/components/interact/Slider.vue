@@ -1,6 +1,13 @@
 <template>
   <div class="a-slider" :style="mPositionStyle">
-    <div class="slider-item" v-for="i in 2" :key="i" :style="{ 'animation-duration': (duration / 1000) + 's' }" :class="{ 'slider-in': values[i -1], 'slider-out': values[i -1] && animation && current === i -1 }">{{ values[i -1] }}</div>
+    <template v-if="mode === 'text'">
+      <div class="slider-item" v-for="i in 2" :key="i" :style="{ 'animation-duration': (duration / 1000) + 's' }" :class="{ 'slider-in': values[i -1], 'slider-out': values[i -1] && animation && current === i -1 }">{{ values[i -1] }}</div>
+    </template>
+    <template v-else-if="mode === 'slot'">
+      <div class="slider-item" v-for="(name, i) in items" :key="i" :style="{ 'animation-duration': (duration / 1000) + 's' }" :class="{ 'slider-in': isIn(name), 'slider-out': isOut(name) }">
+        <slot :name="name"></slot>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -22,12 +29,23 @@ export default {
     duration: {
       type: Number,
       default: 500
+    },
+
+    items: {
+      type: Array,
+      default: () => []
+    },
+
+    mode: {
+      validator: (v) => ['text', 'slot'].indexOf(v) !== -1,
+      default: 'text'
     }
   },
 
   data() {
     return {
-      current: 0,
+      timer: 0,
+      current: -1,
       values: {
         0: undefined,
         1: undefined
@@ -56,13 +74,15 @@ export default {
 
   methods: {
     next(value) {
+      clearTimeout(this.timer)
+
       if (this.current === 0) {
         this.values[1] = value
       } else {
         this.values[0] = value
       }
 
-      setTimeout(() => {
+      this.timer = setTimeout(() => {
         if (this.current === 0) {
           this.current = 1
           this.values[0] = undefined
@@ -71,6 +91,32 @@ export default {
           this.values[1] = undefined
         }
       }, this.duration)
+    },
+
+    isIn(name) {
+      let index = -1
+      if (this.values[0] === name) {
+        index = 0
+      } else if (this.values[1] === name) {
+        index = 1
+      }
+
+      return index > -1
+    },
+
+    isOut(name) {
+      let index = -1
+      if (this.values[0] === name) {
+        index = 0
+      } else if (this.values[1] === name) {
+        index = 1
+      }
+
+      if (index === -1) {
+        return false
+      }
+
+      return this.animation && this.current === index
     }
   }
 }
