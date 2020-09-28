@@ -14,7 +14,7 @@ import config from '../config'
 import getPropsValue from '../utils/getPropsValue'
 import { createQuickPorps } from '../utils/quickPorps'
 
-window.__BACKGROUND_LOAD_PROMISE = {}
+window.__BACKGROUND_LOAD_PROMISE = new Map()
 
 export default {
   props: createQuickPorps({
@@ -53,12 +53,7 @@ export default {
     mBoxStyle() {
       let style = {
         position: 'relative',
-        ...getPropsValue(this, [
-          'width',
-          'height',
-          'backgroundColor',
-          'backgroundImage'
-        ])
+        ...getPropsValue(this, ['width', 'height', 'backgroundColor', 'backgroundImage'])
       }
 
       if (this.mBoxBackgroundImage.src) {
@@ -131,25 +126,23 @@ function setBackgroundImage(vm) {
     vm.mBoxBackgroundImage.loadPromiseReject = null
   }
 
-  const {
-    name: backgroundImageName,
-    file: backgroundImageFile
-  } = getBackgroundImageParams(vm, getPropsValue(vm, 'backgroundImage'))
+  const { file: backgroundImageFile } = getBackgroundImageParams(vm, getPropsValue(vm, 'backgroundImage'))
 
   let getImagePromise = Promise.resolve({ src: '', width: 0, height: 0 })
 
   if (backgroundImageFile) {
-    if (!__BACKGROUND_LOAD_PROMISE[backgroundImageName]) {
-      __BACKGROUND_LOAD_PROMISE[backgroundImageName] = new Promise(
-        (resolve) => {
+    if (!__BACKGROUND_LOAD_PROMISE.has(backgroundImageFile)) {
+      __BACKGROUND_LOAD_PROMISE.set(
+        backgroundImageFile,
+        new Promise((resolve) => {
           let image = new Image()
           image.src = backgroundImageFile
           image.onload = () => resolve(image)
-        }
+        })
       )
     }
 
-    getImagePromise = __BACKGROUND_LOAD_PROMISE[backgroundImageName]
+    getImagePromise = __BACKGROUND_LOAD_PROMISE.get(backgroundImageFile)
   }
 
   new Promise((resolve, reject) => {
