@@ -160,11 +160,11 @@ export default {
               this,
               'activeSlots',
               this.activeSlots.filter(({ name, onclose }) => {
-                const hasClose = names.find((i) => i !== name)
-                if (hasClose) {
+                const hasOpen = names.find((i) => i !== name)
+                if (!hasOpen) {
                   oncloseArrs.push(onclose)
                 }
-                return hasClose
+                return hasOpen
               })
             )
             r(oncloseArrs)
