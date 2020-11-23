@@ -52,7 +52,10 @@ export default {
       this.id += ++window[ANTELOPE_SVGA_MAP].id
 
       this.$nextTick(() => {
-        this.loadSvgaAnimation(`#${this.id}`, url)
+        this.loadSvgaAnimation(
+          `#${this.id}`,
+          url.replace(/^http*.\:\/\//g, '//')
+        )
       })
     }
   },
