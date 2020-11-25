@@ -45,6 +45,12 @@ export default {
     }
   },
 
+  watch: {
+    url(newVal) {
+      newVal && this.loadSvgaAnimation(newVal)
+    }
+  },
+
   mounted() {
     const url = getPropsValue(this, 'url')
 
@@ -52,10 +58,7 @@ export default {
       this.id += ++window[ANTELOPE_SVGA_MAP].id
 
       this.$nextTick(() => {
-        this.loadSvgaAnimation(
-          `#${this.id}`,
-          url.replace(/^http*.\:\/\//g, '//')
-        )
+        this.loadSvgaAnimation(url)
       })
     }
   },
@@ -65,18 +68,23 @@ export default {
   },
 
   methods: {
-    loadSvgaAnimation(id, url) {
+    loadSvgaAnimation(u) {
+      const id = '#' + this.id
+      const url = u.replace(/^http*.\:\/\//g, '//')
+
       let { queue, videos } = window[ANTELOPE_SVGA_MAP]
 
       window[ANTELOPE_SVGA_MAP].queue = queue.then(
         () =>
           new Promise((r) => {
             setTimeout(() => {
-              this.player = new SVGA.Player(id)
+              if (!this.player) {
+                this.player = new SVGA.Player(id)
+              }
 
               const loadHandler = videos[url]
                 ? Promise.resolve(videos[url])
-                : new Promise((resolve, reject) => {
+                : new Promise((resolve) => {
                     new SVGA.Parser(id).load(
                       url,
                       (videoItem) => {
@@ -86,13 +94,13 @@ export default {
                       },
                       (error) => {
                         this.$emit('load-error', error)
-                        reject()
+                        resolve(null)
                       }
                     )
                   })
 
               loadHandler.then((videoItem) => {
-                if (this.isDestroyed) {
+                if (this.isDestroyed || !videoItem) {
                   r()
                 } else {
                   this.player.setVideoItem(videoItem)

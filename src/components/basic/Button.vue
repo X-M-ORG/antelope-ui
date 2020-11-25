@@ -67,10 +67,11 @@ export default {
             }
           }
         } else {
+          const { buttonImgSpace, imageTimes, imageSizeUnit } = config
           const { width, height } = this.mBoxBackgroundImage
-          space = Number(space)
 
-          const { imageTimes, imageSizeUnit } = config
+          space = Number(buttonImgSpace === -1 ? space : buttonImgSpace)
+
           const getSize = (n) => (n * imageTimes).toFixed(2) + imageSizeUnit
           const getLen = (n) => (disabled ? n : (n - space) / 2)
 

@@ -16,6 +16,8 @@
 | direction | String         | false   | x       | 偏移方向                    |
 | space     | String、Number | false   | 6       | 两种状态的间隔              |
 
+> 可以通过挂载配置定义全局的 space 值，参考：[安装](docs/guide/Install.md#挂载参数)
+
 ### 定位方式
 
 按钮的背景图，应该是一个精灵图，以避免点击时加载两张图的闪烁，例如：
@@ -38,7 +40,7 @@
   <div>
     <a-button w="422px" h="143px"  move-x="-426px" bg-i="/antelope-ui/docs/components/basic/static/confirm.png"></a-button>
 
-    <!-- 默认x轴间隔5px -->
+    <!-- 默认x轴间隔6px -->
     <a-button bg-i="/antelope-ui/docs/components/basic/static/confirm.png"></a-button>
   </div>
 </template>

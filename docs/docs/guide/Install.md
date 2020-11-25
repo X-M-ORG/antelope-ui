@@ -45,6 +45,7 @@ Vue.component('AButton', Button)
 | name                | type     | require | default | desc                                                                              |
 | ------------------- | -------- | ------- | ------- | --------------------------------------------------------------------------------- |
 | componentPrefix     | String   | false   | 'A'     | 挂载后组件前缀                                                                    |
+| buttonImgSpace      | Number   | false   | -1      | 按钮组件的默认间距，-1 不启用                                                     |
 | imageSizeAutoLoader | Boolean  | false   | false   | 图片资源自动加载宽高（背景图）                                                    |
 | imageSizeUnit       | String   | false   | 'px'    | 资源宽高的参数                                                                    |
 | imageTimes          | Number   | false   | 1       | 图片倍数                                                                          |
