@@ -15,6 +15,8 @@ import box from '../../mixins/box'
 import position from '../../mixins/position'
 import event from '../../mixins/event'
 
+import setAnimationTimeout from '../../utils/setAnimationTimeout'
+
 export default {
   mixins: [status, box, position, event],
 
@@ -131,7 +133,7 @@ export default {
         }
       }
 
-      this.beginDelayTimer = setTimeout(() => {
+      this.beginDelayTimer = setAnimationTimeout(() => {
         const now = Date.now()
         const moveTime = this.getBulletMoveTime(nextRef)
 
@@ -144,7 +146,7 @@ export default {
           ref: nextRef,
           residue: duration,
           begin: now,
-          timer: setTimeout(() => {
+          timer: setAnimationTimeout(() => {
             nextRef.classList.remove('move')
             delete this.moveTimer[nextIndex]
           }, duration)
@@ -152,7 +154,7 @@ export default {
 
         const i = nextIndex
         this.nextBeginIndex = this.bullets.length - 1 === i ? 0 : i + 1
-        this.nextBeginTimer = setTimeout(this.beginAnimation, moveTime)
+        this.nextBeginTimer = setAnimationTimeout(this.beginAnimation, moveTime)
       }, beginDelay)
     },
     endAnimation() {
@@ -168,7 +170,7 @@ export default {
         const { ref, residue } = this.moveTimer[i]
 
         this.moveTimer[i].begin = Date.now()
-        this.moveTimer[i].timer = setTimeout(() => {
+        this.moveTimer[i].timer = setAnimationTimeout(() => {
           ref.classList.remove('move')
           delete this.moveTimer[i]
         }, residue)
