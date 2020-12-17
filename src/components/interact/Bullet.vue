@@ -15,7 +15,10 @@ import box from '../../mixins/box'
 import position from '../../mixins/position'
 import event from '../../mixins/event'
 
-import setAnimationTimeout from '../../utils/setAnimationTimeout'
+import {
+  setAnimationTimeout,
+  clearAnimationTimeout
+} from '../../utils/animationTimeout'
 
 export default {
   mixins: [status, box, position, event],
@@ -158,7 +161,7 @@ export default {
       }, beginDelay)
     },
     endAnimation() {
-      clearTimeout(this.nextBeginTimer)
+      clearAnimationTimeout(this.nextBeginTimer)
       this.nextBeginTimer = 0
     },
 
@@ -189,12 +192,12 @@ export default {
       Object.keys(this.moveTimer).forEach((i) => {
         const { residue, begin, timer } = this.moveTimer[i]
 
-        clearTimeout(timer)
+        clearAnimationTimeout(timer)
         this.moveTimer[i].residue = residue - (this.beginPaused - begin)
       })
 
       if (this.beginDelayTimer) {
-        clearTimeout(this.beginDelayTimer)
+        clearAnimationTimeout(this.beginDelayTimer)
         this.beginDelayTimer = 0
       }
     },

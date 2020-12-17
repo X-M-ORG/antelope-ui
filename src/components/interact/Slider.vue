@@ -17,6 +17,11 @@ import box from '../../mixins/box'
 import position from '../../mixins/position'
 import event from '../../mixins/event'
 
+import {
+  setAnimationTimeout,
+  clearAnimationTimeout
+} from '../../utils/animationTimeout'
+
 export default {
   mixins: [status, box, position, event],
 
@@ -74,7 +79,7 @@ export default {
 
   methods: {
     next(value) {
-      clearTimeout(this.timer)
+      clearAnimationTimeout(this.timer)
 
       if (this.current === 0) {
         this.values[1] = value
@@ -82,7 +87,7 @@ export default {
         this.values[0] = value
       }
 
-      this.timer = setTimeout(() => {
+      this.timer = setAnimationTimeout(() => {
         if (this.current === 0) {
           this.current = 1
           this.values[0] = undefined
