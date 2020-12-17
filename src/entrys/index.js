@@ -1,6 +1,7 @@
 export * from './core'
 
 import Svga from '../components/basic/Svga'
-export { Svga }
+import Scroll from '../components/basic/Scroll'
+export { Svga, Scroll }
 
 export default {}
