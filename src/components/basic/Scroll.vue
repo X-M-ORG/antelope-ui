@@ -81,7 +81,6 @@ export default {
         probeType: 2,
         bounce: false,
         momentum: false,
-        tap: true,
         ...this.options
       })
 
@@ -162,38 +161,31 @@ export default {
     listenerScroll() {
       const el = this.$refs.content
 
-      let xViewDirection = ''
-      let yViewDirection = ''
+      let initScroll = false
 
-      let lastPosition = {}
+      el.addEventListener('touchstart', (e1) => {
+        initScroll = false
 
-      el.addEventListener('touchstart', (e) => {
-        const [{ screenX, screenY }] = e.touches
-        lastPosition.x = screenX
-        lastPosition.y = screenY
-        xViewDirection = ''
-        yViewDirection = ''
+        if (!this.V.enabled) {
+          el.addEventListener(
+            'touchmove',
+            (e2) => {
+              const v = e2.touches[0].screenY - e1.touches[0].screenY
+
+              if (
+                (this.V.y === 0 && v < 0) ||
+                (this.V.y === this.V.maxScrollY && v > 0)
+              ) {
+                initScroll = true
+              }
+            },
+            { once: true }
+          )
+        }
       })
 
-      el.addEventListener('touchmove', (e) => {
-        const [{ screenX, screenY }] = e.touches
-
-        if (!xViewDirection || screenX !== lastPosition.x) {
-          xViewDirection = screenX < lastPosition.x + 5 ? 'right' : 'left'
-        }
-        if (!yViewDirection || screenY !== lastPosition.y) {
-          yViewDirection = screenY < lastPosition.y + 5 ? 'bottom' : 'top'
-        }
-
-        lastPosition.x = screenX
-        lastPosition.y = screenY
-
-        if (
-          (this.V.y === 0 && yViewDirection === 'bottom') ||
-          (this.V.y === this.V.maxScrollY && yViewDirection === 'top')
-        ) {
-          this.V.enabled || this.initScroll()
-        }
+      el.addEventListener('touchend', (e) => {
+        initScroll && this.initScroll()
       })
     }
   }
