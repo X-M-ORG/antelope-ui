@@ -1,6 +1,6 @@
 <template>
   <div :style="listStyle">
-    <div>
+    <div ref="content">
       <slot></slot>
     </div>
   </div>
@@ -53,7 +53,9 @@ export default {
       disabledComingTopEvent: false,
       disabledComingBottomEvent: false,
 
-      V: null
+      V: null,
+      lastX: 0,
+      lastY: 0
     }
   },
 
@@ -67,8 +69,21 @@ export default {
   },
 
   mounted() {
-    this.$nextTick(() => {
-      this.V = new BScroll(this.$el, { probeType: 2, ...this.options })
+    this.initScroll()
+    this.listenerScroll()
+  },
+
+  methods: {
+    initScroll() {
+      this.V = new BScroll(this.$el, {
+        startX: this.lastX,
+        startY: this.lastY,
+        probeType: 2,
+        bounce: false,
+        momentum: false,
+        tap: true,
+        ...this.options
+      })
 
       Object.keys(this.$listeners).forEach((name) => {
         const e = BScrollEvents.find(
@@ -128,7 +143,59 @@ export default {
           }
         }
       })
-    })
+
+      this.V.on('scrollEnd', () => {
+        if (
+          (this.V.y === 0 && this.V.movingDirectionY === -1) ||
+          (this.V.y === this.V.maxScrollY && this.V.movingDirectionY === 1)
+        ) {
+          if (this.V.enabled) {
+            this.V.destroy()
+            this.V.enabled = false
+            this.lastX = this.V.x
+            this.lastY = this.V.y
+          }
+        }
+      })
+    },
+
+    listenerScroll() {
+      const el = this.$refs.content
+
+      let xViewDirection = ''
+      let yViewDirection = ''
+
+      let lastPosition = {}
+
+      el.addEventListener('touchstart', (e) => {
+        const [{ screenX, screenY }] = e.touches
+        lastPosition.x = screenX
+        lastPosition.y = screenY
+        xViewDirection = ''
+        yViewDirection = ''
+      })
+
+      el.addEventListener('touchmove', (e) => {
+        const [{ screenX, screenY }] = e.touches
+
+        if (!xViewDirection || screenX !== lastPosition.x) {
+          xViewDirection = screenX < lastPosition.x + 5 ? 'right' : 'left'
+        }
+        if (!yViewDirection || screenY !== lastPosition.y) {
+          yViewDirection = screenY < lastPosition.y + 5 ? 'bottom' : 'top'
+        }
+
+        lastPosition.x = screenX
+        lastPosition.y = screenY
+
+        if (
+          (this.V.y === 0 && yViewDirection === 'bottom') ||
+          (this.V.y === this.V.maxScrollY && yViewDirection === 'top')
+        ) {
+          this.V.enabled || this.initScroll()
+        }
+      })
+    }
   }
 }
 </script>
