@@ -11,10 +11,10 @@
 - 混合：[组件混合表](docs/components/mixins/Components.md)
 - 自有：
 
-| name           | type   | require | default          | desc                                                                                |
-| -------------- | ------ | ------- | ---------------- | ----------------------------------------------------------------------------------- |
-| options        | object | false   | { probeType: 2 } | 初始化参数，[官方文档](http://ustbhuangyi.github.io/better-scroll/doc/options.html) |
-| expand-options | object | false   | {}               | 拓展参数，对于封装的功能用到的                                                      |
+| name           | type   | require | default                                          | desc                                                                                              |
+| -------------- | ------ | ------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| options        | object | false   | { probeType: 2, bounce: false, momentum: false } | 初始化参数，[官方文档](https://better-scroll.github.io/docs/zh-CN/guide/base-scroll-options.html) |
+| expand-options | object | false   | {}                                               | 拓展参数，对于封装的功能用到的                                                                    |
 
 **expand-options object：**
 

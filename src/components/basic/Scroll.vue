@@ -15,18 +15,28 @@ import position from '../../mixins/position'
 import event from '../../mixins/event'
 
 const BScrollEvents = [
+  'refresh',
+  'enable',
+  'disable',
   'beforeScrollStart',
   'scrollStart',
   'scroll',
-  'scrollCancel',
   'scrollEnd',
+  'scrollCancel',
   'touchEnd',
   'flick',
-  'refresh',
   'destroy',
+  'contentChanged',
+  'alterOptions',
+  'mousewheelStart',
+  'mousewheelMove',
+  'mousewheelEnd',
   'pullingDown',
   'pullingUp',
+  'slideWillChange',
+  'beforeZoomStart',
   'zoomStart',
+  'zooming',
   'zoomEnd'
 ]
 
