@@ -44,7 +44,13 @@ const config = {
     ]
   },
 
-  plugins: [new VueLoaderPlugin()]
+  plugins: [new VueLoaderPlugin()],
+
+  performance: {
+    hints: 'error',
+    maxAssetSize: 300000,
+    maxEntrypointSize: 500000
+  }
 }
 
 module.exports = config

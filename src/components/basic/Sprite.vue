@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import config from '../../config'
+import { getConfig } from '../../config'
 
 import status from '../../mixins/status'
 import box from '../../mixins/box'
@@ -35,10 +35,11 @@ export default {
       }
 
       if (style.backgroundImage) {
+        const { imageTimes, imageSizeUnit } = getConfig()
         const { width, height } = this.mBoxBackgroundImage
         style.backgroundSize = [
-          (width * config.imageTimes).toFixed(2) + config.imageSizeUnit,
-          (height * config.imageTimes).toFixed(2) + config.imageSizeUnit
+          (width * imageTimes).toFixed(2) + imageSizeUnit,
+          (height * imageTimes).toFixed(2) + imageSizeUnit
         ].join(' ')
 
         const { x, y } = getPropsValue(this, ['x', 'y'])

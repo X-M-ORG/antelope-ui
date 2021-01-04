@@ -1,7 +1,4 @@
-import config from '../config'
-
-import getImagesMap from '../tools/getImagesMap'
-import createdTemplate from '../tools/createdTemplate'
+import { setConfig } from '../config'
 
 export default function genEntry(components) {
   let installed = false
@@ -12,12 +9,10 @@ export default function genEntry(components) {
         return
       }
 
-      Object.keys(options).forEach((k) => {
-        config[k] = options[k]
-      })
+      const { componentPrefix } = setConfig(options)
 
       Object.keys(components).forEach((key) => {
-        Vue.component(config.componentPrefix + key, components[key])
+        Vue.component(componentPrefix + key, components[key])
       })
 
       Vue.mixin({
@@ -36,11 +31,13 @@ export default function genEntry(components) {
       })
 
       installed = true
-    },
-
-    utils: {
-      getImagesMap,
-      createdTemplate
     }
   }
+}
+
+function getImagesMap(filesPath) {
+  return filesPath.keys().reduce((map, name) => {
+    map[name.replace('./', '')] = filesPath(name)
+    return map
+  }, {})
 }

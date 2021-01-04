@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import config from '../../config'
+import { getConfig } from '../../config'
 
 import status from '../../mixins/status'
 import box from '../../mixins/box'
@@ -19,7 +19,7 @@ export default {
 
       if (style.backgroundImage) {
         if (!style.width && !style.height) {
-          const { imageTimes, imageSizeUnit } = config
+          const { imageTimes, imageSizeUnit } = getConfig()
           const getSize = (n) => (n * imageTimes).toFixed(2) + imageSizeUnit
 
           style.width = getSize(this.mBoxBackgroundImage.width / 3)

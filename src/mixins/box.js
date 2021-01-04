@@ -10,21 +10,23 @@
   依赖的混合:
     status
 */
-import config from '../config'
+import { getConfig } from '../config'
+
 import getPropsValue from '../utils/getPropsValue'
+import getFullUnit from '../utils/getFullUnit'
 import { createQuickPorps } from '../utils/quickPorps'
 
 window.__BACKGROUND_LOAD_PROMISE = new Map()
 
 export default {
   props: createQuickPorps({
-    template: {
-      type: [String, Number]
-    },
     width: {
       type: [String, Number]
     },
     height: {
+      type: [String, Number]
+    },
+    widthHeight: {
       type: [String, Number]
     },
     backgroundColor: {
@@ -33,6 +35,7 @@ export default {
     backgroundImage: {
       type: [String, Number]
     },
+    // todo delete
     imageSuffix: {
       type: [String, Number]
     }
@@ -51,17 +54,26 @@ export default {
 
   computed: {
     mBoxStyle() {
-      let style = {
-        position: 'relative',
-        ...getPropsValue(this, ['width', 'height', 'backgroundColor', 'backgroundImage'])
+      const boxProps = getPropsValue(this, ['width', 'height', 'widthHeight', 'backgroundColor', 'backgroundImage'])
+
+      if (boxProps.widthHeight) {
+        const [width, height = width] = boxProps.widthHeight.trim().split(' ')
+        boxProps.width = width || 0
+        boxProps.height = height || 0
+        Reflect.deleteProperty(boxProps, 'widthHeight')
       }
+
+      boxProps.width = getFullUnit(boxProps.width)
+      boxProps.height = getFullUnit(boxProps.height)
+
+      let style = { position: 'relative', ...boxProps }
 
       if (this.mBoxBackgroundImage.src) {
         style.backgroundImage = `url(${this.mBoxBackgroundImage.src})`
         style.backgroundSize = '100% 100%'
 
-        if (config.imageSizeAutoLoader) {
-          const { imageTimes, imageSizeUnit } = config
+        if (getConfig('imageSizeAutoLoader')) {
+          const { imageTimes, imageSizeUnit } = getConfig()
           const { width, height } = this.mBoxBackgroundImage
 
           if (!style.width) {
@@ -84,6 +96,7 @@ export default {
     bgI() {
       setBackgroundImage(this)
     },
+    // todo delete
     imageSuffix() {
       setBackgroundImage(this)
     },
@@ -105,6 +118,7 @@ export default {
 function getBackgroundImageParams(vm, name) {
   let file
 
+  // todo delete
   const suffix = getPropsValue(vm, 'imageSuffix')
   if (suffix) {
     let k = name.split('.')
@@ -148,7 +162,7 @@ function setBackgroundImage(vm) {
   new Promise((resolve, reject) => {
     vm.mBoxBackgroundImage.loadPromiseReject = reject
 
-    return getImagePromise.then(resolve)
+    getImagePromise.then(resolve)
   })
     .then((image) => {
       if (vm.mBoxBackgroundImage.src !== image.src) {

@@ -1,17 +1,18 @@
 import clone from 'lodash/clone'
 
-const boxQuickPorps = {
-  template: 'tpl',
+const sectionQuickPorps = {
   width: 'w',
   height: 'h',
+  widthHeight: 'wh',
   backgroundColor: 'bgC',
   backgroundImage: 'bgI',
-  imageSuffix: 'iS'
+  imageSuffix: 'iS' // todo delete
 }
 
 const positionQuickPorps = {
   position: 'p',
   zIndex: 'pz',
+  positionSet: 'ps',
   top: 'pt',
   bottom: 'pb',
   left: 'pl',
@@ -20,7 +21,7 @@ const positionQuickPorps = {
 }
 
 export const quickPorps = {
-  ...boxQuickPorps,
+  ...sectionQuickPorps,
   ...positionQuickPorps
 }
 

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import config from '../../config'
+import { getConfig } from '../../config'
 
 import ASection from './Section'
 
@@ -50,12 +50,13 @@ export default {
 
   methods: {
     tapAvatar() {
+      const { avatarOnTap } = getConfig()
       const aTap = this.$listeners['a-tap'] || this.$listeners.aTap
 
       if (aTap) {
-        aTap(this.$attrs, config.onTapAvatar)
+        aTap(this.$attrs, avatarOnTap)
       } else {
-        config.onTapAvatar(this.$attrs)
+        avatarOnTap(this.$attrs)
       }
     }
   }

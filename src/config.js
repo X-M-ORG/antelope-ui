@@ -1,17 +1,40 @@
-/*
-  框架的基础配置
-  componentPrefix 挂载后组件前缀
-  buttonImgSpace 按钮组件的默认间距，-1不启用
-  imageSizeAutoLoader 图片资源自动加载宽高（背景图）
-  imageSizeUnit 资源宽高的参数
-  imageTimes 图片倍数
-  onTapAvatar 点击头像时的触发事件
-*/
-export default {
+const config = {
+  /**
+   * system 系统级参数
+   * componentPrefix 挂载后组件前缀
+   * imageSizeAutoLoader 图片资源自动加载宽高（背景图）
+   * imageTimes 图片倍数
+   * imageSizeUnit 资源宽高的单位
+   * boxUnit 盒模型和定位属性的单位：width、height、left、right、top、bottom
+   */
   componentPrefix: 'A',
-  buttonImgSpace: -1,
   imageSizeAutoLoader: false,
-  imageSizeUnit: 'px',
   imageTimes: 1,
-  onTapAvatar: () => {}
+  imageSizeUnit: 'px',
+  boxUnit: 'rem',
+
+  /**
+   * button 组件参数
+   * buttonImgSpace 按钮组件的默认间距，-1不启用
+   */
+  buttonImgSpace: -1,
+
+  /**
+   * avatar 组件参数
+   * avatarOnTap 组件在点击时触发的事件
+   */
+  avatarOnTap: () => {}
+}
+
+export function setConfig(obj) {
+  Object.keys(obj).forEach((key) => {
+    if (config.hasOwnProperty(key)) {
+      config[key] = obj[key]
+    }
+  })
+  return config
+}
+
+export function getConfig(key) {
+  return key ? (config.hasOwnProperty(key) ? config[key] : null) : config
 }

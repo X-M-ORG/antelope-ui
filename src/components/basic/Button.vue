@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import config from '../../config'
+import { getConfig } from '../../config'
 
 import status from '../../mixins/status'
 import box from '../../mixins/box'
@@ -67,7 +67,7 @@ export default {
             }
           }
         } else {
-          const { buttonImgSpace, imageTimes, imageSizeUnit } = config
+          const { buttonImgSpace, imageTimes, imageSizeUnit } = getConfig()
           const { width, height } = this.mBoxBackgroundImage
 
           space = Number(buttonImgSpace === -1 ? space : buttonImgSpace)

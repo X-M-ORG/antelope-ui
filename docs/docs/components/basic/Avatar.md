@@ -18,7 +18,7 @@
 
 ### 挂载配置
 
-此组件支持挂载时参数配置：onTapAvatar，此函数会在组件 tap 时触发
+此组件支持挂载时参数配置：avatarOnTap，此函数会在组件 tap 时触发
 
 ```js
 Vue.use(antelope, {
@@ -26,19 +26,19 @@ Vue.use(antelope, {
   imageSizeUnit: 'rem',
   imageTimes: 0.01,
 
-  onTapAvatar: ($attrs) => {
+  avatarOnTap: ($attrs) => {
     // do some code ...
   }
 })
 ```
 
-!> onTapAvatar 的参数为使用 Avatar 组件时传递的 \$attrs
+!> avatarOnTap 的参数为使用 Avatar 组件时传递的 \$attrs
 
-当 Avatar 定义 @a-tap，会忽略 onTapAvatar 的执行，而自定义的 a-tap 函数接收两个参数
+当 Avatar 定义 @a-tap，会忽略 avatarOnTap 的执行，而自定义的 a-tap 函数接收两个参数
 
 ```js
 // a-tap
-function aTap($attrs, onTapAvatar) {}
+function aTap($attrs, avatarOnTap) {}
 ```
 
 ### 示例
@@ -47,8 +47,8 @@ function aTap($attrs, onTapAvatar) {}
 
 ```js
 Vue.use(antelope, {
-  onTapAvatar: ($attrs) => {
-    console.log('onTapAvatar - $attrs', $attrs)
+  avatarOnTap: ($attrs) => {
+    console.log('avatarOnTap - $attrs', $attrs)
   }
 })
 ```
@@ -68,12 +68,12 @@ Vue.use(antelope, {
 <script>
   export default {
     methods: {
-      test($attrs, onTapAvatar) {
+      test($attrs, avatarOnTap) {
         // log: { w: '100px', h: '100px', 'bg-c': 'red' }
         console.log($attrs)
 
-        // log: onTapAvatar - $attrs { w: '100px', h: '100px', 'bg-c': 'red' }
-        onTapAvatar($attrs)
+        // log: avatarOnTap - $attrs { w: '100px', h: '100px', 'bg-c': 'red' }
+        avatarOnTap($attrs)
       }
     }
   }

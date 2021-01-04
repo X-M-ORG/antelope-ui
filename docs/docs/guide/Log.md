@@ -2,6 +2,16 @@
 
 ---
 
+#### v2.1.0
+
+日期: 2021-01-04
+
+- 新增挂载参数 boxUnit，width、height、left、right、top、bottom 属性可忽略单位
+- 新增 widthHeight 属性（quick：wh），可一并设置宽高，具体更新查阅：[Box 盒子属性](docs/components/mixins/Box.md)
+- 新增 positionSet 属性（quick：ps），可一并设置定位，具体更新查阅：[Position 定位属性](docs/components/mixins/Position.md)
+- 修改挂载参数 onTapAvatar 为 avatarOnTap，保留 onTapAvatar，但后续更新将移除
+- 不再建议使用 antelope.utils 和 template、imageSuffix 属性，后续更新将移除
+
 #### v2.0.14 ～ 2.0.16
 
 日期: 2020-12-17
