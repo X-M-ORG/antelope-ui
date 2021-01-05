@@ -15,6 +15,7 @@
 | Svga     |   √    |  √  |    √     |   √   |
 | Fps9     |   √    |  √  |    √     |   √   |
 | Sprite   |   √    |  √  |    √     |   √   |
+| List     |   √    |  √  |    √     |   √   |
 | Scroll   |   √    |  √  |    √     |   √   |
 | Avatar   |        |     |          |       |
 
@@ -23,6 +24,7 @@
 | 组件     | status | box | position | event |
 | -------- | :----: | :-: | :------: | :---: |
 | Popup    |        |     |          |       |
+| Dialog   |        |     |          |       |
 | Bullet   |   √    |  √  |    √     |   √   |
 | Timer    |   √    |  √  |    √     |   √   |
 | Roulette |   √    |  √  |    √     |   √   |

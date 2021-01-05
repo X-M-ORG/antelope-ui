@@ -1,6 +1,6 @@
 <template>
   <a-section style="border-radius: 50%;" v-bind="$attrs" @a-tap="tapAvatar()">
-    <component v-if="avatarFrame" :is="aFrameComponent.is" v-bind="aFrameComponent.params"></component>
+    <component v-if="avatarFrame" :is="aFrameComponent.is" v-bind="aFrameComponent.attrs"></component>
 
     <slot></slot>
   </a-section>
@@ -19,6 +19,11 @@ export default {
       type: String,
       default: ''
     },
+    frameAttrs: {
+      type: Object,
+      default: () => ({})
+    },
+    // todo delete
     frameParams: {
       type: Object,
       default: () => ({})
@@ -36,13 +41,14 @@ export default {
 
       return {
         is: isSvga ? 'a-svga' : 'a-position',
-        params: {
+        attrs: {
           pc: '',
           pz: '10',
           w: '135%',
           h: '135%',
           [isSvga ? 'url' : 'bgI']: path,
-          ...this.frameParams
+          ...this.frameAttrs,
+          ...this.frameParams // todo delete
         }
       }
     }

@@ -26,12 +26,13 @@
     - [Svga 道具块](docs/components/basic/Svga.md)
     - [Fps9 九帧图](docs/components/basic/Fps9.md)
     - [Sprite 雪碧图](docs/components/basic/Sprite.md)
+    - [List 列表块](docs/components/basic/List.md)
     - [Scroll 滚动块](docs/components/basic/Scroll.md)
     - [Avatar 头像块](docs/components/basic/Avatar.md)
 
   - 交互组件
 
-    - [Popup 浮层](docs/components/interact/Popup.md)
+    - [Dialog 对话框](docs/components/interact/Dialog.md)
     - [Bullet 弹幕](docs/components/interact/Bullet.md)
     - [Timer 计时器](docs/components/interact/Timer.md)
     - [Roulette 轮盘](docs/components/interact/Roulette.md)

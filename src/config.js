@@ -6,12 +6,16 @@ const config = {
    * imageTimes 图片倍数
    * imageSizeUnit 资源宽高的单位
    * boxUnit 盒模型和定位属性的单位：width、height、left、right、top、bottom
+   * imagesPropertyName 挂载资源属性名
+   * dialogPropertyName 挂载 dialog 的全局对象属性名
    */
   componentPrefix: 'A',
   imageSizeAutoLoader: false,
   imageTimes: 1,
   imageSizeUnit: 'px',
   boxUnit: 'rem',
+  imagesPropertyName: 'aImagesMap',
+  dialogPropertyName: '$dialogs',
 
   /**
    * button 组件参数

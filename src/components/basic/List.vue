@@ -19,11 +19,19 @@ export default {
     direction: {
       type: String,
       default: 'y'
+    },
+
+    nested: {
+      type: Boolean,
+      default: false
     }
   },
 
   data() {
-    return {}
+    return {
+      preventDefault: true,
+      lastPosition: { x: 0, y: 0 }
+    }
   },
 
   computed: {
@@ -35,14 +43,11 @@ export default {
     },
 
     contentStyle() {
-      let overflow = ['hidden', 'hidden']
-      overflow[this.direction === 'x' ? 0 : 1] = 'auto'
-
       return {
         width: '100%',
         height: '100%',
         boxSizing: 'content-box',
-        overflow: overflow.join(' '),
+        [this.direction === 'x' ? 'overflowX' : 'overflowY']: 'auto',
         [`padding-${this.direction === 'y' ? 'right' : 'bottom'}`]: '20px'
       }
     },
@@ -52,6 +57,109 @@ export default {
     }
   },
 
-  mounted() {}
+  mounted() {
+    this.initScroll()
+  },
+
+  destroyed() {
+    this.removeScroll()
+  },
+
+  methods: {
+    initScroll() {
+      if (this.nested) {
+        this.$scroll.addEventListener('scroll', this.onScroll)
+      }
+      this.$scroll.addEventListener('touchstart', this.onTouchstart)
+      this.$scroll.addEventListener('touchmove', this.onTouchmove)
+    },
+    removeScroll() {
+      if (this.nested) {
+        this.$scroll.removeEventListener('scroll', this.onScroll)
+      }
+      this.$scroll.removeEventListener('touchstart', this.onTouchstart)
+      this.$scroll.removeEventListener('touchmove', this.onTouchmove)
+    },
+
+    /**
+     * 事件
+     */
+    onScroll(e) {
+      if (this.direction === 'x') {
+        const { scrollLeft, scrollWidth, offsetWidth } = e.target
+
+        if (scrollLeft < 1 || scrollLeft + offsetWidth === scrollWidth) {
+          this.preventDefault = false
+        }
+      } else {
+        const { scrollTop, scrollHeight, offsetHeight } = e.target
+
+        if (scrollTop < 1 || scrollTop + offsetHeight === scrollHeight) {
+          this.preventDefault = false
+        }
+      }
+    },
+    onTouchstart(e) {
+      this.lastPosition.x = e.touches[0].clientX
+      this.lastPosition.y = e.touches[0].clientY
+
+      if (!this.preventDefault) {
+        this.$scroll.addEventListener('touchmove', this.onOnceTouchmove, {
+          once: true
+        })
+      }
+    },
+    onTouchmove(e) {
+      if (!this.preventDefault) {
+        return
+      }
+
+      e.preventDefault()
+
+      let nextPosition = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY
+      }
+
+      let move
+
+      if (this.direction === 'x') {
+        move = nextPosition.x - this.lastPosition.x
+      } else {
+        move = nextPosition.y - this.lastPosition.y
+      }
+
+      this.$scroll.scrollTop -= move
+
+      this.lastPosition.x = nextPosition.x
+      this.lastPosition.y = nextPosition.y
+    },
+    onOnceTouchmove(e) {
+      const nextPosition = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY
+      }
+
+      let initScroll = false
+
+      if (this.direction === 'x') {
+        initScroll = this.lastPosition.x > nextPosition.x
+      } else {
+        initScroll = this.lastPosition.y > nextPosition.y
+      }
+
+      if (initScroll) {
+        this.$scroll.addEventListener(
+          'touchend',
+          () => {
+            this.preventDefault = true
+          },
+          {
+            once: true
+          }
+        )
+      }
+    }
+  }
 }
 </script>

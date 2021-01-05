@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import BScroll from 'better-scroll'
+import BScroll from '@better-scroll/core'
 
 import status from '../../mixins/status'
 import box from '../../mixins/box'

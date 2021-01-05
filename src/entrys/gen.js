@@ -9,15 +9,17 @@ export default function genEntry(components) {
         return
       }
 
-      const { componentPrefix } = setConfig(options)
+      const { componentPrefix, imagesPropertyName, dialogPropertyName } = setConfig(options)
 
       Object.keys(components).forEach((key) => {
         Vue.component(componentPrefix + key, components[key])
       })
 
+      Vue.prototype[dialogPropertyName] = {}
+
       Vue.mixin({
         created() {
-          if (!this.$route || !this.$route.matched || !this.$route.matched[0] || !this.aImagesMap) {
+          if (!this.$route || !this.$route.matched || !this.$route.matched[0] || !this[imagesPropertyName]) {
             return
           }
 
@@ -25,7 +27,7 @@ export default function genEntry(components) {
             if (!this.$route.meta) {
               this.$route.meta = {}
             }
-            this.$route.meta.aImagesMap = { ...this.$route.meta.aImagesMap, ...getImagesMap(this.aImagesMap) }
+            this.$route.meta[imagesPropertyName] = { ...this.$route.meta[imagesPropertyName], ...getImagesMap(this[imagesPropertyName]) }
           }
         }
       })

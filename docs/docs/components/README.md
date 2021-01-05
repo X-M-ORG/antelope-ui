@@ -25,14 +25,15 @@
 - [Svga 道具块，加载 svga 动画](docs/components/basic/Svga.md)
 - [Fps9 九帧图，加载九帧图动画](docs/components/basic/Fps9.md)
 - [Sprite 雪碧图，加载特殊数字或图案](docs/components/basic/Sprite.md)
-- [Scroll 滚动块，一般用于长列表](docs/components/basic/Scroll.md)
+- [List 列表块，一般用于长列表](docs/components/basic/List.md)
+- [Scroll 滚动块，一般用于滚动区域](docs/components/basic/Scroll.md)
 - [Avatar 头像块，用于显示头像及点击事件](docs/components/basic/Avatar.md)
 
 #### 交互组件
 
 这些组件通常存在某些特殊的交互效果，相较复杂。
 
-- [Popup 页面统一的浮层，提供阴影、渐变的效果](docs/components/interact/Popup.md)
+- [Dialog 对话框 用于页面浮层的切换](docs/components/interact/Dialog.md)
 - [Bullet 弹幕，滚动播放的广播、弹幕效果](docs/components/interact/Bullet.md)
 - [Timer 计时器，常用于倒计时](docs/components/interact/Timer.md)
 - [Roulette 轮盘，转盘抽奖效果](docs/components/interact/Roulette.md)

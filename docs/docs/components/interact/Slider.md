@@ -20,7 +20,7 @@
 
 ## Slot
 
-若 mode=slot，则可传递 items ，每一项名为一个 slot，value 修改为 slot 时，将会自动滚动至该 slot。
+若 mode=slot，则可传递 items ，每一项名为一个 slot name，value 修改为 slot name 时，将会自动滚动至该 slot。
 
 ### 示例
 
@@ -32,7 +32,7 @@
     <a-slider pl="0" pt="0" w="100px" h="50px" :value="value"></a-slider>
 
     <a-slider pl="0" pt="100px" w="100px" h="50px" :value="`n${value2}`" :items="['n0','n1','n2','n3','n4','n5','n6','n7','n8','n9']" mode="slot">
-      <a-sprite v-for="(n) in 10" :key="n" :slot="`n${n-1}`" w="56px" h="45px" :x="-((n - 1) * 60) + 'px'" bg-i="/antelope-ui/docs/components/basic/static/num.png">
+      <a-sprite v-for="(n) in 10" :key="n" :slot="`n${n-1}`" w="56px" h="45px" :x="-((n - 1) * 60) + 'px'" bg-i="https://x-m-org.github.io/antelope-ui/docs/components/basic/static/num.png">
     </a-slider>
   </a-section>
 </template>

@@ -43,6 +43,7 @@
 
      <a-bullet
       ref="bullet"
+      mode="slot"
       position
       bottom="0"
       left="0"
@@ -50,7 +51,7 @@
       height="48px"
       :items="bullet"
     >
-      <a-section slot-scope="scope" @a-tap="test(scope.data)">{{ scope.data }}</a-section>
+      <a-section slot-scope="scope" @a-tap="test(scope.data)">slot:{{ scope.data }}</a-section>
     </a-bullet>
   </a-section>
 </template>

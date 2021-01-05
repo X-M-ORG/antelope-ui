@@ -22,12 +22,12 @@
 
 按钮的背景图，应该是一个精灵图，以避免点击时加载两张图的闪烁，例如：
 
-![confirm](./static/confirm.png)
+![confirm](https://x-m-org.github.io/antelope-ui/docs/components/basic/static/confirm.png)
 
 所以提供两种定位方式：
 
-- 1、设置宽高和偏移量
-- 2、设置偏移方向和两种状态的间隔（推荐）
+- 1、设置按钮的宽高以及点击时图片的偏移量
+- 2、设置按钮的偏移方向和两种状态的间隔（推荐）
 
 > 方法 2 会自动加载宽高，很方便，建议食用
 
@@ -38,10 +38,10 @@
 <script v-pre type="text/x-template" id="example">
 <template>
   <div>
-    <a-button w="422px" h="143px"  move-x="-426px" bg-i="/antelope-ui/docs/components/basic/static/confirm.png"></a-button>
+    <a-button w="422px" h="143px"  move-x="-426px" bg-i="https://x-m-org.github.io/antelope-ui/docs/components/basic/static/confirm.png"></a-button>
 
-    <!-- 默认x轴间隔6px -->
-    <a-button bg-i="/antelope-ui/docs/components/basic/static/confirm.png"></a-button>
+    <!-- 这张按钮图片的两个状态间隔6px，默认x轴间隔6px -->
+    <a-button bg-i="https://x-m-org.github.io/antelope-ui/docs/components/basic/static/confirm.png"></a-button>
   </div>
 </template>
 

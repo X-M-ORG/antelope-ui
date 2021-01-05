@@ -1,6 +1,6 @@
 {
   "name": "antelope-ui",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A Component Library for Vue.js.",
   "main": "dist/antelope-ui.js",
   "scripts": {
@@ -27,6 +27,7 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.12.10",
     "@babel/preset-env": "^7.9.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.4.2",
@@ -39,8 +40,8 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "better-scroll": "^2.0.6",
+    "better-scroll": "^2.0.10",
     "lodash": "^4.17.19",
-    "svgaplayerweb": "^2.3.0"
+    "svga.lite": "^1.5.0"
   }
 }

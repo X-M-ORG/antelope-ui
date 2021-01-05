@@ -19,7 +19,7 @@
 
 > quick 为简写属性，与 name 作用相同
 
-> 2.1.0 版本起，top、bottom、left、right 可以忽略单位，在[挂载](/docs/guide/Install?id=挂载参数)的时候进行设定相应单位
+> 2.1.0 版本起，position-set、top、bottom、left、right 可以忽略单位，在[挂载](/docs/guide/Install?id=挂载参数)的时候进行设定相应单位
 
 ## 自动激活
 

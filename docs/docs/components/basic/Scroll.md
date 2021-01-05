@@ -2,7 +2,9 @@
 
 滚动块，一般用于长列表，封装了 better-scroll，新增了一些特性
 
-!> 此组件依赖 npm 包：better-scroll
+!> 此组件依赖 npm 包：@better-scroll/core
+
+!> 此组件不太好用，低端手机兼容性较差，无特殊需求尽量少用
 
 ---
 

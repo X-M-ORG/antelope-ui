@@ -8,6 +8,7 @@ import Button from '../components/basic/Button'
 import Avatar from '../components/basic/Avatar'
 
 import Popup from '../components/interact/Popup'
+import Dialog from '../components/interact/Dialog'
 import Bullet from '../components/interact/Bullet'
 import Timer from '../components/interact/Timer'
 import Roulette from '../components/interact/Roulette'
@@ -15,6 +16,6 @@ import Tabs from '../components/interact/Tabs'
 import Slider from '../components/interact/Slider'
 import Popover from '../components/interact/Popover'
 
-export { Section, Sections, Position, List, Fps9, Sprite, Button, Avatar, Popup, Bullet, Timer, Roulette, Tabs, Slider, Popover }
+export { Section, Sections, Position, List, Fps9, Sprite, Button, Avatar, Popup, Dialog, Bullet, Timer, Roulette, Tabs, Slider, Popover }
 
 export default {}
