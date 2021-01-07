@@ -12,8 +12,6 @@ import APosition from '../basic/Position'
 
 import getPropsValue from '../../utils/getPropsValue'
 
-const bodyScroll = (e) => e.preventDefault()
-
 export default {
   components: {
     APosition
@@ -68,7 +66,7 @@ export default {
       return new Promise((r) => {
         this.active = this.visible = true
 
-        this.$el.addEventListener('touchmove', bodyScroll)
+        document.body.style.overflow = 'hidden'
 
         setTimeout(() => {
           r()
@@ -93,7 +91,7 @@ export default {
         setTimeout(() => {
           this.visible = false
 
-          this.$el.removeEventListener('touchmove', bodyScroll)
+          document.body.style.overflow = null
 
           this.$set(this, 'data', null)
           this.$set(this, 'attrs', {})

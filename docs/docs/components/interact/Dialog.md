@@ -2,10 +2,6 @@
 
 对话框用于页面的浮层显示，使用函数式进行浮层的切换
 
-!> 对话框将禁用 touchmove 事件，若对话框内又元素滚动，则请给滚动容器添加 el.addEventListener('touchmove', e => e.stopPropagation())
-
-!> 建议使用 List 组件配合滚动，效果更好
-
 ---
 
 ### Props

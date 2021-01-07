@@ -58,25 +58,21 @@ export default {
   },
 
   mounted() {
-    this.initScroll()
+    this.nested && this.initScroll()
   },
 
   destroyed() {
-    this.removeScroll()
+    this.nested && this.removeScroll()
   },
 
   methods: {
     initScroll() {
-      if (this.nested) {
-        this.$scroll.addEventListener('scroll', this.onScroll)
-      }
+      this.$scroll.addEventListener('scroll', this.onScroll)
       this.$scroll.addEventListener('touchstart', this.onTouchstart)
       this.$scroll.addEventListener('touchmove', this.onTouchmove)
     },
     removeScroll() {
-      if (this.nested) {
-        this.$scroll.removeEventListener('scroll', this.onScroll)
-      }
+      this.$scroll.removeEventListener('scroll', this.onScroll)
       this.$scroll.removeEventListener('touchstart', this.onTouchstart)
       this.$scroll.removeEventListener('touchmove', this.onTouchmove)
     },
