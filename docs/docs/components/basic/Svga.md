@@ -11,10 +11,10 @@
 - 混合：[组件混合表](docs/components/mixins/Components.md)
 - 自有：
 
-| name     | type    | require | default | desc                                 |
-| -------- | ------- | ------- | ------- | ------------------------------------ |
-| url      | String  | true    |         | svga 资源的 url 地址，不支持本地文件 |
-| autoplay | Boolean | false   | true    | 是否自动加载                         |
+| name     | type    | require | default | desc                                                    |
+| -------- | ------- | ------- | ------- | ------------------------------------------------------- |
+| url      | String  | true    |         | svga 资源的 url 地址，支持本地文件，同 background-image |
+| autoplay | Boolean | false   | true    | 是否自动加载                                            |
 
 ### 自定义功能
 

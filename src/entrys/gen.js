@@ -1,3 +1,4 @@
+import get from 'lodash/get'
 import { setConfig } from '../config'
 
 export default function genEntry(components) {
@@ -9,25 +10,23 @@ export default function genEntry(components) {
         return
       }
 
-      const { componentPrefix, imagesPropertyName, dialogPropertyName } = setConfig(options)
+      const { componentPrefix, assetsProperty, dialogProperty } = setConfig(options)
 
       Object.keys(components).forEach((key) => {
         Vue.component(componentPrefix + key, components[key])
       })
 
-      Vue.prototype[dialogPropertyName] = {}
+      Vue.prototype[dialogProperty] = {}
 
       Vue.mixin({
         created() {
-          if (!this.$route || !this.$route.matched || !this.$route.matched[0] || !this[imagesPropertyName]) {
+          if (this !== get(this, '$route.matched.0.instances.default', null)) {
             return
           }
 
-          if (this === this.$route.matched[0].instances.default) {
-            if (!this.$route.meta) {
-              this.$route.meta = {}
-            }
-            this.$route.meta[imagesPropertyName] = { ...this.$route.meta[imagesPropertyName], ...getImagesMap(this[imagesPropertyName]) }
+          const imagesMap = this.$options[assetsProperty] || this[assetsProperty]
+          if (imagesMap) {
+            this.$route.meta[assetsProperty] = { ...this.$route.meta[assetsProperty], ...getImagesMap(imagesMap) }
           }
         }
       })

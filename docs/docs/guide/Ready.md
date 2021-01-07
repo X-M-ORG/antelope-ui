@@ -6,7 +6,7 @@
 
 ## 图片资源
 
-在没有合适的方案前，图片资源需要预先引用，使用 require.context 预加载资源并挂载于 data.aImagesMap 上。
+在没有合适的方案前，图片资源需要预先引用，使用 require.context 预加载资源。
 
 - 示例代码：
 
@@ -15,21 +15,22 @@ index.vue
 ```vue
 <script>
 export default {
+  assets: require.context('@/img/', true, /.*/),
+
   data() {
     return {
-      aImagesMap: require.context('@/img/', true, /.*/)
+      // 兼容旧的写法，但建议挂载在根对象上，毕竟资源没必要挂载在 data 上
+      // assets: require.context('@/img/', true, /.*/)
     }
   }
+
+  // some code ...
 }
 </script>
 ```
 
 这样，就可以在框架组件上使用 background-image 属性。
 
-当然，background-image 也可以直接传 url 链接。
+当然，background-image 也可以直接使用 url 链接。
 
----
-
-## SVGA 资源
-
-目前 svga 资源不支持本地加载，所以需要先上传到 cdn 上，使用 url 链接。
+> 可以在挂载时设置 assetsProperty 自定义字段，默认是 assets，参考：[安装](docs/guide/Install.md#挂载参数)

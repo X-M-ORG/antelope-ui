@@ -5,12 +5,15 @@
 </template>
 
 <script>
+import get from 'lodash/get'
 import { Downloader, Parser, Player } from 'svga.lite'
 
 import status from '../../mixins/status'
 import box from '../../mixins/box'
 import position from '../../mixins/position'
 import event from '../../mixins/event'
+
+import { getConfig } from '../../config'
 
 import getPropsValue from '../../utils/getPropsValue'
 
@@ -76,8 +79,10 @@ export default {
 
   methods: {
     loadSvgaAnimation(u) {
+      const assets = get(this, `$route.meta.${getConfig('assetsProperty')}`)
+
       const id = '#' + this.id
-      const url = u.replace(/^http*.\:\/\//g, '//')
+      const url = assets[u] || u.replace(/^http*.\:\/\//g, '//')
 
       let { queue, videos } = window[ANTELOPE_SVGA_MAP]
 

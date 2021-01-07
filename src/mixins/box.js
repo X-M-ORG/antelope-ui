@@ -126,8 +126,10 @@ function getBackgroundImageParams(vm, name) {
     name = k.join('.')
   }
 
-  if (vm.$route && vm.$route.meta && vm.$route.meta.aImagesMap) {
-    file = vm.$route.meta.aImagesMap[name] || name
+  const assetsProperty = getConfig('assetsProperty')
+
+  if (vm.$route && vm.$route.meta && vm.$route.meta[assetsProperty]) {
+    file = vm.$route.meta[assetsProperty][name] || name
   } else {
     file = name
   }

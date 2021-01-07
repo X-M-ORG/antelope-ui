@@ -2,6 +2,15 @@
 
 ---
 
+#### v2.2.2
+
+日期: 2021-01-07
+
+- 挂载参数 imagesPropertyName 重命名为 assetsProperty，详细参数：[安装](docs/guide/Install.md#挂载参数)
+- 挂载参数 dialogPropertyName 重命名为 dialogProperty，详细参数：[安装](docs/guide/Install.md#挂载参数)
+- 优化资源挂载，参考：[准备](docs/guide/Ready.md#图片资源)
+- Svga 组件支持加载本地资源，参考：[Svga](docs/components/basic/Svga.md)
+
 #### v2.2.1
 
 日期: 2021-01-07
