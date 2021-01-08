@@ -34,3 +34,5 @@ export default {
 当然，background-image 也可以直接使用 url 链接。
 
 > 可以在挂载时设置 assetsProperty 自定义字段，默认是 assets，参考：[安装](docs/guide/Install.md#挂载参数)
+
+!> 只有在路由级的 vue 文件中挂载才生效

@@ -72,8 +72,8 @@ player 的 api 参考：[svga.lite 官方文档](https://github.com/svga/SVGAPla
 <script v-pre type="text/x-template" id="example">
 <template>
   <a-section w="250px" h="200px" bg-c="#ddd">
-    <a-svga pl="0" pt="0" w="100px" h="100px" url="https://svga.io/assets/svga/index-response.svga"></a-svga>
-    <a-svga pr="0" pt="0" w="100px" h="100px" url="https://svga.io/assets/svga/index-response.svga"></a-svga>
+    <a-svga pl="0" pt="0" w="100px" h="100px" url="https://x-m-org.github.io/antelope-ui/docs/components/basic/static/demo.svga"></a-svga>
+    <a-svga pr="0" pt="0" w="100px" h="100px" url="https://x-m-org.github.io/antelope-ui/docs/components/basic/static/demo.svga"></a-svga>
   </a-section>
 </template>
 
