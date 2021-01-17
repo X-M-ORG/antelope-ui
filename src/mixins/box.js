@@ -56,8 +56,10 @@ export default {
     mBoxStyle() {
       const boxProps = getPropsValue(this, ['width', 'height', 'widthHeight', 'backgroundColor', 'backgroundImage'])
 
-      if (boxProps.widthHeight) {
-        const [width, height = width] = boxProps.widthHeight.trim().split(' ')
+      if (typeof boxProps.widthHeight !== 'undefined') {
+        const [width, height = width] = String(boxProps.widthHeight)
+          .trim()
+          .split(' ')
         boxProps.width = width || 0
         boxProps.height = height || 0
         Reflect.deleteProperty(boxProps, 'widthHeight')

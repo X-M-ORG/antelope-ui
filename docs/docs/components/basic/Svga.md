@@ -15,6 +15,7 @@
 | -------- | ------- | ------- | ------- | ------------------------------------------------------- |
 | url      | String  | true    |         | svga 资源的 url 地址，支持本地文件，同 background-image |
 | autoplay | Boolean | false   | true    | 是否自动加载                                            |
+| params   | Object  | false   | {}      | svga player 的参数                                      |
 
 ### 自定义功能
 

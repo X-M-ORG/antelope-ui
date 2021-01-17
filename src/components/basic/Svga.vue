@@ -1,6 +1,7 @@
 <template>
   <div :style="mPositionStyle" style="display:flex; align-items:center; justify-content:center">
     <canvas style="max-width: 100%; max-height: 100%" :id="id"></canvas>
+    <slot></slot>
   </div>
 </template>
 
@@ -42,6 +43,11 @@ export default {
     autoplay: {
       type: Boolean,
       default: true
+    },
+
+    params: {
+      type: Object,
+      default: () => ({})
     }
   },
 
@@ -112,8 +118,10 @@ export default {
                   r()
                   return
                 }
-                this.autoplay && this.player.start()
-                this.$emit('load-success')
+                this.player.set(this.params)
+                this.player.start()
+                !this.autoplay && this.player.pause()
+                this.$emit('load-success', this)
                 r()
               }
             }, 10)

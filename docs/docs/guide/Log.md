@@ -2,6 +2,12 @@
 
 ---
 
+#### v2.2.3
+
+日期: 2021-01-17
+
+- Svga 组件支持 slot，新增 props.params，参考：[Svga](docs/components/basic/Svga.md)
+
 #### v2.2.2
 
 日期: 2021-01-07
