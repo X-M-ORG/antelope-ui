@@ -2,6 +2,12 @@
 
 ---
 
+#### v2.2.4
+
+日期: 2021-01-20
+
+- Svga 组件替换回 svgaplayerweb，接口没有变动，参考：[Svga](docs/components/basic/Svga.md)
+
 #### v2.2.3
 
 日期: 2021-01-17

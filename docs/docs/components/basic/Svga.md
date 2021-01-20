@@ -27,44 +27,7 @@
 <a-svga ref="svga" url="xxx" :autoplay="false"></a-svga>
 ```
 
-```js
-const { player, svgaData } = this.$refs.svga
-
-/**
- * 初始化已经挂载过 svgaData，但可以对 svgaData 进行修改再次挂载，以达到动态素材的效果
- * 如果不需要修改，这两行代码是不需要的
- */
-svgaData.images[key] = '某个图片'
-await player.mount(svgaData)
-
-player
-  // 开始动画事件回调
-  .$on('start', () => console.log('event start'))
-  // 暂停动画事件回调
-  .$on('pause', () => console.log('event pause'))
-  // 停止动画事件回调
-  .$on('stop', () => console.log('event stop'))
-  // 动画结束事件回调
-  .$on('end', () => console.log('event end'))
-  // 清空动画事件回调
-  .$on('clear', () => console.log('event clear'))
-  // 动画播放中事件回调
-  .$on('process', () => console.log('event process', player.progress))
-
-// 开始播放动画
-player.start()
-
-// 暂停播放动画
-// player.pause()
-
-// 停止播放动画
-// player.stop()
-
-// 清空动画
-// player.clear()
-```
-
-player 的 api 参考：[svga.lite 官方文档](https://github.com/svga/SVGAPlayer-Web-Lite)
+player 的 api 参考：[svga.lite 官方文档](https://github.com/svga/SVGAPlayer-Web/blob/master/README.zh.md)
 
 ### 示例
 
