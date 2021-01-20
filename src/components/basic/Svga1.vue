@@ -1,13 +1,13 @@
 <template>
-  <div :style="mPositionStyle">
-    <div :style="mBoxStyle" :id="id"></div>
+  <div :style="mPositionStyle" style="display:flex; align-items:center; justify-content:center">
+    <canvas style="max-width: 100%; max-height: 100%" :id="id"></canvas>
     <slot></slot>
   </div>
 </template>
 
 <script>
-import SVGA from 'svgaplayerweb'
 import get from 'lodash/get'
+import { Downloader, Parser, Player } from 'svga.lite'
 
 import status from '../../mixins/status'
 import box from '../../mixins/box'
@@ -27,6 +27,10 @@ if (!window[ANTELOPE_SVGA_MAP]) {
     videos: {}
   }
 }
+
+const downloader = new Downloader()
+const parser = new Parser()
+
 export default {
   mixins: [status, box, position, event],
 
@@ -51,7 +55,9 @@ export default {
     return {
       isDestroyed: false,
       id: 'svga-box',
-      player: null
+
+      player: null,
+      svgaData: null
     }
   },
 
@@ -83,43 +89,41 @@ export default {
 
       const id = '#' + this.id
       const url = assets[u] || u.replace(/^http*.\:\/\//g, '//')
+
       let { queue, videos } = window[ANTELOPE_SVGA_MAP]
 
       window[ANTELOPE_SVGA_MAP].queue = queue.then(
         () =>
           new Promise((r) => {
-            setTimeout(() => {
+            setTimeout(async () => {
               if (!this.player) {
-                this.player = new SVGA.Player(id)
+                this.player = new Player(id)
               }
-              const loadHandler = videos[url]
-                ? Promise.resolve(videos[url])
-                : new Promise((resolve) => {
-                    new SVGA.Parser(id).load(
-                      url,
-                      (videoItem) => {
-                        window[ANTELOPE_SVGA_MAP].videos[url] = videoItem
-                        resolve(videoItem)
-                      },
-                      (error) => {
-                        this.$emit('load-error', error)
-                        resolve(null)
-                      }
-                    )
-                  })
-              loadHandler.then((videoItem) => {
-                if (this.isDestroyed || !videoItem) {
+
+              if (!videos[url]) {
+                try {
+                  const fileData = await downloader.get(url)
+                  videos[url] = await parser.do(fileData)
+                } catch (e) {}
+              }
+
+              if (this.isDestroyed || !videos[url]) {
+                r()
+              } else {
+                this.svgaData = videos[url]
+
+                try {
+                  await this.player.mount(this.svgaData)
+                } catch (e) {
                   r()
-                } else {
-                  this.player.setVideoItem(videoItem)
-                  Object.keys(this.params).forEach((key) => {
-                    this.player[key] = this.params[key]
-                  })
-                  this.autoplay && this.player.startAnimation()
-                  this.$emit('load-success')
-                  r()
+                  return
                 }
-              })
+                this.player.set(this.params)
+                this.player.start()
+                !this.autoplay && this.player.pause()
+                this.$emit('load-success', this)
+                r()
+              }
             }, 10)
           })
       )
