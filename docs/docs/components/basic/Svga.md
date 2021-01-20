@@ -2,7 +2,7 @@
 
 我们活动中经常会用到 svga 资源，每次写加载方法太麻烦，所以此组件用来加载 svga。
 
-!> 此组件依赖 npm 包：svga.lite
+!> 此组件依赖 npm 包：svgaplayerweb
 
 ---
 
@@ -27,7 +27,7 @@
 <a-svga ref="svga" url="xxx" :autoplay="false"></a-svga>
 ```
 
-player 的 api 参考：[svga.lite 官方文档](https://github.com/svga/SVGAPlayer-Web/blob/master/README.zh.md)
+player 的 api 参考：[svgaplayerweb 官方文档](https://github.com/svga/SVGAPlayer-Web/blob/master/README.zh.md)
 
 ### 示例
 
