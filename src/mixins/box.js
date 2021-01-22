@@ -10,6 +10,7 @@
   依赖的混合:
     status
 */
+import get from 'lodash/get'
 import { getConfig } from '../config'
 
 import getPropsValue from '../utils/getPropsValue'
@@ -118,7 +119,7 @@ export default {
   setBackgroundImage 设置背景图的信息
 */
 function getBackgroundImageParams(vm, name) {
-  let file
+  const assets = get(vm, `$route.meta.${getConfig('assetsProperty')}`, {})
 
   // todo delete
   const suffix = getPropsValue(vm, 'imageSuffix')
@@ -128,15 +129,7 @@ function getBackgroundImageParams(vm, name) {
     name = k.join('.')
   }
 
-  const assetsProperty = getConfig('assetsProperty')
-
-  if (vm.$route && vm.$route.meta && vm.$route.meta[assetsProperty]) {
-    file = vm.$route.meta[assetsProperty][name] || name
-  } else {
-    file = name
-  }
-
-  return { name, file }
+  return { name, file: assets[name] || name }
 }
 function setBackgroundImage(vm) {
   if (vm.mBoxBackgroundImage.loadPromiseReject) {
