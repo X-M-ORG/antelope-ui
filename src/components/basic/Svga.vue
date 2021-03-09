@@ -1,6 +1,6 @@
 <template>
   <div :style="mPositionStyle">
-    <div :style="mBoxStyle" :id="id"></div>
+    <div :style="{ ...mBoxStyle, width: '100%', height: '100%' }" :id="id"></div>
     <slot></slot>
   </div>
 </template>

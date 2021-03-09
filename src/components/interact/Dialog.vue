@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import APosition from '../basic/Position'
+import { getConfig } from '../../config'
 
-import getPropsValue from '../../utils/getPropsValue'
+import APosition from '../basic/Position'
 
 export default {
   components: {
@@ -44,15 +44,19 @@ export default {
   },
 
   created() {
-    if (!this.$dialogs[this.name]) {
-      this.$dialogs[this.name] = this
+    const { dialogProperty } = getConfig()
+
+    if (!this[dialogProperty][this.name]) {
+      this[dialogProperty][this.name] = this
     }
   },
 
   methods: {
     open({ data = {}, attrs = {}, options = {}, onclose = () => {} } = {}) {
-      this.zIndex = Object.keys(this.$dialogs).reduce((n, i) => {
-        if (this.$dialogs[i].active) {
+      const { dialogProperty } = getConfig()
+
+      this.zIndex = Object.keys(this[dialogProperty]).reduce((n, i) => {
+        if (this[dialogProperty][i].active) {
           n += 100
         }
         return n
@@ -66,7 +70,9 @@ export default {
       return new Promise((r) => {
         this.active = this.visible = true
 
-        document.body.style.overflow = 'hidden'
+        if (this[dialogProperty].$active++ === 0) {
+          document.body.style.overflow = 'hidden'
+        }
 
         setTimeout(() => {
           r()
@@ -75,12 +81,16 @@ export default {
     },
 
     close(others) {
+      const { dialogProperty } = getConfig()
+
       if (others) {
         const { all = false, other = [] } = others
         const names = all
-          ? Object.keys(this.$dialogs).filter((i) => this.$dialogs[i].active)
+          ? Object.keys(this[dialogProperty]).filter(
+              (i) => this[dialogProperty][i].active
+            )
           : [].concat(other)
-        names.forEach((name) => this.$dialogs[name].close())
+        names.forEach((name) => this[dialogProperty][name].close())
       }
 
       const { onclose, data } = this
@@ -91,7 +101,9 @@ export default {
         setTimeout(() => {
           this.visible = false
 
-          document.body.style.overflow = null
+          if (this[dialogProperty].$active-- === 1) {
+            document.body.style.overflow = null
+          }
 
           this.$set(this, 'data', null)
           this.$set(this, 'attrs', {})

@@ -2,6 +2,16 @@
 
 ---
 
+#### v2.2.6
+
+日期:
+
+- 修复 Timer 在结束计时后反复设置过期时间导致 countdown-over 多次触发的问题
+- 修复 Svga 设置百分比宽高导致的不居中对齐问题
+- 修复 Dialog 多开时关闭一个就导致底部滚动的问题
+- Dialog 新增 $open 和 $close 方法，参考：[Dialog](docs/components/interact/Dialog.md)
+- 优化背景图的显示问题
+
 #### v2.2.5
 
 日期: 2021-01-22

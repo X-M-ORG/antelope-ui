@@ -73,7 +73,8 @@ export default {
 
       if (this.mBoxBackgroundImage.src) {
         style.backgroundImage = `url(${this.mBoxBackgroundImage.src})`
-        style.backgroundSize = '100% 100%'
+        style.backgroundSize = 'cover'
+        style.backgroundPosition = 'center'
 
         if (getConfig('imageSizeAutoLoader')) {
           const { imageTimes, imageSizeUnit } = getConfig()

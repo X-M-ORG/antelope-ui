@@ -16,7 +16,7 @@ export default function genEntry(components) {
         Vue.component(componentPrefix + key, components[key])
       })
 
-      Vue.prototype[dialogProperty] = {}
+      installDialog(Vue, dialogProperty)
 
       Vue.mixin({
         created() {
@@ -32,6 +32,26 @@ export default function genEntry(components) {
       })
 
       installed = true
+    }
+  }
+}
+
+function installDialog(Vue, p) {
+  Vue.prototype[p] = {
+    $active: 0,
+    $open(name, options) {
+      Vue.prototype[p][name] && Vue.prototype[p][name].open(options)
+    },
+    $close(names = []) {
+      if (names.length === 0) {
+        names = Object.keys(Vue.prototype[p]).filter((k) => k[0] !== '$')
+      } else {
+        names = [].concat(names)
+      }
+
+      for (let name of names) {
+        Vue.prototype[p][name] && Vue.prototype[p][name].close()
+      }
     }
   }
 }

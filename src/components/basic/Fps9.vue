@@ -16,6 +16,7 @@ export default {
   computed: {
     fps9Style() {
       let style = { ...this.mPositionStyle }
+      delete style.backgroundPosition
 
       if (style.backgroundImage) {
         if (!style.width && !style.height) {

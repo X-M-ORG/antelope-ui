@@ -30,9 +30,8 @@ export default {
 
   computed: {
     spriteStyle() {
-      let style = {
-        ...this.mPositionStyle
-      }
+      let style = { ...this.mPositionStyle }
+      delete style.backgroundPosition
 
       if (style.backgroundImage) {
         const { imageTimes, imageSizeUnit } = getConfig()

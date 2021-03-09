@@ -41,7 +41,8 @@ export default {
     return {
       timer: {
         id: 0,
-        sec: 0
+        sec: 0,
+        over: false
       }
     }
   },
@@ -102,10 +103,12 @@ export default {
       if (this.timer.sec > 0) {
         this.timer.id && clearInterval(this.timer.id)
         this.timer.id = 0
+        this.timer.over = false
 
         this.manual || this.countdownStart()
       } else {
-        this.$emit('countdown-over')
+        this.timer.over || this.$emit('countdown-over')
+        this.timer.over = true
       }
     },
 
