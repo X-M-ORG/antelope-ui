@@ -13,6 +13,10 @@
 | width-height     | wh    | String | false   |         | 元素宽高，以空格连接，顺序为：宽 高，若仅输入宽，则设置宽高相同 |
 | background-color | bg-c  | String | false   |         | 背景色，同 css 写法                                             |
 | background-image | bg-i  | String | false   |         | 背景图，下面详述                                                |
+| font             | f     | String | false   |         | 字体的大小、颜色、子重，以空格拼接，例如：'0.24 red 600'        |
+| font-size        | fs    | String | false   |         | 字体大小，可忽略单位                                            |
+| font-color       | fc    | String | false   |         | 字体颜色                                                        |
+| font-weight      | fw    | String | false   |         | 字体字重                                                        |
 
 > quick 为速写属性，与 name 作用相同
 

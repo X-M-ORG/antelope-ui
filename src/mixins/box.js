@@ -30,14 +30,22 @@ export default {
     widthHeight: {
       type: [String, Number]
     },
+    font: {
+      type: String
+    },
+    fontSize: {
+      type: [String, Number]
+    },
+    fontColor: {
+      type: String
+    },
+    fontWeight: {
+      type: [String, Number]
+    },
     backgroundColor: {
       type: [String, Number]
     },
     backgroundImage: {
-      type: [String, Number]
-    },
-    // todo delete
-    imageSuffix: {
       type: [String, Number]
     }
   }),
@@ -55,21 +63,7 @@ export default {
 
   computed: {
     mBoxStyle() {
-      const boxProps = getPropsValue(this, ['width', 'height', 'widthHeight', 'backgroundColor', 'backgroundImage'])
-
-      if (typeof boxProps.widthHeight !== 'undefined') {
-        const [width, height = width] = String(boxProps.widthHeight)
-          .trim()
-          .split(' ')
-        boxProps.width = width || 0
-        boxProps.height = height || 0
-        Reflect.deleteProperty(boxProps, 'widthHeight')
-      }
-
-      boxProps.width = getFullUnit(boxProps.width)
-      boxProps.height = getFullUnit(boxProps.height)
-
-      let style = { position: 'relative', ...boxProps }
+      let style = { position: 'relative', ...getBoxStyle.call(this), ...getFontStyle.call(this) }
 
       if (this.mBoxBackgroundImage.src) {
         style.backgroundImage = `url(${this.mBoxBackgroundImage.src})`
@@ -99,13 +93,6 @@ export default {
     },
     bgI() {
       setBackgroundImage(this)
-    },
-    // todo delete
-    imageSuffix() {
-      setBackgroundImage(this)
-    },
-    iS() {
-      setBackgroundImage(this)
     }
   },
 
@@ -121,14 +108,6 @@ export default {
 */
 function getBackgroundImageParams(vm, name) {
   const assets = get(vm, `$route.meta.${getConfig('assetsProperty')}`, {})
-
-  // todo delete
-  const suffix = getPropsValue(vm, 'imageSuffix')
-  if (suffix) {
-    let k = name.split('.')
-    k.splice(k.length - 1, 0, String(suffix))
-    name = k.join('.')
-  }
 
   return { name, file: assets[name] || name }
 }
@@ -172,4 +151,46 @@ function setBackgroundImage(vm) {
       }
     })
     .catch(() => {})
+}
+
+/**
+ * 获取某些样式
+ */
+function getBoxStyle() {
+  const style = getPropsValue(this, ['width', 'height', 'widthHeight', 'backgroundColor', 'backgroundImage'])
+
+  if (typeof style.widthHeight !== 'undefined') {
+    const wh = String(style.widthHeight)
+    const [w, h = w] = wh.trim().split(' ')
+    style.width = w || 0
+    style.height = h || 0
+    Reflect.deleteProperty(style, 'widthHeight')
+  }
+
+  style.width = getFullUnit(style.width)
+  style.height = getFullUnit(style.height)
+
+  return style
+}
+function getFontStyle() {
+  const style = getPropsValue(this, ['font', 'fontSize', 'fontColor', 'fontWeight'])
+
+  if (typeof style.font !== 'undefined') {
+    const [size = style.fontSize, color = style.fontColor, weight = style.fontWeight] = style.font.trim().split(' ')
+    style.fontSize = getFullUnit(size)
+    style.fontColor = color
+    style.fontWeight = weight
+    Reflect.deleteProperty(style, 'font')
+  }
+
+  if (typeof style.fontSize !== 'undefined') {
+    style.fontSize = getFullUnit(style.fontSize)
+  }
+
+  if (typeof style.fontColor !== 'undefined') {
+    style.color = style.fontColor
+    Reflect.deleteProperty(style, 'fontColor')
+  }
+
+  return style
 }

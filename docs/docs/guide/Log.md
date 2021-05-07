@@ -2,9 +2,17 @@
 
 ---
 
+#### v2.2.7
+
+日期: 2021-05-07
+
+- 新增盒子关于字体的 props： font、font-size、font-color、font-weight 属性，查阅：[Box 盒子属性](docs/components/mixins/Box.md)
+- Svga 组件新增 autoload 控制数据加载的时机，查阅：[Svga](docs/components/basic/Svga.md)
+- 移除 image-suffix、Avatar 组件的 frame-params
+
 #### v2.2.6
 
-日期:
+日期: 2021-03-09
 
 - 修复 Timer 在结束计时后反复设置过期时间导致 countdown-over 多次触发的问题
 - 修复 Svga 设置百分比宽高导致的不居中对齐问题

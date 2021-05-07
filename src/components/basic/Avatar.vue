@@ -22,11 +22,6 @@ export default {
     frameAttrs: {
       type: Object,
       default: () => ({})
-    },
-    // todo delete
-    frameParams: {
-      type: Object,
-      default: () => ({})
     }
   },
 
@@ -47,8 +42,7 @@ export default {
           w: '135%',
           h: '135%',
           [isSvga ? 'url' : 'bgI']: path,
-          ...this.frameAttrs,
-          ...this.frameParams // todo delete
+          ...this.frameAttrs
         }
       }
     }

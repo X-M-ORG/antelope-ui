@@ -41,6 +41,11 @@ export default {
       default: true
     },
 
+    autoload: {
+      type: Boolean,
+      default: true
+    },
+
     params: {
       type: Object,
       default: () => ({})
@@ -67,9 +72,15 @@ export default {
     if (url) {
       this.id += ++window[ANTELOPE_SVGA_MAP].id
 
-      this.$nextTick(() => {
-        this.loadSvgaAnimation(url)
-      })
+      if (this.autoload) {
+        this.$nextTick(() => {
+          this.loadSvgaAnimation(url)
+        })
+      } else {
+        this.$svgas.$queue.push(() => {
+          this.loadSvgaAnimation(url)
+        })
+      }
     }
   },
 

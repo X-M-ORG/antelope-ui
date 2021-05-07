@@ -4,9 +4,12 @@ const sectionQuickPorps = {
   width: 'w',
   height: 'h',
   widthHeight: 'wh',
+  font: 'f',
+  fontSize: 'fs',
+  fontColor: 'fc',
+  fontWeight: 'fw',
   backgroundColor: 'bgC',
-  backgroundImage: 'bgI',
-  imageSuffix: 'iS' // todo delete
+  backgroundImage: 'bgI'
 }
 
 const positionQuickPorps = {

@@ -17,6 +17,7 @@ export default function genEntry(components) {
       })
 
       installDialog(Vue, dialogProperty)
+      installSvga(Vue)
 
       Vue.mixin({
         created() {
@@ -51,6 +52,18 @@ function installDialog(Vue, p) {
 
       for (let name of names) {
         Vue.prototype[p][name] && Vue.prototype[p][name].close()
+      }
+    }
+  }
+}
+
+function installSvga(Vue) {
+  Vue.prototype.$svgas = {
+    $queue: [],
+    run() {
+      while (Vue.prototype.$svgas.$queue.length) {
+        const fn = Vue.prototype.$svgas.$queue.shift()
+        fn()
       }
     }
   }
