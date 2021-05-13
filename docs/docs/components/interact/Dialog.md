@@ -76,16 +76,14 @@ await this.$dialogs.pay.open({
   data: { user: '张三' }
 })
 console.log('open pay')
+
+// 也可以使用 this.$dialogs.$open，第一个参数为 name，第二个参数为 options
+await this.$dialogs.$open('pay', {
+  data: { user: '张三' }
+})
 ```
 
-#### Dialog.close([options])
-
-options
-
-| name  | type         | require | default | desc                                     |
-| ----- | ------------ | ------- | ------- | ---------------------------------------- |
-| all   | Boolean      | false   | false   | 是否关闭所有对话框                       |
-| other | String/Array | false   | {}      | 关闭其他对话框，值为对框框名称或名称数组 |
+#### Dialog.close()
 
 > 该方法返回一个 Promise，将在对话框开启的动画结束后 resolve
 
@@ -96,9 +94,9 @@ this.$dialogs.rule.close().then(() => {
   console.log('close rule')
 })
 
-await this.$dialogs.pay.close({ all: true })
-
-await this.$dialogs.pay.close({ other: ['rule] })
+// 也可以使用 this.$dialogs.$close 关闭多个
+this.$dialogs.$open('rule')
+this.$dialogs.$open('rule', 'pay')
 ```
 
 ### 示例

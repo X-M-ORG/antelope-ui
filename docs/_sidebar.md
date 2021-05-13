@@ -2,7 +2,7 @@
 
 - 指南
 
-  - [思路](docs/guide/idea.md)
+  - [思路](docs/guide/Idea.md)
   - [安装](docs/guide/Install.md)
   - [准备](docs/guide/Ready.md)
   - [更新日志](docs/guide/Log.md)
