@@ -21,6 +21,10 @@ export default {
     name: {
       type: String,
       default: ''
+    },
+    cache: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -45,10 +49,8 @@ export default {
 
   created() {
     const { dialogProperty } = getConfig()
-
-    if (!this[dialogProperty][this.name]) {
-      this[dialogProperty][this.name] = this
-    }
+  
+    this[dialogProperty][this.name] = this
   },
 
   methods: {
@@ -105,13 +107,19 @@ export default {
             document.body.style.overflow = null
           }
 
-          this.$set(this, 'data', null)
+          if(!this.cache) {
+            this.$set(this, 'data', null)
+          }
           this.$set(this, 'attrs', {})
           this.$set(this, 'options', { bgClose: false })
           this.$set(this, 'onclose', () => {})
           r()
         }, 300)
       }).then(() => onclose({ name: this.name, data }))
+    },
+
+    update(data) {
+      this.$set(this, 'data', data)
     }
   }
 }

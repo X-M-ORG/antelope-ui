@@ -12,6 +12,7 @@
 | name | type   | require | default | desc         |
 | ---- | ------ | ------- | ------- | ------------ |
 | name | String | true    |         | 对话框的名称 |
+| cache | boolean | false    |         | 是否缓存对话框 |
 
 ### Slot
 
@@ -21,10 +22,11 @@ Dialog 的 slot 即对话框的内容。
 
 每一个 Dialog 都需要 name 参数，当设定 name 参数后将挂载在全局 vue 上，默认为：this.\$dialogs，可在挂载时进行设置：[安装](docs/guide/Install.md#挂载参数)
 
-而每一个对话框的提供两个方法：
+而每一个对话框的提供三个方法：
 
 - open
 - close
+- update
 
 #### Dialog.open(options)
 
@@ -129,3 +131,12 @@ this.$dialogs.$open('rule', 'pay')
   export default {}
 </script>
 </script>
+
+#### Dialog.update(data)
+
+> 该方法传入一个对象，用于更新打开弹窗时传入的data
+
+示例：
+
+```js
+this.$dialogs.rule.update({ user: '李四' })

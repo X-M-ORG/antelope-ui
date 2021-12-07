@@ -47,6 +47,12 @@ export default {
     },
     backgroundImage: {
       type: [String, Number]
+    },
+    backgroundSize: {
+      type: [String, Number]
+    },
+    lineHeight: {
+      type: [String, Number]
     }
   }),
 
@@ -67,7 +73,7 @@ export default {
 
       if (this.mBoxBackgroundImage.src) {
         style.backgroundImage = `url(${this.mBoxBackgroundImage.src})`
-        style.backgroundSize = 'cover'
+        style.backgroundSize = style.backgroundSize || 'cover'
         style.backgroundPosition = 'center'
 
         if (getConfig('imageSizeAutoLoader')) {
@@ -157,7 +163,7 @@ function setBackgroundImage(vm) {
  * 获取某些样式
  */
 function getBoxStyle() {
-  const style = getPropsValue(this, ['width', 'height', 'widthHeight', 'backgroundColor', 'backgroundImage'])
+  const style = getPropsValue(this, ['width', 'height', 'widthHeight', 'backgroundColor', 'backgroundImage', 'backgroundSize'])
 
   if (typeof style.widthHeight !== 'undefined') {
     const wh = String(style.widthHeight)
@@ -173,7 +179,7 @@ function getBoxStyle() {
   return style
 }
 function getFontStyle() {
-  const style = getPropsValue(this, ['font', 'fontSize', 'fontColor', 'fontWeight'])
+  const style = getPropsValue(this, ['font', 'fontSize', 'fontColor', 'fontWeight', 'lineHeight'])
 
   if (typeof style.font !== 'undefined') {
     const [size = style.fontSize, color = style.fontColor, weight = style.fontWeight] = style.font.trim().split(' ')
@@ -185,6 +191,10 @@ function getFontStyle() {
 
   if (typeof style.fontSize !== 'undefined') {
     style.fontSize = getFullUnit(style.fontSize)
+  }
+
+  if (typeof style.lineHeight !== 'undefined') {
+    style.lineHeight = getFullUnit(style.lineHeight)
   }
 
   if (typeof style.fontColor !== 'undefined') {

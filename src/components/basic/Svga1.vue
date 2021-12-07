@@ -1,5 +1,8 @@
 <template>
-  <div :style="mPositionStyle" style="display:flex; align-items:center; justify-content:center">
+  <div
+    :style="mPositionStyle"
+    style="display: flex; align-items: center; justify-content: center"
+  >
     <canvas style="max-width: 100%; max-height: 100%" :id="id"></canvas>
     <slot></slot>
   </div>
@@ -118,15 +121,29 @@ export default {
                   r()
                   return
                 }
-                this.player.set(this.params)
-                this.player.start()
-                !this.autoplay && this.player.pause()
+                this.player.set({
+                  isCacheFrames: true,
+                  isUseIntersectionObserver: true,
+                  ...this.params
+                })
+                this.playSvga()
+                this.autoplay || this.pauseSvga()
                 this.$emit('load-success', this)
                 r()
               }
             }, 10)
           })
       )
+    },
+
+    playSvga(cb) {
+      cb && cb(this.player)
+      this.player.start()
+    },
+
+    pauseSvga(cb) {
+      cb && cb(this.player)
+      this.player.pause()
     }
   }
 }

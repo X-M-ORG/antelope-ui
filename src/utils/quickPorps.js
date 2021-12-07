@@ -9,7 +9,9 @@ const sectionQuickPorps = {
   fontColor: 'fc',
   fontWeight: 'fw',
   backgroundColor: 'bgC',
-  backgroundImage: 'bgI'
+  backgroundImage: 'bgI',
+  backgroundSize: 'bgS',
+  lineHeight: 'lh'
 }
 
 const positionQuickPorps = {

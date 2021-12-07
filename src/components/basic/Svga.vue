@@ -1,6 +1,6 @@
 <template>
   <div :style="mPositionStyle">
-    <div :style="{ ...mBoxStyle, width: '100%', height: '100%' }" :id="id"></div>
+    <div :style="svgaStyle" :id="id"></div>
     <slot></slot>
   </div>
 </template>
@@ -17,6 +17,7 @@ import event from '../../mixins/event'
 import { getConfig } from '../../config'
 
 import getPropsValue from '../../utils/getPropsValue'
+import getFullUnit from '../../utils/getFullUnit'
 
 const ANTELOPE_SVGA_MAP = 'ANTELOPE_SVGA_MAP'
 
@@ -31,6 +32,10 @@ export default {
   mixins: [status, box, position, event],
 
   props: {
+    svgawh: {
+      type: [String, Number]
+    },
+
     url: {
       type: String,
       default: ''
@@ -57,6 +62,30 @@ export default {
       isDestroyed: false,
       id: 'svga-box',
       player: null
+    }
+  },
+
+  computed: {
+    svgaStyle() {
+      let style = { ...this.mBoxStyle, width: '100%', height: '100%' }
+
+      const svgawh = getPropsValue(this, 'svgawh')
+
+      if (typeof svgawh !== 'undefined') {
+        const [w, h = w] = String(svgawh).trim().split(' ')
+        style = {
+          ...style,
+          width: getFullUnit(w || 0),
+          height: getFullUnit(h || 0),
+          position: 'absolute',
+          zIndex: 1,
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)'
+        }
+      }
+
+      return style
     }
   },
 

@@ -13,6 +13,7 @@
 
 | name     | type    | require | default | desc                                                                                               |
 | -------- | ------- | ------- | ------- | -------------------------------------------------------------------------------------------------- |
+| svgawh   | String  | false   |         | svga 宽高单独控制，以适应不同需求                                                                  |
 | url      | String  | true    |         | svga 资源的 url 地址，支持本地文件，同 background-image                                            |
 | autoload | Boolean | false   | true    | 是否自动加载，当 svga 阻塞页面请求时，可以通过这个控制加载，使用 this.\$svgas.run() 执行所有的加载 |
 | autoplay | Boolean | false   | true    | 是否自动播放                                                                                       |

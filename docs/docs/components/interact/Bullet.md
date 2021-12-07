@@ -9,12 +9,13 @@
 - 混合：[组件混合表](docs/components/mixins/Components.md)
 - 自有：
 
-| name     | type                     | require | default | desc                                                       |
-| -------- | ------------------------ | ------- | ------- | ---------------------------------------------------------- |
-| items    | Array                    | true    | []      | 弹幕的数组，每一项为弹幕文案，支持 v-html                  |
-| mode     | String: 'text' or 'slot' | true    | 'text'  | 渲染模式                                                   |
-| duration | String、Number           | false   | '20'    | 弹幕动画时间，并非从出现到消失的时间，可以根据实际效果微调 |
-| between  | String、Number           | false   | '50'    | 两个弹幕之间的间隔，区间值用 - ，例如：50-100              |
+| name      | type                     | require | default | desc                                                       |
+| --------- | ------------------------ | ------- | ------- | ---------------------------------------------------------- |
+| direction | String                   | false   | 'rtl'   | 弹幕方向，支持 ltr                                         |
+| items     | Array                    | true    | []      | 弹幕的数组，每一项为弹幕文案，支持 v-html                  |
+| mode      | String: 'text' or 'slot' | true    | 'text'  | 渲染模式                                                   |
+| duration  | String、Number           | false   | '20'    | 弹幕动画时间，并非从出现到消失的时间，可以根据实际效果微调 |
+| between   | String、Number           | false   | '50'    | 两个弹幕之间的间隔，区间值用 - ，例如：50-100              |
 
 #### mode
 

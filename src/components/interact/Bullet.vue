@@ -1,6 +1,16 @@
 <template>
   <div :style="bulletStyle">
-    <div ref="bullet" class="bullet" v-for="(data, index) in bullets" :key="index" :style="{ animationDuration: duration + 's', animationPlayState: paused ? 'paused' : 'running' }">
+    <div
+      ref="bullet"
+      class="bullet"
+      :class="direction"
+      v-for="(data, index) in bullets"
+      :key="index"
+      :style="{
+        animationDuration: duration + 's',
+        animationPlayState: paused ? 'paused' : 'running'
+      }"
+    >
       <div class="bullet-item" v-html="data" v-if="mode === 'text'"></div>
       <div class="bullet-item" v-else-if="mode === 'slot'">
         <slot :index="index" :data="data"></slot>
@@ -24,6 +34,11 @@ export default {
   mixins: [status, box, position, event],
 
   props: {
+    direction: {
+      type: String,
+      default: 'rtl'
+    },
+
     items: {
       type: Array,
       default: () => []
@@ -231,18 +246,33 @@ export default {
   bottom 0
   right 0
   white-space nowrap
-  transform translateX(100%)
 
   .bullet-item
     display inline-block
 
-  &.move
-    animation bulletMove linear 1
+  &.rtl
+    transform translateX(100%)
 
-@keyframes bulletMove
+    &.move
+      animation bulletMoveRTL linear 1
+
+  &.ltr
+    transform translateX(-150%)
+
+    &.move
+      animation bulletMoveLTR linear 1
+
+@keyframes bulletMoveRTL
   0%
     transform translateX(100%)
 
   100%
     transform translateX(-150%)
+
+@keyframes bulletMoveLTR
+  0%
+    transform translateX(-150%)
+
+  100%
+    transform translateX(150%)
 </style>
