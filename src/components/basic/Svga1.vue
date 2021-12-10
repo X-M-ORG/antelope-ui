@@ -88,7 +88,7 @@ export default {
 
   methods: {
     loadSvgaAnimation(u) {
-      const assets = get(this, `$route.meta.${getConfig('assetsProperty')}`)
+      const assets = get(this, `$route.meta.${getConfig('assetsProperty')}`) || {}
 
       const id = '#' + this.id
       const url = assets[u] || u.replace(/^http*.\:\/\//g, '//')
